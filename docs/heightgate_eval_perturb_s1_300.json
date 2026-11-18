@@ -1,0 +1,1194 @@
+{
+  "steps": 300,
+  "batch": 64,
+  "seed": 1,
+  "starts": 40,
+  "results": [
+    {
+      "checkpoint": "logs/heightgate_s0_100/last.pt",
+      "return_norm": 0.027067910879850388,
+      "survival_at_end": 0.0,
+      "failure_rate": 1.0,
+      "height_failure_rate": 0.78125,
+      "tilt_failure_rate": 0.21875,
+      "first_failure_step_mean": 31.984375,
+      "failure_height_err_mean": 0.24148061871528625,
+      "failure_tilt_err_mean": 0.4838390350341797,
+      "failure_speed_mean": 1.673094391822815,
+      "failure_angular_speed_mean": 3.2859628200531006,
+      "failure_action_norm_mean": 6.294094085693359,
+      "failure_frame_mean": 184098.109375,
+      "per_start": [
+        {
+          "clip": 36,
+          "offset": 7695,
+          "return_norm": 0.029995448887348175,
+          "survived": false,
+          "first_failure_step": 28,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 29,
+          "offset": 1885,
+          "return_norm": 0.02660139463841915,
+          "survived": false,
+          "first_failure_step": 26,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 32,
+          "offset": 9535,
+          "return_norm": 0.03556285798549652,
+          "survived": false,
+          "first_failure_step": 41,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 26,
+          "offset": 6367,
+          "return_norm": 0.02309248223900795,
+          "survived": false,
+          "first_failure_step": 29,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 5,
+          "offset": 7104,
+          "return_norm": 0.026797214522957802,
+          "survived": false,
+          "first_failure_step": 34,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 16,
+          "offset": 6836,
+          "return_norm": 0.019046340137720108,
+          "survived": false,
+          "first_failure_step": 19,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 8,
+          "offset": 991,
+          "return_norm": 0.02125880867242813,
+          "survived": false,
+          "first_failure_step": 24,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 13,
+          "offset": 1114,
+          "return_norm": 0.02185063436627388,
+          "survived": false,
+          "first_failure_step": 30,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 3,
+          "offset": 6970,
+          "return_norm": 0.02832884155213833,
+          "survived": false,
+          "first_failure_step": 36,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 10,
+          "offset": 7813,
+          "return_norm": 0.053652167320251465,
+          "survived": false,
+          "first_failure_step": 64,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 17,
+          "offset": 6846,
+          "return_norm": 0.027747632935643196,
+          "survived": false,
+          "first_failure_step": 34,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 8,
+          "offset": 3194,
+          "return_norm": 0.02164178527891636,
+          "survived": false,
+          "first_failure_step": 32,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 28,
+          "offset": 6324,
+          "return_norm": 0.031233135610818863,
+          "survived": false,
+          "first_failure_step": 28,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 6,
+          "offset": 436,
+          "return_norm": 0.02391924522817135,
+          "survived": false,
+          "first_failure_step": 29,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 27,
+          "offset": 2663,
+          "return_norm": 0.02215726487338543,
+          "survived": false,
+          "first_failure_step": 22,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 29,
+          "offset": 1005,
+          "return_norm": 0.022136088460683823,
+          "survived": false,
+          "first_failure_step": 31,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 5,
+          "offset": 8964,
+          "return_norm": 0.030291439965367317,
+          "survived": false,
+          "first_failure_step": 32,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 7,
+          "offset": 10655,
+          "return_norm": 0.028969284147024155,
+          "survived": false,
+          "first_failure_step": 36,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 8,
+          "offset": 7481,
+          "return_norm": 0.01938866451382637,
+          "survived": false,
+          "first_failure_step": 45,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 21,
+          "offset": 1098,
+          "return_norm": 0.023280330002307892,
+          "survived": false,
+          "first_failure_step": 29,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 7,
+          "offset": 5926,
+          "return_norm": 0.022513380274176598,
+          "survived": false,
+          "first_failure_step": 34,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 37,
+          "offset": 1413,
+          "return_norm": 0.03064393624663353,
+          "survived": false,
+          "first_failure_step": 26,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 6,
+          "offset": 3623,
+          "return_norm": 0.012180306017398834,
+          "survived": false,
+          "first_failure_step": 28,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 12,
+          "offset": 4181,
+          "return_norm": 0.015161317773163319,
+          "survived": false,
+          "first_failure_step": 21,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 14,
+          "offset": 264,
+          "return_norm": 0.0234806090593338,
+          "survived": false,
+          "first_failure_step": 23,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 34,
+          "offset": 6578,
+          "return_norm": 0.019528012722730637,
+          "survived": false,
+          "first_failure_step": 25,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 18,
+          "offset": 3583,
+          "return_norm": 0.02785448357462883,
+          "survived": false,
+          "first_failure_step": 28,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 14,
+          "offset": 5418,
+          "return_norm": 0.03714533522725105,
+          "survived": false,
+          "first_failure_step": 34,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 28,
+          "offset": 4326,
+          "return_norm": 0.023854928091168404,
+          "survived": false,
+          "first_failure_step": 24,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 18,
+          "offset": 36,
+          "return_norm": 0.005081754177808762,
+          "survived": false,
+          "first_failure_step": 26,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 19,
+          "offset": 1128,
+          "return_norm": 0.02832530252635479,
+          "survived": false,
+          "first_failure_step": 22,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 11,
+          "offset": 6151,
+          "return_norm": 0.009671863168478012,
+          "survived": false,
+          "first_failure_step": 18,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 21,
+          "offset": 8605,
+          "return_norm": 0.03248120844364166,
+          "survived": false,
+          "first_failure_step": 29,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 26,
+          "offset": 7130,
+          "return_norm": 0.02553471177816391,
+          "survived": false,
+          "first_failure_step": 28,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 15,
+          "offset": 1551,
+          "return_norm": 0.04076048359274864,
+          "survived": false,
+          "first_failure_step": 45,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 16,
+          "offset": 1461,
+          "return_norm": 0.02191147767007351,
+          "survived": false,
+          "first_failure_step": 29,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 30,
+          "offset": 3228,
+          "return_norm": 0.015492714010179043,
+          "survived": false,
+          "first_failure_step": 18,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 37,
+          "offset": 8252,
+          "return_norm": 0.042642295360565186,
+          "survived": false,
+          "first_failure_step": 33,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 35,
+          "offset": 5434,
+          "return_norm": 0.022017693147063255,
+          "survived": false,
+          "first_failure_step": 26,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 3,
+          "offset": 4708,
+          "return_norm": 0.023260802030563354,
+          "survived": false,
+          "first_failure_step": 39,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 14,
+          "offset": 5010,
+          "return_norm": 0.017386026680469513,
+          "survived": false,
+          "first_failure_step": 39,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 19,
+          "offset": 8157,
+          "return_norm": 0.02225797064602375,
+          "survived": false,
+          "first_failure_step": 22,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 11,
+          "offset": 6554,
+          "return_norm": 0.011395166628062725,
+          "survived": false,
+          "first_failure_step": 12,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 30,
+          "offset": 5321,
+          "return_norm": 0.01758108288049698,
+          "survived": false,
+          "first_failure_step": 24,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 3,
+          "offset": 1502,
+          "return_norm": 0.020955633372068405,
+          "survived": false,
+          "first_failure_step": 24,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 25,
+          "offset": 6245,
+          "return_norm": 0.016101574525237083,
+          "survived": false,
+          "first_failure_step": 21,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 16,
+          "offset": 9946,
+          "return_norm": 0.032669954001903534,
+          "survived": false,
+          "first_failure_step": 55,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 0,
+          "offset": 5105,
+          "return_norm": 0.011249023489654064,
+          "survived": false,
+          "first_failure_step": 22,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 12,
+          "offset": 523,
+          "return_norm": 0.027165895327925682,
+          "survived": false,
+          "first_failure_step": 29,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 39,
+          "offset": 6421,
+          "return_norm": 0.02863261289894581,
+          "survived": false,
+          "first_failure_step": 32,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 6,
+          "offset": 1138,
+          "return_norm": 0.00786899495869875,
+          "survived": false,
+          "first_failure_step": 21,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 5,
+          "offset": 4676,
+          "return_norm": 0.024549955502152443,
+          "survived": false,
+          "first_failure_step": 35,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 35,
+          "offset": 2223,
+          "return_norm": 0.024964939802885056,
+          "survived": false,
+          "first_failure_step": 38,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 3,
+          "offset": 10478,
+          "return_norm": 0.02750270999968052,
+          "survived": false,
+          "first_failure_step": 23,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 9,
+          "offset": 3263,
+          "return_norm": 0.1956721693277359,
+          "survived": false,
+          "first_failure_step": 160,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 7,
+          "offset": 7753,
+          "return_norm": 0.02207065187394619,
+          "survived": false,
+          "first_failure_step": 26,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 10,
+          "offset": 3269,
+          "return_norm": 0.02394399419426918,
+          "survived": false,
+          "first_failure_step": 37,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 38,
+          "offset": 4624,
+          "return_norm": 0.02523406222462654,
+          "survived": false,
+          "first_failure_step": 33,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 17,
+          "offset": 9181,
+          "return_norm": 0.02451508678495884,
+          "survived": false,
+          "first_failure_step": 25,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 7,
+          "offset": 7887,
+          "return_norm": 0.022446192800998688,
+          "survived": false,
+          "first_failure_step": 26,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 27,
+          "offset": 6175,
+          "return_norm": 0.03131585940718651,
+          "survived": false,
+          "first_failure_step": 35,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 15,
+          "offset": 6399,
+          "return_norm": 0.024398237466812134,
+          "survived": false,
+          "first_failure_step": 34,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 32,
+          "offset": 10276,
+          "return_norm": 0.022503677755594254,
+          "survived": false,
+          "first_failure_step": 28,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 16,
+          "offset": 2556,
+          "return_norm": 0.03347111493349075,
+          "survived": false,
+          "first_failure_step": 41,
+          "height_failure": true,
+          "tilt_failure": false
+        }
+      ]
+    },
+    {
+      "checkpoint": "logs/heightgate_s1_100/last.pt",
+      "return_norm": 0.032906632870435715,
+      "survival_at_end": 0.0,
+      "failure_rate": 1.0,
+      "height_failure_rate": 0.21875,
+      "tilt_failure_rate": 0.796875,
+      "first_failure_step_mean": 31.140625,
+      "failure_height_err_mean": 0.1598251760005951,
+      "failure_tilt_err_mean": 0.7470012903213501,
+      "failure_speed_mean": 1.1509445905685425,
+      "failure_angular_speed_mean": 4.153077125549316,
+      "failure_action_norm_mean": 6.894704818725586,
+      "failure_frame_mean": 184097.265625,
+      "per_start": [
+        {
+          "clip": 36,
+          "offset": 7695,
+          "return_norm": 0.016327163204550743,
+          "survived": false,
+          "first_failure_step": 17,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 29,
+          "offset": 1885,
+          "return_norm": 0.026341840624809265,
+          "survived": false,
+          "first_failure_step": 23,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 32,
+          "offset": 9535,
+          "return_norm": 0.033058926463127136,
+          "survived": false,
+          "first_failure_step": 28,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 26,
+          "offset": 6367,
+          "return_norm": 0.02488413266837597,
+          "survived": false,
+          "first_failure_step": 21,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 5,
+          "offset": 7104,
+          "return_norm": 0.02232055552303791,
+          "survived": false,
+          "first_failure_step": 27,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 16,
+          "offset": 6836,
+          "return_norm": 0.01505177654325962,
+          "survived": false,
+          "first_failure_step": 14,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 8,
+          "offset": 991,
+          "return_norm": 0.029614491388201714,
+          "survived": false,
+          "first_failure_step": 26,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 13,
+          "offset": 1114,
+          "return_norm": 0.023187628015875816,
+          "survived": false,
+          "first_failure_step": 22,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 3,
+          "offset": 6970,
+          "return_norm": 0.017246084287762642,
+          "survived": false,
+          "first_failure_step": 23,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 10,
+          "offset": 7813,
+          "return_norm": 0.06513819843530655,
+          "survived": false,
+          "first_failure_step": 74,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 17,
+          "offset": 6846,
+          "return_norm": 0.033292025327682495,
+          "survived": false,
+          "first_failure_step": 37,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 8,
+          "offset": 3194,
+          "return_norm": 0.03555741161108017,
+          "survived": false,
+          "first_failure_step": 29,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 28,
+          "offset": 6324,
+          "return_norm": 0.02574877254664898,
+          "survived": false,
+          "first_failure_step": 20,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 6,
+          "offset": 436,
+          "return_norm": 0.024779165163636208,
+          "survived": false,
+          "first_failure_step": 21,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 27,
+          "offset": 2663,
+          "return_norm": 0.018137561157345772,
+          "survived": false,
+          "first_failure_step": 18,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 29,
+          "offset": 1005,
+          "return_norm": 0.018677638843655586,
+          "survived": false,
+          "first_failure_step": 20,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 5,
+          "offset": 8964,
+          "return_norm": 0.022749854251742363,
+          "survived": false,
+          "first_failure_step": 19,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 7,
+          "offset": 10655,
+          "return_norm": 0.01289383415132761,
+          "survived": false,
+          "first_failure_step": 17,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 8,
+          "offset": 7481,
+          "return_norm": 0.025730475783348083,
+          "survived": false,
+          "first_failure_step": 19,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 21,
+          "offset": 1098,
+          "return_norm": 0.01601521670818329,
+          "survived": false,
+          "first_failure_step": 15,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 7,
+          "offset": 5926,
+          "return_norm": 0.018771594390273094,
+          "survived": false,
+          "first_failure_step": 20,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 37,
+          "offset": 1413,
+          "return_norm": 0.02029455453157425,
+          "survived": false,
+          "first_failure_step": 17,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 6,
+          "offset": 3623,
+          "return_norm": 0.017947064712643623,
+          "survived": false,
+          "first_failure_step": 20,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 12,
+          "offset": 4181,
+          "return_norm": 0.0215176772326231,
+          "survived": false,
+          "first_failure_step": 20,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 14,
+          "offset": 264,
+          "return_norm": 0.023036763072013855,
+          "survived": false,
+          "first_failure_step": 25,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 34,
+          "offset": 6578,
+          "return_norm": 0.016082677990198135,
+          "survived": false,
+          "first_failure_step": 17,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 18,
+          "offset": 3583,
+          "return_norm": 0.029599923640489578,
+          "survived": false,
+          "first_failure_step": 27,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 14,
+          "offset": 5418,
+          "return_norm": 0.03092966601252556,
+          "survived": false,
+          "first_failure_step": 33,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 28,
+          "offset": 4326,
+          "return_norm": 0.018431443721055984,
+          "survived": false,
+          "first_failure_step": 17,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 18,
+          "offset": 36,
+          "return_norm": 0.007110775914043188,
+          "survived": false,
+          "first_failure_step": 20,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 19,
+          "offset": 1128,
+          "return_norm": 0.021420171484351158,
+          "survived": false,
+          "first_failure_step": 20,
+          "height_failure": true,
+          "tilt_failure": true
+        },
+        {
+          "clip": 11,
+          "offset": 6151,
+          "return_norm": 0.011136595159769058,
+          "survived": false,
+          "first_failure_step": 13,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 21,
+          "offset": 8605,
+          "return_norm": 0.020406097173690796,
+          "survived": false,
+          "first_failure_step": 17,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 26,
+          "offset": 7130,
+          "return_norm": 0.02147570624947548,
+          "survived": false,
+          "first_failure_step": 19,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 15,
+          "offset": 1551,
+          "return_norm": 0.04832817241549492,
+          "survived": false,
+          "first_failure_step": 42,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 16,
+          "offset": 1461,
+          "return_norm": 0.02616623416543007,
+          "survived": false,
+          "first_failure_step": 23,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 30,
+          "offset": 3228,
+          "return_norm": 0.013326168060302734,
+          "survived": false,
+          "first_failure_step": 14,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 37,
+          "offset": 8252,
+          "return_norm": 0.02200561948120594,
+          "survived": false,
+          "first_failure_step": 21,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 35,
+          "offset": 5434,
+          "return_norm": 0.019542446359992027,
+          "survived": false,
+          "first_failure_step": 19,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 3,
+          "offset": 4708,
+          "return_norm": 0.016704251989722252,
+          "survived": false,
+          "first_failure_step": 17,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 14,
+          "offset": 5010,
+          "return_norm": 0.04487766698002815,
+          "survived": false,
+          "first_failure_step": 53,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 19,
+          "offset": 8157,
+          "return_norm": 0.01704183779656887,
+          "survived": false,
+          "first_failure_step": 16,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 11,
+          "offset": 6554,
+          "return_norm": 0.1922897845506668,
+          "survived": false,
+          "first_failure_step": 172,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 30,
+          "offset": 5321,
+          "return_norm": 0.012370076030492783,
+          "survived": false,
+          "first_failure_step": 17,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 3,
+          "offset": 1502,
+          "return_norm": 0.020472997799515724,
+          "survived": false,
+          "first_failure_step": 21,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 25,
+          "offset": 6245,
+          "return_norm": 0.015655506402254105,
+          "survived": false,
+          "first_failure_step": 20,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 16,
+          "offset": 9946,
+          "return_norm": 0.03871772810816765,
+          "survived": false,
+          "first_failure_step": 30,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 0,
+          "offset": 5105,
+          "return_norm": 0.013253917917609215,
+          "survived": false,
+          "first_failure_step": 20,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 12,
+          "offset": 523,
+          "return_norm": 0.313182532787323,
+          "survived": false,
+          "first_failure_step": 251,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 39,
+          "offset": 6421,
+          "return_norm": 0.029546892270445824,
+          "survived": false,
+          "first_failure_step": 22,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 6,
+          "offset": 1138,
+          "return_norm": 0.009532657451927662,
+          "survived": false,
+          "first_failure_step": 22,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 5,
+          "offset": 4676,
+          "return_norm": 0.01803862676024437,
+          "survived": false,
+          "first_failure_step": 23,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 35,
+          "offset": 2223,
+          "return_norm": 0.019870096817612648,
+          "survived": false,
+          "first_failure_step": 18,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 3,
+          "offset": 10478,
+          "return_norm": 0.02152417041361332,
+          "survived": false,
+          "first_failure_step": 18,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 9,
+          "offset": 3263,
+          "return_norm": 0.20151297748088837,
+          "survived": false,
+          "first_failure_step": 168,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 7,
+          "offset": 7753,
+          "return_norm": 0.010307633318006992,
+          "survived": false,
+          "first_failure_step": 19,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 10,
+          "offset": 3269,
+          "return_norm": 0.031401000916957855,
+          "survived": false,
+          "first_failure_step": 24,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 38,
+          "offset": 4624,
+          "return_norm": 0.024106182157993317,
+          "survived": false,
+          "first_failure_step": 22,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 17,
+          "offset": 9181,
+          "return_norm": 0.03125419095158577,
+          "survived": false,
+          "first_failure_step": 30,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 7,
+          "offset": 7887,
+          "return_norm": 0.01471644826233387,
+          "survived": false,
+          "first_failure_step": 21,
+          "height_failure": true,
+          "tilt_failure": false
+        },
+        {
+          "clip": 27,
+          "offset": 6175,
+          "return_norm": 0.021932478994131088,
+          "survived": false,
+          "first_failure_step": 20,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 15,
+          "offset": 6399,
+          "return_norm": 0.022544601932168007,
+          "survived": false,
+          "first_failure_step": 21,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 32,
+          "offset": 10276,
+          "return_norm": 0.015370024368166924,
+          "survived": false,
+          "first_failure_step": 17,
+          "height_failure": false,
+          "tilt_failure": true
+        },
+        {
+          "clip": 16,
+          "offset": 2556,
+          "return_norm": 0.035517968237400055,
+          "survived": false,
+          "first_failure_step": 37,
+          "height_failure": true,
+          "tilt_failure": false
+        }
+      ]
+    }
+  ]
+}

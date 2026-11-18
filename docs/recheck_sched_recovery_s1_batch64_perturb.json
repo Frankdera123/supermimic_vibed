@@ -1,0 +1,23 @@
+{
+  "steps": 300,
+  "batch": 64,
+  "seed": 123,
+  "starts": 40,
+  "results": [
+    {
+      "checkpoint": "logs/smoke_sched_recovery_s1_100/last.pt",
+      "return_norm": 0.07115372270345688,
+      "survival_at_end": 0.0,
+      "failure_rate": 1.0,
+      "height_failure_rate": 0.953125,
+      "tilt_failure_rate": 0.0625,
+      "first_failure_step_mean": 48.03125,
+      "failure_height_err_mean": 0.26198557019233704,
+      "failure_tilt_err_mean": 0.5245684385299683,
+      "failure_speed_mean": 2.0694966316223145,
+      "failure_angular_speed_mean": 2.9496662616729736,
+      "failure_action_norm_mean": 1.9232490062713623,
+      "failure_frame_mean": 184114.15625
+    }
+  ]
+}

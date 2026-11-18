@@ -1,0 +1,12 @@
+{
+  "checkpoint": "logs/promo_sched_s1_300/last.pt",
+  "samples_each": 64,
+  "auroc": 0.7040816326530612,
+  "average_precision": 0.7129791077270069,
+  "brier": 0.23585578799247742,
+  "group_split": true,
+  "temperature": 0.7864000201225281,
+  "real_ratio_ess_fraction": 0.9752453395298549,
+  "real_ratio_p50": 0.9377172589302063,
+  "real_ratio_p95": 1.3168067932128906
+}

@@ -1,0 +1,282 @@
+[
+  {
+    "clip": 0,
+    "name": "dance1_subject1",
+    "min_body_z": 0.03116161935031414,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 1,
+    "name": "dance1_subject2",
+    "min_body_z": 0.018561847507953644,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 2,
+    "name": "dance1_subject3",
+    "min_body_z": 0.024802738800644875,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 3,
+    "name": "dance2_subject1",
+    "min_body_z": 0.0319737009704113,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 4,
+    "name": "dance2_subject2",
+    "min_body_z": 0.016435515135526657,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 5,
+    "name": "dance2_subject3",
+    "min_body_z": 0.025381362065672874,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 6,
+    "name": "dance2_subject4",
+    "min_body_z": -0.02355586737394333,
+    "frac_frames_any_below_ground": 0.0009748316369950771,
+    "frac_body_samples_below_ground": 0.00010128120629815385
+  },
+  {
+    "clip": 7,
+    "name": "dance2_subject5",
+    "min_body_z": 0.02365092933177948,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 8,
+    "name": "fallAndGetUp1_subject1",
+    "min_body_z": -0.05371147394180298,
+    "frac_frames_any_below_ground": 0.04232552647590637,
+    "frac_body_samples_below_ground": 0.0036007268354296684
+  },
+  {
+    "clip": 9,
+    "name": "fallAndGetUp1_subject4",
+    "min_body_z": -0.1205201968550682,
+    "frac_frames_any_below_ground": 0.147188201546669,
+    "frac_body_samples_below_ground": 0.015906041488051414
+  },
+  {
+    "clip": 10,
+    "name": "fallAndGetUp1_subject5",
+    "min_body_z": -0.11055382341146469,
+    "frac_frames_any_below_ground": 0.06717393547296524,
+    "frac_body_samples_below_ground": 0.005137829575687647
+  },
+  {
+    "clip": 11,
+    "name": "fallAndGetUp2_subject2",
+    "min_body_z": -0.06625485420227051,
+    "frac_frames_any_below_ground": 0.11078575253486633,
+    "frac_body_samples_below_ground": 0.012209788896143436
+  },
+  {
+    "clip": 12,
+    "name": "fallAndGetUp2_subject3",
+    "min_body_z": -0.08074616640806198,
+    "frac_frames_any_below_ground": 0.1889946311712265,
+    "frac_body_samples_below_ground": 0.018022729083895683
+  },
+  {
+    "clip": 13,
+    "name": "fallAndGetUp3_subject1",
+    "min_body_z": -0.06232719123363495,
+    "frac_frames_any_below_ground": 0.017028773203492165,
+    "frac_body_samples_below_ground": 0.001216340926475823
+  },
+  {
+    "clip": 14,
+    "name": "fight1_subject2",
+    "min_body_z": 0.0196674931794405,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 15,
+    "name": "fight1_subject3",
+    "min_body_z": -0.02052624523639679,
+    "frac_frames_any_below_ground": 0.0011434172047302127,
+    "frac_body_samples_below_ground": 8.167265332303941e-05
+  },
+  {
+    "clip": 16,
+    "name": "fight1_subject5",
+    "min_body_z": 0.02580879256129265,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 17,
+    "name": "fightAndSports1_subject1",
+    "min_body_z": 0.030297791585326195,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 18,
+    "name": "fightAndSports1_subject4",
+    "min_body_z": 0.019274724647402763,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 19,
+    "name": "jumps1_subject1",
+    "min_body_z": 0.03282091021537781,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 20,
+    "name": "jumps1_subject2",
+    "min_body_z": -0.03865883871912956,
+    "frac_frames_any_below_ground": 0.013827524147927761,
+    "frac_body_samples_below_ground": 0.001735745812766254
+  },
+  {
+    "clip": 21,
+    "name": "jumps1_subject5",
+    "min_body_z": 0.02973294071853161,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 22,
+    "name": "run1_subject2",
+    "min_body_z": 0.022182554006576538,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 23,
+    "name": "run1_subject5",
+    "min_body_z": 0.028581401333212852,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 24,
+    "name": "run2_subject1",
+    "min_body_z": 0.031105786561965942,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 25,
+    "name": "run2_subject4",
+    "min_body_z": 0.020136311650276184,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 26,
+    "name": "sprint1_subject2",
+    "min_body_z": 0.028232106938958168,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 27,
+    "name": "sprint1_subject4",
+    "min_body_z": 0.022252248600125313,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 28,
+    "name": "walk1_subject1",
+    "min_body_z": 0.036264851689338684,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 29,
+    "name": "walk1_subject2",
+    "min_body_z": 0.025965992361307144,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 30,
+    "name": "walk1_subject5",
+    "min_body_z": 0.028571022674441338,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 31,
+    "name": "walk2_subject1",
+    "min_body_z": 0.03327197581529617,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 32,
+    "name": "walk2_subject3",
+    "min_body_z": -0.11421595513820648,
+    "frac_frames_any_below_ground": 0.021328406408429146,
+    "frac_body_samples_below_ground": 0.0015234577003866434
+  },
+  {
+    "clip": 33,
+    "name": "walk2_subject4",
+    "min_body_z": 0.026933476328849792,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 34,
+    "name": "walk3_subject1",
+    "min_body_z": 0.011070061475038528,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 35,
+    "name": "walk3_subject2",
+    "min_body_z": 0.027171790599822998,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 36,
+    "name": "walk3_subject3",
+    "min_body_z": -0.04406192898750305,
+    "frac_frames_any_below_ground": 0.010299245826900005,
+    "frac_body_samples_below_ground": 0.0007356604328379035
+  },
+  {
+    "clip": 37,
+    "name": "walk3_subject4",
+    "min_body_z": -0.09899783134460449,
+    "frac_frames_any_below_ground": 0.023923445492982864,
+    "frac_body_samples_below_ground": 0.0024328927975147963
+  },
+  {
+    "clip": 38,
+    "name": "walk3_subject5",
+    "min_body_z": 0.02161284163594246,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  },
+  {
+    "clip": 39,
+    "name": "walk4_subject1",
+    "min_body_z": 0.03530631959438324,
+    "frac_frames_any_below_ground": 0.0,
+    "frac_body_samples_below_ground": 0.0
+  }
+]

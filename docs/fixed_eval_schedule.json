@@ -1,0 +1,26 @@
+{
+  "steps": 50,
+  "batch": 8,
+  "seed": 7,
+  "starts": 40,
+  "results": [
+    {
+      "checkpoint": "logs/smoke_consistency100/last.pt",
+      "return_norm": 0.28390341997146606,
+      "survival_at_end": 0.0,
+      "failure_rate": 1.0,
+      "height_failure_rate": 1.0,
+      "tilt_failure_rate": 0.0,
+      "first_failure_step_mean": 33.125
+    },
+    {
+      "checkpoint": "logs/smoke_sched50_100/last.pt",
+      "return_norm": 0.2882298529148102,
+      "survival_at_end": 0.125,
+      "failure_rate": 0.875,
+      "height_failure_rate": 0.875,
+      "tilt_failure_rate": 0.0,
+      "first_failure_step_mean": 33.125
+    }
+  ]
+}

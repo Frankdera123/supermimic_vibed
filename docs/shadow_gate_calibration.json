@@ -1,0 +1,128 @@
+[
+  {
+    "run": "logs/shadow_recipe_100_s0",
+    "iteration": 50,
+    "return_gate_500": true,
+    "max_height_failure_delta": 0.0,
+    "max_tilt_failure_delta": 0.125,
+    "subtype_gate": {
+      "0.05": false,
+      "0.1": false,
+      "0.15": true,
+      "0.2": true,
+      "0.3": true
+    }
+  },
+  {
+    "run": "logs/shadow_recipe_100_s0",
+    "iteration": 100,
+    "return_gate_500": true,
+    "max_height_failure_delta": 0.25,
+    "max_tilt_failure_delta": 0.0,
+    "subtype_gate": {
+      "0.05": false,
+      "0.1": false,
+      "0.15": false,
+      "0.2": false,
+      "0.3": true
+    }
+  },
+  {
+    "run": "logs/shadow_recipe_100_s1",
+    "iteration": 50,
+    "return_gate_500": true,
+    "max_height_failure_delta": 0.125,
+    "max_tilt_failure_delta": 0.0,
+    "subtype_gate": {
+      "0.05": false,
+      "0.1": false,
+      "0.15": true,
+      "0.2": true,
+      "0.3": true
+    }
+  },
+  {
+    "run": "logs/shadow_recipe_100_s1",
+    "iteration": 100,
+    "return_gate_500": false,
+    "max_height_failure_delta": 0.0,
+    "max_tilt_failure_delta": 0.0,
+    "subtype_gate": {
+      "0.05": true,
+      "0.1": true,
+      "0.15": true,
+      "0.2": true,
+      "0.3": true
+    }
+  },
+  {
+    "run": "logs/shadow_recipe_100_s2",
+    "iteration": 100,
+    "return_gate_500": false,
+    "max_height_failure_delta": 0.0,
+    "max_tilt_failure_delta": 0.125,
+    "subtype_gate": {
+      "0.05": false,
+      "0.1": false,
+      "0.15": true,
+      "0.2": true,
+      "0.3": true
+    }
+  },
+  {
+    "run": "logs/shadow_recipe_100_s1_cap",
+    "iteration": 50,
+    "return_gate_500": true,
+    "max_height_failure_delta": -0.0078125,
+    "max_tilt_failure_delta": 0.0390625,
+    "subtype_gate": {
+      "0.05": true,
+      "0.1": true,
+      "0.15": true,
+      "0.2": true,
+      "0.3": true
+    }
+  },
+  {
+    "run": "logs/shadow_recipe_100_s1_cap",
+    "iteration": 100,
+    "return_gate_500": false,
+    "max_height_failure_delta": -0.453125,
+    "max_tilt_failure_delta": 0.6328125,
+    "subtype_gate": {
+      "0.05": false,
+      "0.1": false,
+      "0.15": false,
+      "0.2": false,
+      "0.3": false
+    }
+  },
+  {
+    "run": "logs/shadow_recipe_100_s1_captilt",
+    "iteration": 50,
+    "return_gate_500": true,
+    "max_height_failure_delta": 0.0,
+    "max_tilt_failure_delta": 0.03125,
+    "subtype_gate": {
+      "0.05": true,
+      "0.1": true,
+      "0.15": true,
+      "0.2": true,
+      "0.3": true
+    }
+  },
+  {
+    "run": "logs/shadow_recipe_100_s1_captilt",
+    "iteration": 100,
+    "return_gate_500": false,
+    "max_height_failure_delta": -0.1015625,
+    "max_tilt_failure_delta": 0.2734375,
+    "subtype_gate": {
+      "0.05": false,
+      "0.1": false,
+      "0.15": false,
+      "0.2": false,
+      "0.3": true
+    }
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "steps": 300,
+  "batch": 16,
+  "seed": 123,
+  "starts": 40,
+  "results": [
+    {
+      "checkpoint": "logs/smoke_sched_angvel_gate_s1_100/last.pt",
+      "return_norm": 0.0839647650718689,
+      "survival_at_end": 0.0,
+      "failure_rate": 1.0,
+      "height_failure_rate": 1.0,
+      "tilt_failure_rate": 0.0,
+      "first_failure_step_mean": 52.5,
+      "failure_height_err_mean": 0.2616485357284546,
+      "failure_tilt_err_mean": 0.47189652919769287,
+      "failure_speed_mean": 2.0296854972839355,
+      "failure_angular_speed_mean": 2.771415948867798,
+      "failure_action_norm_mean": 0.6002790331840515,
+      "failure_frame_mean": 192099.8125
+    }
+  ]
+}

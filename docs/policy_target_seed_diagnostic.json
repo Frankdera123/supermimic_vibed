@@ -1,0 +1,30 @@
+{
+  "/home/sustech/Desktop/supermimic_vibed/logs/smoke_l2_100": {
+    "iterations": 4,
+    "sim_reward_first": 0.443617,
+    "sim_reward_last": 0.421242,
+    "audit_accepts_last": 36,
+    "audit_rejects_last": 64,
+    "adapter_norm_last": 1.03565,
+    "reward_correlation": {
+      "policy_target_audit_h1": -0.03024284252591778,
+      "policy_target_audit_h4": 0.41310715946701015,
+      "policy_target_adapter_norm": 0.6486578911271244,
+      "policy_target_accepts": -0.6465184801062718
+    }
+  },
+  "/home/sustech/Desktop/supermimic_vibed/logs/smoke_l2_s1_100": {
+    "iterations": 4,
+    "sim_reward_first": 0.345262,
+    "sim_reward_last": 0.339038,
+    "audit_accepts_last": 41,
+    "audit_rejects_last": 59,
+    "adapter_norm_last": 0.992623,
+    "reward_correlation": {
+      "policy_target_audit_h1": -0.1843022974843575,
+      "policy_target_audit_h4": -0.6370446515559295,
+      "policy_target_adapter_norm": -0.37963518283671954,
+      "policy_target_accepts": 0.37687094204401855
+    }
+  }
+}

@@ -67,12 +67,22 @@ def run_mlp(net: nn.Module, x: torch.Tensor) -> torch.Tensor:
 class WorldModel(nn.Module):
     """Deterministic dynamics s_{t+1} = f(s_t, a_t, xi) predicting frame-local state increments."""
 
-    def __init__(self, hidden=(2048, 2048, 2048)):
+    def __init__(self, hidden=(2048, 2048, 2048), residual_hidden: int = 0,
+                 residual_max_norm: float = 0.0):
         super().__init__()
         self.in_dim = INV_DIM + NUM_J + XI_DIM
         self.net = mlp(self.in_dim, list(hidden), WM_OUT, act=nn.SiLU, layer_norm=True)
         nn.init.zeros_(self.net[-1].weight)
         nn.init.zeros_(self.net[-1].bias)
+        self.residual_hidden = int(residual_hidden)
+        self.residual_max_norm = float(residual_max_norm)
+        if self.residual_hidden > 0:
+            self.residual_net = mlp(self.in_dim, [self.residual_hidden], WM_OUT,
+                                    act=nn.SiLU, layer_norm=True)
+            nn.init.zeros_(self.residual_net[-1].weight)
+            nn.init.zeros_(self.residual_net[-1].bias)
+        else:
+            self.residual_net = None
         self.in_norm = RunningNorm(self.in_dim)
         self.out_norm = RunningNorm(WM_OUT, eps=1e-4)
 
@@ -100,9 +110,25 @@ class WorldModel(nn.Module):
             -1,
         )
 
-    def step(self, S, a, xi_n):
+    def step(self, S, a, xi_n, use_residual: bool = False):
         p, R, v, w, q, qd = S
-        y = run_mlp(self.net, self.in_norm(self.inputs(S, a, xi_n)))
+        x = self.in_norm(self.inputs(S, a, xi_n))
+        y = run_mlp(self.net, x)
+        if use_residual:
+            if self.residual_net is None:
+                raise RuntimeError("use_residual=True requires residual_hidden > 0")
+            r = run_mlp(self.residual_net, x)
+            if self.residual_max_norm > 0.0:
+                # Bound the correction in normalized WM-output space.  This
+                # keeps the concurrent branch inside a trust region while
+                # preserving gradients below the boundary.
+                # Add epsilon under the square root so the zero-initialized
+                # residual head has a finite gradient on its first update.
+                # Clamping the sqrt result after the fact yields NaN gradients
+                # at exactly r=0 (0 * d clamp / d r).
+                rn = (r.square().sum(-1, keepdim=True) + 1e-8).sqrt()
+                r = r * (self.residual_max_norm / rn).clamp_max(1.0)
+            y = y + r
         d = y * self.out_norm.std() + self.out_norm.mean
         H = yaw_mat(R)
         dp, dth, dv, dw, dq, dqd = d.split((3, 3, 3, 3, NUM_J, NUM_J), -1)

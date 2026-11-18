@@ -85,6 +85,39 @@ class MotionLib:
             s = bin_start[b]
             e = min(s + BIN_FRAMES, int(self.clip_end[c]) + 1)
             self.frame_bin[s:e] = b
+        self.kinematic_bin_cluster = None
+        self.kinematic_cluster_bins = None
+
+    def build_kinematic_clusters(self, clusters: int = 16, steps: int = 30, seed: int = 0):
+        """Assign each one-second bin to a compact kinematic cluster.
+
+        This is an optional reset-sampling diagnostic.  It uses only reference
+        motion statistics and is deliberately kept out of the default sampler.
+        """
+        if clusters < 1 or clusters > self.num_bins:
+            raise ValueError("clusters must be in [1, num_bins]")
+        x = torch.cat((self.root_v_local[self.bin_start],
+                       self.root_w_local[self.bin_start],
+                       self.q[self.bin_start],
+                       0.1 * self.qd[self.bin_start]), -1)
+        x = (x - x.mean(0)) / x.std(0).clamp_min(1e-4)
+        g = torch.Generator(device=self.device).manual_seed(seed)
+        centers = x[torch.randperm(x.shape[0], generator=g, device=self.device)[:clusters]].clone()
+        for _ in range(max(1, steps)):
+            labels = (x[:, None] - centers[None]).square().mean(-1).argmin(-1)
+            for k in range(clusters):
+                sel = labels == k
+                if sel.any():
+                    centers[k] = x[sel].mean(0)
+        self.kinematic_bin_cluster = labels
+        members = [(labels == k).nonzero(as_tuple=False).squeeze(-1) for k in range(clusters)]
+        width = max(int(v.numel()) for v in members)
+        table = torch.zeros((clusters, width), dtype=torch.long, device=self.device)
+        counts = torch.tensor([v.numel() for v in members], dtype=torch.long, device=self.device)
+        for k, v in enumerate(members):
+            table[k, :v.numel()] = v
+        self.kinematic_cluster_bins = (table, counts)
+        return labels
 
     @staticmethod
     def from_dir(path: str, kin: G1Kinematics, device: str) -> MotionLib:

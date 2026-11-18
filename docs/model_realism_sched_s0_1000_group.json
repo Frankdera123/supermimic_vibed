@@ -1,0 +1,12 @@
+{
+  "checkpoint": "logs/schedsample05_s0_1000/last.pt",
+  "samples_each": 4096,
+  "auroc": 0.6903465199286138,
+  "average_precision": 0.7002888842974208,
+  "brier": 0.2252768874168396,
+  "group_split": true,
+  "temperature": 0.6786513328552246,
+  "real_ratio_ess_fraction": 0.45058586306688264,
+  "real_ratio_p50": 1.1664633750915527,
+  "real_ratio_p95": 3.398394823074341
+}

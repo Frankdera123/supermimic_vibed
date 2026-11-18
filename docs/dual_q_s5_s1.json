@@ -1,0 +1,14 @@
+{
+  "checkpoint": "logs/loso5_polyramp100_s1_1000/last.pt",
+  "iteration": 1000,
+  "rows": 2048,
+  "epochs": 80,
+  "gamma": 0.99,
+  "weight_mean": 1.0,
+  "weight_std": 1.0269640684127808,
+  "weight_p95": 2.46941876411438,
+  "weight_max": 15.073287010192871,
+  "effective_sample_fraction": 0.48682165145874023,
+  "positive_weight_mean": 1.2516666650772095,
+  "historical_weight_mean": 0.7483334541320801
+}

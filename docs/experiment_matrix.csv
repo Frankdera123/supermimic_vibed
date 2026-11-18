@@ -1,0 +1,8 @@
+arm,subject,seed,iterations,policy_updates,matching_axis,eval_steps,context,return_double_or_method,return_baseline_or_compare,relative_change,interpretation
+fixed_interaction,subject4,0,2000,2,interaction,500,clean,0.06698,0.05895,0.136,dual update wins at fixed interactions
+fixed_interaction,subject5,0,2000,2,interaction,500,clean,0.05096,0.04516,0.128,dual update wins at fixed interactions
+compute_matched,subject4,0,2000_vs_4000,2_vs_1,optimizer,500,clean,0.06698,0.07417,-0.097,single longer run wins
+compute_matched,subject5,0,2000_vs_4000,2_vs_1,optimizer,500,clean,0.05096,0.05528,-0.078,single longer run wins
+wallclock_matched,subject5,0,2000_vs_3000,2_vs_1,wallclock,500,clean,0.05096,0.05194,-0.019,single slightly wins
+adaptive_cutoff,subject5,0,2000,2_to_1,interaction,500,clean,0.05096,0.04896,0.041,fixed dual beats early cutoff
+adaptive_cutoff,subject5,0,2000,2_to_1,interaction,500,perturbed,0.05088,0.04867,0.045,fixed dual beats early cutoff

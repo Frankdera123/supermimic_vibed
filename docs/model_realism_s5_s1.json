@@ -1,0 +1,7 @@
+{
+  "checkpoint": "logs/loso5_polyramp100_s1_1000/last.pt",
+  "samples_each": 4096,
+  "auroc": 0.7065547044271041,
+  "average_precision": 0.7208274849908252,
+  "brier": 0.21886447072029114
+}

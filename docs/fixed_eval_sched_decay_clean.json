@@ -1,0 +1,26 @@
+{
+  "steps": 50,
+  "batch": 16,
+  "seed": 7,
+  "starts": 40,
+  "results": [
+    {
+      "checkpoint": "logs/promo_sched_s1_300/last.pt",
+      "return_norm": 0.2948380410671234,
+      "survival_at_end": 0.1875,
+      "failure_rate": 0.8125,
+      "height_failure_rate": 0.75,
+      "tilt_failure_rate": 0.0625,
+      "first_failure_step_mean": 35.5625
+    },
+    {
+      "checkpoint": "logs/promo_sched_s1_decay100_300/last.pt",
+      "return_norm": 0.3237212896347046,
+      "survival_at_end": 0.25,
+      "failure_rate": 0.75,
+      "height_failure_rate": 0.6875,
+      "tilt_failure_rate": 0.0625,
+      "first_failure_step_mean": 37.625
+    }
+  ]
+}

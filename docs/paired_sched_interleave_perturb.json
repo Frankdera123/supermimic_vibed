@@ -1,0 +1,38 @@
+{
+  "steps": 300,
+  "batch": 64,
+  "seed": 123,
+  "starts": 40,
+  "results": [
+    {
+      "checkpoint": "logs/smoke_sched50_s1_100/last.pt",
+      "return_norm": 0.06941661238670349,
+      "survival_at_end": 0.0,
+      "failure_rate": 1.0,
+      "height_failure_rate": 0.953125,
+      "tilt_failure_rate": 0.046875,
+      "first_failure_step_mean": 47.296875,
+      "failure_height_err_mean": 0.26169127225875854,
+      "failure_tilt_err_mean": 0.4653446078300476,
+      "failure_speed_mean": 2.061439037322998,
+      "failure_angular_speed_mean": 2.804929256439209,
+      "failure_action_norm_mean": 1.2674750089645386,
+      "failure_frame_mean": 184113.421875
+    },
+    {
+      "checkpoint": "logs/smoke_sched_interleave_s1_100/last.pt",
+      "return_norm": 0.059912651777267456,
+      "survival_at_end": 0.0,
+      "failure_rate": 1.0,
+      "height_failure_rate": 0.9375,
+      "tilt_failure_rate": 0.078125,
+      "first_failure_step_mean": 45.109375,
+      "failure_height_err_mean": 0.25875070691108704,
+      "failure_tilt_err_mean": 0.42725449800491333,
+      "failure_speed_mean": 2.0224766731262207,
+      "failure_angular_speed_mean": 3.016771078109741,
+      "failure_action_norm_mean": 1.995629072189331,
+      "failure_frame_mean": 184111.234375
+    }
+  ]
+}

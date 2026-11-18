@@ -1,0 +1,7 @@
+{
+  "checkpoint": "logs/loso4_polyupdates2_s1_1000/last.pt",
+  "samples_each": 4096,
+  "auroc": 0.6242464334715976,
+  "average_precision": 0.6422971822404866,
+  "brier": 0.24078749120235443
+}

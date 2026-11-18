@@ -126,6 +126,209 @@ docker exec supermimic python supermimic/evaluate.py --run_dir logs/lafan1_main 
 docker exec supermimic python tools/render.py traj.npz out.mp4 --clips dance2_subject1 --seconds 10
 ```
 
+### Optional dispersion-gated policy updates
+
+The default training path is unchanged. To enable the experimental state-dependent
+world-model gate, pass the flags through `run_train.sh` or invoke `train.py` directly:
+
+```bash
+./run_train.sh lafan1_gate01 --dispersion_gate 0.1 --wm_ema_beta 0.995
+```
+
+The trainer maintains an EMA target world model and compares its full-horizon imagined
+return with the online model. Starts whose relative disagreement exceeds the threshold
+are excluded from the imagined policy gradient; the target model is never updated by
+policy gradients. `gate_fraction` is recorded in `train_log.csv` and printed with each
+training log line. This is an experimental Tier-0-inspired extension and has not yet
+been benchmarked on the full Isaac Lab LAFAN1 task.
+
+If the EMA disagreement is too large during early model fitting, delay activation with
+`--dispersion_gate_warmup 1000`; the default `0` enables the gate immediately.
+To replace the binary decision with a smooth trust weight, set for example
+`--dispersion_gate_temperature 0.2`; the default `0` keeps the hard gate.
+For a fixed per-batch trust budget, set `--dispersion_gate_fraction 0.5`; this
+trusts the least-disagreeing half of starts and overrides the fixed threshold.
+Add `--dispersion_gate_normalize` when the gate should preserve the mean policy
+gradient scale after filtering; without it, filtering also reduces the update magnitude.
+
+For the separate model-error replay ablation, add `--wm_prioritized --wm_priority_alpha 0.6`.
+This changes only world-model window sampling; policy start sampling remains uniform.
+
+To test update ordering inside an iteration, add `--policy_before_wm`. This runs the
+policy step using the previous world model and fits the world model afterward; the
+default remains the paper order, world-model step followed by policy step.
+
+The experimental `--wm_sensitivity_weight λ` weights real-transition model errors by
+the local tracking-reward gradient with respect to the next state. It is intended for
+policy-sensitive fitting studies and is disabled by default.
+
+`--wm_rollout_sensitivity_weight λ` is a slower prototype that computes reward and
+termination sensitivity along each k-step predicted window. It is for profiling and
+method development only; the current autograd implementation is intentionally disabled
+by default because it substantially reduces throughput.
+
+`--wm_td_weight λ` is a value-aware prototype that weights replay model errors by the
+critic's detached absolute TD-error. It requires a critic and should be treated as an
+unstable research ablation until the value estimate is calibrated.
+When enabled, `--wm_td_target_beta` controls the EMA target critic used for that
+diagnostic; the target critic is saved in checkpoints.
+
+For diagnosis without changing the objective, `--wm_disagreement_diagnostic`
+maintains an EMA world model and logs `wm_dis_corr` and `wm_diag_err1`, measuring
+whether online/EMA one-step disagreement predicts real replay error. This mode does
+not enable policy gating unless `--dispersion_gate` is also set.
+
+`--dispersion_gate_corr_min` optionally enables the gate only while the diagnostic
+correlation exceeds a running EMA threshold; this is an experimental calibration
+ablation and is disabled by default.
+
+`--dispersion_return_penalty λ` keeps every start but penalizes online/EMA imagined
+return disagreement. It is another experimental, disabled-by-default robustness
+objective; disagreement is not assumed to be a calibrated risk estimate.
+
+`--dispersion_truncate_temperature T` applies a per-step exponential attenuation
+to imagined returns based on online/EMA state disagreement. It is a finer-grained
+alternative to dropping an entire start, and is disabled by default.
+
+`--policy_updates N` repeats the policy/critic update N times per iteration. The raw
+trainer keeps a backward-compatible default of `1`, while the current validated
+`tools/run_concurrent_ramp.sh` recipe uses `2`; comparisons should be compute-matched
+before interpreting it as a concurrent-training method.
+
+`--policy_updates_warmup_iters N` keeps the policy at one update for N iterations
+after `--wm_only_iters`, then switches to `--policy_updates`. It is disabled by
+default; the current audit found no return gain from delaying the second update.
+
+`--policy_second_update_scale s` multiplies the policy optimizer learning rate only
+for the second update in an iteration. The default `1` uses equal learning rates;
+the current audit found that `0.5` weakens the validated recipe.
+
+`--policy_reuse_batch` reuses one sampled policy batch for all updates in an
+iteration. It is disabled by default; the current ablation found that independent
+resampling is stronger for the two-update recipe.
+
+For the reproduction script, set `POLICY_REUSE_BATCH=1` to enable this ablation;
+the default `0` keeps independent sampling.
+
+Set `INTERLEAVE_POLICY_WM=1` to test the experimental `WM → policy₁ → WM → policy₂`
+ordering. It is disabled by default and does not change the validated recipe.
+
+Set `POLICY_ACCUMULATE_UPDATES=1` to average two independently sampled policy gradients
+into one optimizer step. This is an ablation for sequential adaptation and is disabled by
+default.
+
+`--policy_period N` runs policy updates every N iterations while keeping WM updates
+at every iteration. The default is 1; larger values are schedule ablations and can
+cause the policy and replay distribution to drift apart.
+
+`--policy_bc_weight λ` adds a replay-action behavior-cloning anchor to the imagined
+policy loss. It is disabled by default; raw replay actions include execution noise,
+so a large value can constrain the policy toward a poor or noisy teacher.
+
+`--policy_awbc_weight` and `--policy_awbc_beta` provide a reward-weighted variant of
+that anchor. The current implementation uses only normalized one-step replay reward,
+so it is an exploratory proxy rather than a true counterfactual advantage estimate.
+
+`--policy_ramp_iters N` linearly ramps the policy optimizer learning rate from zero
+to the current learning rate over N iterations after `--wm_only_iters`; it is
+disabled by default and is intended to test whether the first post-warmup policy
+update causes a transient distribution shift.
+
+`--policy_ema_model` routes imagined policy rollouts through the optional EMA world
+model while fitting the online model from replay. This is an experimental stability
+ablation; it can fail early if the EMA model is not yet accurate enough.
+
+`--imag_action_noise` optionally adds Gaussian noise to imagined actions. It is
+disabled by default: matching the real-data action noise directly can destabilize
+the deterministic policy gradient.
+
+The `--horizon` flag controls policy imagination length independently of `--wm_window`.
+Short-horizon experiments can reduce accumulated model error; comparisons should keep
+the model window fixed when studying this coupling.
+
+`--policy_bptt_truncation N` keeps the full imagined forward horizon but detaches the
+state/history graph every N steps. It is a long-horizon gradient-stability ablation;
+0 (the default) keeps full BPTT.
+
+`--policy_bptt_state_only` is a diagnostic variant that detaches only the WM state
+while retaining policy history/action graphs; it is not the recommended setting.
+
+`--joint_wm_policy_weight λ` is a diagnostic concurrent-training ablation. It
+allows a scaled copy of the imagined policy-return gradient to update the online
+world model after the ordinary replay WM update. The default `0` keeps the WM
+frozen during policy optimization. This naive coupling can exploit model error;
+a principled joint objective should retain an explicit replay prediction term.
+
+`--joint_wm_replay_weight λ` adds that replay prediction term to the same
+policy/WM optimizer step. It is disabled by default and is intended to test a
+supervised concurrent update; comparisons should report both this anchor and the
+policy-gradient weight.
+
+`--joint_replace_wm_step` replaces one standalone WM optimizer step with the
+joint replay-anchored policy/WM step. Use it for compute-matched comparisons;
+without this flag the joint mode adds an extra WM update per policy update.
+
+`--joint_residual_hidden D` enables a small zero-initialized residual adapter.
+With this option, the nominal WM branch remains replay-only during the joint
+policy step; only the residual branch receives the policy gradient, while the
+joint replay term anchors it to observed transitions. It requires
+`--joint_wm_policy_weight > 0` and is disabled by default. Use
+`--wm_norm_checkpoint PATH` to load and freeze shared input/output running
+statistics across seeds; this is recommended for cross-environment residual
+audits. Residual-only coupling has improved audit gaps in the mini testbed but
+has not yet improved simulator return, so it remains an experimental mechanism.
+
+`--joint_residual_occupancy_sigma σ` optionally gates that adapter by detached
+compatibility between the current policy action and the replay action at the
+imagination start. It is intended to suppress out-of-distribution residual
+exploitation, not to provide an uncertainty guarantee. Current H=64 tests did
+not improve control return, so keep it off unless explicitly comparing
+occupancy-conditioned residuals.
+
+`--dispersion_truncate_local` changes disagreement attenuation from a cumulative
+trust product to a per-step weight. It is intended for long horizons where the
+cumulative form can collapse all imagined return mass; it remains an experimental
+uncertainty diagnostic, not a calibrated robust objective.
+
+`--dispersion_truncate_normalize` normalizes those per-step trust weights by
+their batch mean. It preserves the overall policy-gradient scale while retaining
+relative disagreement weighting; use only with the local form for diagnostic
+comparisons.
+
+`--dispersion_softmin_temperature τ` optimizes a soft minimum of the online and
+EMA imagined returns. Both WM parameter sets stay frozen during the actor step;
+this is a two-model robust-return diagnostic and not a claim that EMA disagreement
+is calibrated uncertainty.
+
+`--term_soft_height` and `--term_soft_tilt` expose the sigmoid widths used by the
+analytic imagined termination function. They are calibration ablations and default
+to the original `.02` and `.04` values.
+
+`--wm_aux_window K --wm_aux_weight λ` adds a second autoregressive WM loss at window
+K while retaining the main `--wm_window`. This supports multi-scale loss experiments
+without a hard curriculum switch and is disabled by default.
+
+`--wm_occupancy_weight λ` enables a detached policy-action compatibility weight
+for sampled WM windows. It reconstructs the start observation history, compares
+the current policy action with the stored replay action, and keeps a uniform
+floor via `--wm_occupancy_floor`. This is an exploratory nominal-fitting mode;
+it is mutually exclusive with prioritized/sensitivity/TD WM weighting and does
+not send gradients into the policy.
+
+`--wm_loss_mean` normalizes the WM regression by the number of valid transitions;
+the historical default sums across the window for compatibility with existing runs.
+
+`--termination_diagnostic` logs the Brier score and empirical rate of this soft
+termination on WM autoregressive replay predictions without changing training.
+
+The gate and replay tests can be run without Isaac Lab; the residual branch
+test imports the project networks and should be run inside the Isaac Lab
+container:
+
+```bash
+python3 -m unittest tools.test_buffer tools.test_dispersion tools.test_residual -v
+```
+
 The first iterations are slow while `torch.compile` builds its kernels (cached in `.cache/`).
 Checkpoints are written every 2000 iterations to `logs/<run>/`; the eval watcher scores each on all
 40 clips and appends to `logs/<run>/eval.csv`.
@@ -145,6 +348,30 @@ Evaluation return 0.824 at 1.24 h of training (paper: 0.82 at 1.2 h on an H100) 
 **0/40 failed clips** at 1.47 h (iteration 14000).
 
 ![success curve](results/success_curve.png)
+
+## Concurrent world-model / policy exploration
+
+The experimental residual branch is enabled with `--joint_residual_hidden 128` and a
+positive `--joint_wm_policy_weight`. It freezes the nominal replay-trained world model and
+isolates policy-sensitive updates in a zero-initialized residual adapter. Optional controls
+include `--joint_wm_replay_weight`, `--joint_wm_replay_window`,
+`--joint_residual_audit_threshold`, `--onpolicy_refresh_steps`, and
+`--onpolicy_separate_wm_update`.
+
+Across H=64/truncation=4 runs, direct policy-to-WM gradients, adversarial residuals,
+policy-action transition targets, on-policy refresh buffers, and calibrated residual gates did
+not exceed the uniform truncated-BPTT baseline. The best use of the experimental code is as a
+diagnostic framework: keep the nominal WM replay-trained, calibrate any residual gate on a
+train environment split, validate it on held-out environments, and retain a nominal fallback.
+Do not enable the experimental flags for the default training recipe without reproducing the
+ablation evidence.
+
+The full Chinese ablation log and decision summary are maintained outside this repository in
+`SuperMimic_real_sim_mini_ablation.md` and `SuperMimic_exploration_decision_summary.md`.
+The concise repository-level decision record is [docs/concurrent_exploration.md](docs/concurrent_exploration.md).
+The offline candidate for a stricter residual gate is `tools/validity_classifier_audit.py`;
+it must be calibrated on train environments and checked on held-out environments before
+being connected to imagined policy rollouts.
 
 ## Implementation (paper section -> file)
 
@@ -213,3 +440,104 @@ Evaluation return 0.824 at 1.24 h of training (paper: 0.82 at 1.2 h on an H100) 
 The code in this repository is released under the [MIT License](LICENSE).
 
 Copyright (c) 2026 ETH Zurich, Chong Zhang.
+
+## Concurrent world-model/policy exploration
+
+The current reproducible candidate uses a 4-step teacher-forced WM objective plus an
+8-step free-running auxiliary objective whose weight ramps from zero to 0.05 over 300
+iterations, with two policy updates after each WM update:
+
+```bash
+SEED=0 LOG_DIR=logs/concurrent_ramp_s0 tools/run_concurrent_ramp.sh
+```
+
+The two policy updates independently resample replay batches; `POLICY_REUSE_BATCH=1`
+is reserved for the weaker same-batch ablation.
+
+For the matched baseline or the update-count boundary check, override the policy update
+count without changing the rest of the recipe:
+
+```bash
+POLICY_UPDATES=1 SEED=0 LOG_DIR=logs/concurrent_ramp_baseline_s0 tools/run_concurrent_ramp.sh
+POLICY_UPDATES=3 SEED=0 LOG_DIR=logs/concurrent_ramp_updates3_s0 tools/run_concurrent_ramp.sh
+```
+
+The script also exposes `POLICY_UPDATES_WARMUP_ITERS` and
+`POLICY_SECOND_UPDATE_SCALE` for schedule ablations; both default to `0` and `1.0`,
+respectively, which are the validated settings.
+
+The script defaults to 2000 iterations. Long-budget continuation was validated on both
+held-out subject splits and three training seeds, with 2000-step checkpoints consistently
+above their matched 1000-step checkpoints under perturbed starts. Set `ITERATIONS=1000`
+for the shorter baseline budget. The one-update recipe remains the baseline for ablations;
+use the script above for the current leading candidate.
+
+### Adaptive policy-update ablation
+
+For the concurrent-training experiments, `--policy_updates_until_iter K` keeps the configured number of policy updates through post-WM iteration `K`, then reduces to one update. This is an ablation for testing whether the second update is only useful early; it is not part of the default recipe.
+
+`tools/policy_update_delta_audit.py` provides an offline diagnostic for the
+marginal value of two virtual policy updates while keeping the world model
+frozen. It loads the checkpoint policy optimizer state and reports held-out
+policy-loss deltas; the diagnostic is not used as an online gate.
+
+The next-stage matched-budget protocol is documented in
+`docs/next_experiment_spec.md`.
+
+The currently verified matched-budget results are indexed in
+`docs/experiment_matrix.csv`.
+
+Run `python tools/validate_experiment_matrix.py` after editing the matrix to
+check all relative changes and matching-budget axes.
+
+External implementation differences and their experiment status are tracked
+in `docs/external_mechanism_gap_table.md`.
+
+For deployment-aware shadow-policy probing, repeat `--steps` to require every
+simulator horizon to pass independently. The optional first-failure threshold
+guards against candidates that reach the same end-survival rate but fall sooner:
+
+```bash
+python tools/watch_probe_gate.py \
+  --checkpoint-dir logs/shadow_run \
+  --checkpoint-pattern 'shadow_ckpt_*.pt' --shadow-mode \
+  --require-shadow-artifact --reference logs/shadow_run/ckpt_001000.pt \
+  --motion-dir data/lafan1_g1 --seed 123 --seed 456 \
+  --out-dir logs/shadow_run/probes --control-file logs/shadow_run/control \
+  --steps 100 --steps 500 --max-first-failure-drop 5 \
+  --promote-on-accept
+```
+
+The default single-horizon behavior remains unchanged; use the multi-horizon
+form for candidates whose short-horizon gains may not persist.
+For offline replay of already published checkpoints, add `--once` so the
+watcher processes the current directory and exits instead of polling forever.
+
+For WM-only per-component weighting experiments, pass
+`--wm_component_weights` with 70 positive comma-separated values in the order
+`position(3), rotation(3), linear_velocity(3), angular_velocity(3), q(29), qd(29)`.
+The default remains uniform weighting; `--wm_root_height_weight` is applied on
+top of this vector.
+
+`--deterministic_collect_fraction f` mixes deterministic policy collection into
+training: fraction `f` of environments receive no action noise while the rest
+keep `--action_noise`. The default `0` preserves the original behavior.
+
+`tools/derive_kinematic_component_weights.py` generates a conservative Jacobian
+proxy (`docs/kinematic_component_weights.csv` plus metadata) from tracked-body
+position and angular-velocity sensitivity. It is an ablation input, not a
+validated default.
+
+`tools/checkpoint_budget_audit.py` audits the actual checkpoint iteration, simulator
+steps, estimated policy/WM optimizer steps, auxiliary-loss schedule, and wall-clock
+for budget-matched comparisons. Do not infer these quantities from a log-directory
+name.
+
+`--ensemble_gate_nominal_prefix n` forces the first `n` imagined steps to use the
+nominal world model before a calibrated bootstrap ensemble gate can select the
+residual ensemble. It is an uncertainty-coupling diagnostic and is not a validated
+default.
+
+`--wm_recent_fraction f` restricts WM replay windows to the most recent `f` fraction
+of the main buffer. It is an experimental data-coupling option; the default `0`
+keeps uniform replay.

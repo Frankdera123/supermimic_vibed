@@ -1,0 +1,71 @@
+{
+  "wm_checkpoints": [
+    "logs/smoke_sched_heightstart_s1_100/last.pt",
+    "logs/smoke_sched_tiltstart_s1_100/last.pt"
+  ],
+  "policies": [
+    "logs/smoke_sched_heightstart_s1_100/last.pt",
+    "logs/smoke_sched_tiltstart_s1_100/last.pt"
+  ],
+  "samples": 64,
+  "predicted_return_mean_by_wm": [
+    [
+      0.05689894035458565,
+      0.0570753738284111
+    ],
+    [
+      0.055773936212062836,
+      0.05673495680093765
+    ]
+  ],
+  "pessimistic_return_mean": [
+    0.054597705602645874,
+    0.05532617121934891
+  ],
+  "predicted_term_mean_by_wm": [
+    [
+      0.006902937777340412,
+      0.0057861339300870895
+    ],
+    [
+      0.002326947171241045,
+      0.0016134054167196155
+    ]
+  ],
+  "policy1_wins_fraction_pessimistic": 0.65625,
+  "mean_pessimistic_margin_policy1_minus_policy0": 0.0007284659659489989,
+  "mean_std_score_calibration": [
+    {
+      "lambda": 0.0,
+      "policy1_wins_fraction": 0.6875,
+      "mean_margin_policy1_minus_policy0": 0.0005687267403118312
+    },
+    {
+      "lambda": 0.25,
+      "policy1_wins_fraction": 0.703125,
+      "mean_margin_policy1_minus_policy0": 0.0006086615030653775
+    },
+    {
+      "lambda": 0.5,
+      "policy1_wins_fraction": 0.640625,
+      "mean_margin_policy1_minus_policy0": 0.0006485962658189237
+    },
+    {
+      "lambda": 1.0,
+      "policy1_wins_fraction": 0.65625,
+      "mean_margin_policy1_minus_policy0": 0.0007284660241566598
+    },
+    {
+      "lambda": 2.0,
+      "policy1_wins_fraction": 0.59375,
+      "mean_margin_policy1_minus_policy0": 0.0008882048423402011
+    }
+  ],
+  "actual_return_mean": [
+    7.216555118560791,
+    7.255046367645264
+  ],
+  "actual_policy1_win_fraction": 0.421875,
+  "predicted_vs_actual_margin_corr": -0.0604674257338047,
+  "predicted_winner_accuracy": 0.484375
+}

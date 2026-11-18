@@ -1,0 +1,35 @@
+{
+  "steps": 50,
+  "batch": 8,
+  "seed": 7,
+  "starts": 40,
+  "results": [
+    {
+      "checkpoint": "logs/smoke_nominal100/last.pt",
+      "return_norm": 0.2857208251953125,
+      "survival_at_end": 0.0,
+      "failure_rate": 1.0,
+      "height_failure_rate": 1.0,
+      "tilt_failure_rate": 0.0,
+      "first_failure_step_mean": 33.625
+    },
+    {
+      "checkpoint": "logs/smoke_split100/last.pt",
+      "return_norm": 0.2882739305496216,
+      "survival_at_end": 0.0,
+      "failure_rate": 1.0,
+      "height_failure_rate": 1.0,
+      "tilt_failure_rate": 0.0,
+      "first_failure_step_mean": 33.25
+    },
+    {
+      "checkpoint": "logs/smoke_l2_100/last.pt",
+      "return_norm": 0.2896908223628998,
+      "survival_at_end": 0.0,
+      "failure_rate": 1.0,
+      "height_failure_rate": 1.0,
+      "tilt_failure_rate": 0.0,
+      "first_failure_step_mean": 34.25
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "steps": 500,
+  "batch": 128,
+  "seed": 123,
+  "starts": 33,
+  "results": [
+    {
+      "checkpoint": "logs/target_nominal_s5_300_h16/ckpt_000300.pt",
+      "return_norm": 0.044326506555080414,
+      "survival_at_end": 0.0078125,
+      "failure_rate": 0.9921875,
+      "height_failure_rate": 0.96875,
+      "tilt_failure_rate": 0.03125,
+      "first_failure_step_mean": 51.046875
+    },
+    {
+      "checkpoint": "logs/policy_target_s5_300/ckpt_000300.pt",
+      "return_norm": 0.03094029799103737,
+      "survival_at_end": 0.0,
+      "failure_rate": 1.0,
+      "height_failure_rate": 0.9375,
+      "tilt_failure_rate": 0.078125,
+      "first_failure_step_mean": 39.6484375
+    }
+  ]
+}

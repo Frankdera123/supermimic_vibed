@@ -1,0 +1,23 @@
+{
+  "steps": 300,
+  "batch": 16,
+  "seed": 123,
+  "starts": 40,
+  "results": [
+    {
+      "checkpoint": "logs/smoke_sched_wmang_s1_100/last.pt",
+      "return_norm": 0.0829927921295166,
+      "survival_at_end": 0.0,
+      "failure_rate": 1.0,
+      "height_failure_rate": 1.0,
+      "tilt_failure_rate": 0.0,
+      "first_failure_step_mean": 52.875,
+      "failure_height_err_mean": 0.26514559984207153,
+      "failure_tilt_err_mean": 0.42244577407836914,
+      "failure_speed_mean": 2.060659408569336,
+      "failure_angular_speed_mean": 2.7741127014160156,
+      "failure_action_norm_mean": 1.8663074970245361,
+      "failure_frame_mean": 192100.1875
+    }
+  ]
+}

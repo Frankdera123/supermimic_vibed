@@ -1,0 +1,16 @@
+{
+  "checkpoint": "logs/wmocc05_s0_1000/last.pt",
+  "samples_each": 4096,
+  "auroc": 0.7317831647828673,
+  "average_precision": 0.7532298747278751,
+  "brier": 0.21008680760860443,
+  "group_split": true,
+  "temperature": 0.6670344471931458,
+  "real_ratio_ess_fraction": 0.17483581915134336,
+  "real_ratio_p50": 1.4194207191467285,
+  "real_ratio_p95": 6.2091145515441895,
+  "heldout_fake_logit_reward_corr": 0.0649438127875328,
+  "heldout_fake_logit_rmse_corr": -0.0532144270837307,
+  "heldout_fake_reward_mean": 0.044566888362169266,
+  "heldout_fake_rmse_mean": 0.275945782661438
+}

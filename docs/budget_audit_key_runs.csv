@@ -1,0 +1,10 @@
+checkpoint,run,iteration,sim_steps,policy_updates,policy_period,policy_optimizer_steps_est,wm_batches,wm_optimizer_steps_est,total_optimizer_steps_est,wall_hours,motion_dir,aux_window,aux_weight,aux_ramp_iters
+logs/loso4_nominal_s0_1000/last.pt,loso4_nominal_s0_1000,1000,160512,1,1,995,2,2000,2995,0.05456259734100766,data/lafan1_g1_train_not4,0,0.0,0
+logs/loso4_ramp_s0_1000/ckpt_001000.pt,loso4_ramp_s0_1000,1000,160512,1,1,995,2,2000,2995,0.06244950791200002,data/lafan1_g1_train_not4,8,0.05,300
+logs/loso4_polyupdates2_s0_1000/ckpt_001000.pt,loso4_polyupdates2_s0_1000,1000,160512,2,1,1990,2,2000,3990,0.0756509804725647,data/lafan1_g1_train_not4,8,0.05,300
+logs/loso4_polyupdates1_s0_2665/last.pt,loso4_polyupdates1_s0_2665,2665,426880,1,1,2660,2,5330,7990,0.1286545170678033,data/lafan1_g1_train_not4,8,0.05,300
+logs/loso4_nominal_s2_1000/last.pt,loso4_nominal_s2_1000,1000,160512,1,1,995,2,2000,2995,0.03954177386230893,data/lafan1_g1_train_not4,0,0.0,0
+logs/loso4_ramp_s2_1000/last.pt,loso4_ramp_s2_1000,1000,160512,1,1,995,2,2000,2995,0.048433728615442914,data/lafan1_g1_train_not4,8,0.05,300
+logs/loso4_polyupdates2_s2_1000/last.pt,loso4_polyupdates2_s2_1000,1000,160512,2,1,1990,2,2000,3990,0.07542771935462951,data/lafan1_g1_train_not4,8,0.05,300
+logs/loso5_polyupdates1_s0_2665/last.pt,loso5_polyupdates1_s0_2665,2665,426880,1,1,2660,2,5330,7990,0.13171199666129219,data/lafan1_g1_train_s1234,8,0.05,300
+logs/loso5_polyupdates2_s0_1000/last.pt,loso5_polyupdates2_s0_1000,2000,320512,2,1,3990,2,4000,7990,0.1529644117752711,data/lafan1_g1_train_s1234,8,0.05,300

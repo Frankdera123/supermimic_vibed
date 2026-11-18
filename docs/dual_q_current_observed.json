@@ -1,0 +1,17 @@
+{
+  "checkpoint": "logs/smoke_sched50_s1_100/last.pt",
+  "iteration": 100,
+  "rows": 32,
+  "epochs": 80,
+  "gamma": 0.99,
+  "target_tau": 0.0,
+  "q_l2": 0.0,
+  "grad_clip": 0.0,
+  "weight_mean": 1.0,
+  "weight_std": 1.084169864654541,
+  "weight_p95": 2.7975733280181885,
+  "weight_max": 4.295576572418213,
+  "effective_sample_fraction": 0.46757543087005615,
+  "positive_weight_mean": 1.3469798564910889,
+  "historical_weight_mean": 0.6530201435089111
+}

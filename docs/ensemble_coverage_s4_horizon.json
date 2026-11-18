@@ -1,0 +1,268 @@
+{
+  "checkpoints": [
+    "logs/target_nominal_s4_300/last.pt",
+    "logs/target_nominal_s4_600/last.pt"
+  ],
+  "window": 8,
+  "use_residual": false,
+  "horizons": {
+    "1": {
+      "train_samples": 256,
+      "audit_samples": 256,
+      "thresholds": [
+        {
+          "train_disagreement_quantile": 0.5,
+          "threshold": 0.24782009422779083,
+          "audit_selection_rate": 0.74609375,
+          "audit_selection_rate_ci95": [
+            0.6893554925918579,
+            0.7890625
+          ],
+          "audit_mean_error_selected": 0.11796902120113373,
+          "audit_mean_error_selected_ci95": [
+            0.10316190123558044,
+            0.14063295722007751
+          ],
+          "audit_p90_error_selected": 0.19020210206508636,
+          "audit_error_coverage_le_2": 1.0,
+          "audit_error_coverage_le_2_ci95": [
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "train_disagreement_quantile": 0.75,
+          "threshold": 0.3371018171310425,
+          "audit_selection_rate": 0.8828125,
+          "audit_selection_rate_ci95": [
+            0.83984375,
+            0.9161132574081421
+          ],
+          "audit_mean_error_selected": 0.17382502555847168,
+          "audit_mean_error_selected_ci95": [
+            0.13770684599876404,
+            0.22908075153827667
+          ],
+          "audit_p90_error_selected": 0.3069979250431061,
+          "audit_error_coverage_le_2": 0.991150438785553,
+          "audit_error_coverage_le_2_ci95": [
+            0.9778761267662048,
+            1.0
+          ]
+        },
+        {
+          "train_disagreement_quantile": 0.9,
+          "threshold": 0.43790382146835327,
+          "audit_selection_rate": 0.9375,
+          "audit_selection_rate_ci95": [
+            0.9140625,
+            0.9609375
+          ],
+          "audit_mean_error_selected": 0.1925029158592224,
+          "audit_mean_error_selected_ci95": [
+            0.15697404742240906,
+            0.253540575504303
+          ],
+          "audit_p90_error_selected": 0.38143160939216614,
+          "audit_error_coverage_le_2": 0.9916667342185974,
+          "audit_error_coverage_le_2_ci95": [
+            0.9811459183692932,
+            1.0
+          ]
+        },
+        {
+          "train_disagreement_quantile": 0.95,
+          "threshold": 0.5009262561798096,
+          "audit_selection_rate": 0.96875,
+          "audit_selection_rate_ci95": [
+            0.9471679925918579,
+            0.984375
+          ],
+          "audit_mean_error_selected": 0.1904599815607071,
+          "audit_mean_error_selected_ci95": [
+            0.15531982481479645,
+            0.22657950222492218
+          ],
+          "audit_p90_error_selected": 0.37986013293266296,
+          "audit_error_coverage_le_2": 0.9919354319572449,
+          "audit_error_coverage_le_2_ci95": [
+            0.9838709235191345,
+            1.0
+          ]
+        }
+      ]
+    },
+    "4": {
+      "train_samples": 236,
+      "audit_samples": 246,
+      "thresholds": [
+        {
+          "train_disagreement_quantile": 0.5,
+          "threshold": 1.8668193817138672,
+          "audit_selection_rate": 0.707317054271698,
+          "audit_selection_rate_ci95": [
+            0.6418699026107788,
+            0.7582316994667053
+          ],
+          "audit_mean_error_selected": 0.5226242542266846,
+          "audit_mean_error_selected_ci95": [
+            0.47471654415130615,
+            0.5889383554458618
+          ],
+          "audit_p90_error_selected": 0.8183939456939697,
+          "audit_error_coverage_le_2": 0.9885057210922241,
+          "audit_error_coverage_le_2_ci95": [
+            0.973994255065918,
+            1.0
+          ]
+        },
+        {
+          "train_disagreement_quantile": 0.75,
+          "threshold": 2.4964261054992676,
+          "audit_selection_rate": 0.8130080699920654,
+          "audit_selection_rate_ci95": [
+            0.7702235579490662,
+            0.8536584973335266
+          ],
+          "audit_mean_error_selected": 0.5746830701828003,
+          "audit_mean_error_selected_ci95": [
+            0.5152931809425354,
+            0.6453540921211243
+          ],
+          "audit_p90_error_selected": 1.0209144353866577,
+          "audit_error_coverage_le_2": 0.9799999594688416,
+          "audit_error_coverage_le_2_ci95": [
+            0.9599999785423279,
+            0.9950000047683716
+          ]
+        },
+        {
+          "train_disagreement_quantile": 0.9,
+          "threshold": 3.3301913738250732,
+          "audit_selection_rate": 0.9186991453170776,
+          "audit_selection_rate_ci95": [
+            0.8821138143539429,
+            0.947357714176178
+          ],
+          "audit_mean_error_selected": 0.6606347560882568,
+          "audit_mean_error_selected_ci95": [
+            0.584331214427948,
+            0.7407844662666321
+          ],
+          "audit_p90_error_selected": 1.2794338464736938,
+          "audit_error_coverage_le_2": 0.9513274431228638,
+          "audit_error_coverage_le_2_ci95": [
+            0.9201327562332153,
+            0.975774347782135
+          ]
+        },
+        {
+          "train_disagreement_quantile": 0.95,
+          "threshold": 3.8173513412475586,
+          "audit_selection_rate": 0.9430893659591675,
+          "audit_selection_rate_ci95": [
+            0.9186991453170776,
+            0.9655487537384033
+          ],
+          "audit_mean_error_selected": 0.6915910840034485,
+          "audit_mean_error_selected_ci95": [
+            0.6179780960083008,
+            0.7810502648353577
+          ],
+          "audit_p90_error_selected": 1.3432064056396484,
+          "audit_error_coverage_le_2": 0.943965494632721,
+          "audit_error_coverage_le_2_ci95": [
+            0.9072198271751404,
+            0.9698275923728943
+          ]
+        }
+      ]
+    },
+    "8": {
+      "train_samples": 203,
+      "audit_samples": 221,
+      "thresholds": [
+        {
+          "train_disagreement_quantile": 0.5,
+          "threshold": 5.9656805992126465,
+          "audit_selection_rate": 0.6968325972557068,
+          "audit_selection_rate_ci95": [
+            0.6356335282325745,
+            0.7627828121185303
+          ],
+          "audit_mean_error_selected": 1.4395345449447632,
+          "audit_mean_error_selected_ci95": [
+            1.3317010402679443,
+            1.5885249376296997
+          ],
+          "audit_p90_error_selected": 2.9015932083129883,
+          "audit_error_coverage_le_2": 0.8376623392105103,
+          "audit_error_coverage_le_2_ci95": [
+            0.7727272510528564,
+            0.8896104097366333
+          ]
+        },
+        {
+          "train_disagreement_quantile": 0.75,
+          "threshold": 8.210336685180664,
+          "audit_selection_rate": 0.837104082107544,
+          "audit_selection_rate_ci95": [
+            0.8009049892425537,
+            0.873303234577179
+          ],
+          "audit_mean_error_selected": 1.6024905443191528,
+          "audit_mean_error_selected_ci95": [
+            1.4508306980133057,
+            1.778175711631775
+          ],
+          "audit_p90_error_selected": 2.962644338607788,
+          "audit_error_coverage_le_2": 0.7729730010032654,
+          "audit_error_coverage_le_2_ci95": [
+            0.7132432460784912,
+            0.8352702856063843
+          ]
+        },
+        {
+          "train_disagreement_quantile": 0.9,
+          "threshold": 10.047673225402832,
+          "audit_selection_rate": 0.9230769872665405,
+          "audit_selection_rate_ci95": [
+            0.8914027810096741,
+            0.9571267366409302
+          ],
+          "audit_mean_error_selected": 1.750595211982727,
+          "audit_mean_error_selected_ci95": [
+            1.6134772300720215,
+            1.9475163221359253
+          ],
+          "audit_p90_error_selected": 3.297945022583008,
+          "audit_error_coverage_le_2": 0.7401961088180542,
+          "audit_error_coverage_le_2_ci95": [
+            0.6886029243469238,
+            0.8041667342185974
+          ]
+        },
+        {
+          "train_disagreement_quantile": 0.95,
+          "threshold": 13.581204414367676,
+          "audit_selection_rate": 0.9683258533477783,
+          "audit_selection_rate_ci95": [
+            0.9411765336990356,
+            0.9888009428977966
+          ],
+          "audit_mean_error_selected": 1.8462365865707397,
+          "audit_mean_error_selected_ci95": [
+            1.6911966800689697,
+            1.9825934171676636
+          ],
+          "audit_p90_error_selected": 4.013899326324463,
+          "audit_error_coverage_le_2": 0.7102803587913513,
+          "audit_error_coverage_le_2_ci95": [
+            0.6564252376556396,
+            0.7663550972938538
+          ]
+        }
+      ]
+    }
+  }
+}

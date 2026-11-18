@@ -1,0 +1,362 @@
+[
+  {
+    "clip": 0,
+    "name": "dance1_subject1",
+    "root_acc_rms": 3.535949230194092,
+    "root_acc_max": 34.15507507324219,
+    "ang_acc_max": 108.94445037841797,
+    "joint_acc_max": 605.1365966796875,
+    "joint_acc_rms": 32.902626037597656
+  },
+  {
+    "clip": 1,
+    "name": "dance1_subject2",
+    "root_acc_rms": 2.886260509490967,
+    "root_acc_max": 17.61505889892578,
+    "ang_acc_max": 130.32000732421875,
+    "joint_acc_max": 841.5745239257812,
+    "joint_acc_rms": 54.244720458984375
+  },
+  {
+    "clip": 2,
+    "name": "dance1_subject3",
+    "root_acc_rms": 2.4587085247039795,
+    "root_acc_max": 15.513410568237305,
+    "ang_acc_max": 81.7301025390625,
+    "joint_acc_max": 329.87567138671875,
+    "joint_acc_rms": 24.564205169677734
+  },
+  {
+    "clip": 3,
+    "name": "dance2_subject1",
+    "root_acc_rms": 3.912949562072754,
+    "root_acc_max": 51.69574737548828,
+    "ang_acc_max": 95.38899230957031,
+    "joint_acc_max": 629.1534423828125,
+    "joint_acc_rms": 40.09063720703125
+  },
+  {
+    "clip": 4,
+    "name": "dance2_subject2",
+    "root_acc_rms": 2.718893051147461,
+    "root_acc_max": 54.63264465332031,
+    "ang_acc_max": 74.53424072265625,
+    "joint_acc_max": 793.7658081054688,
+    "joint_acc_rms": 40.89042282104492
+  },
+  {
+    "clip": 5,
+    "name": "dance2_subject3",
+    "root_acc_rms": 2.931243658065796,
+    "root_acc_max": 51.93944549560547,
+    "ang_acc_max": 44.85143280029297,
+    "joint_acc_max": 643.9423828125,
+    "joint_acc_rms": 25.408769607543945
+  },
+  {
+    "clip": 6,
+    "name": "dance2_subject4",
+    "root_acc_rms": 4.100162982940674,
+    "root_acc_max": 40.71022033691406,
+    "ang_acc_max": 70.12671661376953,
+    "joint_acc_max": 684.3433227539062,
+    "joint_acc_rms": 37.20603942871094
+  },
+  {
+    "clip": 7,
+    "name": "dance2_subject5",
+    "root_acc_rms": 3.693575143814087,
+    "root_acc_max": 24.709733963012695,
+    "ang_acc_max": 87.40567016601562,
+    "joint_acc_max": 710.4605102539062,
+    "joint_acc_rms": 26.78678321838379
+  },
+  {
+    "clip": 8,
+    "name": "fallAndGetUp1_subject1",
+    "root_acc_rms": 2.2482030391693115,
+    "root_acc_max": 22.250307083129883,
+    "ang_acc_max": 85.32020568847656,
+    "joint_acc_max": 360.5301818847656,
+    "joint_acc_rms": 23.301288604736328
+  },
+  {
+    "clip": 9,
+    "name": "fallAndGetUp1_subject4",
+    "root_acc_rms": 1.8701810836791992,
+    "root_acc_max": 84.88609313964844,
+    "ang_acc_max": 61.074195861816406,
+    "joint_acc_max": 402.61212158203125,
+    "joint_acc_rms": 22.152616500854492
+  },
+  {
+    "clip": 10,
+    "name": "fallAndGetUp1_subject5",
+    "root_acc_rms": 2.488020896911621,
+    "root_acc_max": 24.26934814453125,
+    "ang_acc_max": 72.9097900390625,
+    "joint_acc_max": 652.0347900390625,
+    "joint_acc_rms": 26.43567657470703
+  },
+  {
+    "clip": 11,
+    "name": "fallAndGetUp2_subject2",
+    "root_acc_rms": 1.8375128507614136,
+    "root_acc_max": 21.50946044921875,
+    "ang_acc_max": 79.63027954101562,
+    "joint_acc_max": 412.4951477050781,
+    "joint_acc_rms": 22.57836151123047
+  },
+  {
+    "clip": 12,
+    "name": "fallAndGetUp2_subject3",
+    "root_acc_rms": 1.4380295276641846,
+    "root_acc_max": 95.25785064697266,
+    "ang_acc_max": 72.22972106933594,
+    "joint_acc_max": 344.1213073730469,
+    "joint_acc_rms": 12.592129707336426
+  },
+  {
+    "clip": 13,
+    "name": "fallAndGetUp3_subject1",
+    "root_acc_rms": 2.196237564086914,
+    "root_acc_max": 52.438323974609375,
+    "ang_acc_max": 132.1664581298828,
+    "joint_acc_max": 420.145751953125,
+    "joint_acc_rms": 23.2153263092041
+  },
+  {
+    "clip": 14,
+    "name": "fight1_subject2",
+    "root_acc_rms": 3.6277525424957275,
+    "root_acc_max": 25.3225040435791,
+    "ang_acc_max": 127.22911071777344,
+    "joint_acc_max": 851.2520141601562,
+    "joint_acc_rms": 33.46559143066406
+  },
+  {
+    "clip": 15,
+    "name": "fight1_subject3",
+    "root_acc_rms": 3.615577220916748,
+    "root_acc_max": 55.58607482910156,
+    "ang_acc_max": 92.9369888305664,
+    "joint_acc_max": 705.5220947265625,
+    "joint_acc_rms": 28.89988136291504
+  },
+  {
+    "clip": 16,
+    "name": "fight1_subject5",
+    "root_acc_rms": 2.810683488845825,
+    "root_acc_max": 26.270206451416016,
+    "ang_acc_max": 65.48417663574219,
+    "joint_acc_max": 751.9419555664062,
+    "joint_acc_rms": 26.21542739868164
+  },
+  {
+    "clip": 17,
+    "name": "fightAndSports1_subject1",
+    "root_acc_rms": 4.306542873382568,
+    "root_acc_max": 33.53786849975586,
+    "ang_acc_max": 96.04537963867188,
+    "joint_acc_max": 729.3384399414062,
+    "joint_acc_rms": 29.026084899902344
+  },
+  {
+    "clip": 18,
+    "name": "fightAndSports1_subject4",
+    "root_acc_rms": 2.2033867835998535,
+    "root_acc_max": 27.987110137939453,
+    "ang_acc_max": 110.90011596679688,
+    "joint_acc_max": 825.6929321289062,
+    "joint_acc_rms": 26.38628578186035
+  },
+  {
+    "clip": 19,
+    "name": "jumps1_subject1",
+    "root_acc_rms": 4.118873119354248,
+    "root_acc_max": 76.76806640625,
+    "ang_acc_max": 81.8973388671875,
+    "joint_acc_max": 349.90673828125,
+    "joint_acc_rms": 26.39677619934082
+  },
+  {
+    "clip": 20,
+    "name": "jumps1_subject2",
+    "root_acc_rms": 2.5183284282684326,
+    "root_acc_max": 95.02043151855469,
+    "ang_acc_max": 66.53294372558594,
+    "joint_acc_max": 375.034423828125,
+    "joint_acc_rms": 21.592567443847656
+  },
+  {
+    "clip": 21,
+    "name": "jumps1_subject5",
+    "root_acc_rms": 3.625112295150757,
+    "root_acc_max": 25.659099578857422,
+    "ang_acc_max": 80.54303741455078,
+    "joint_acc_max": 286.97467041015625,
+    "joint_acc_rms": 24.64987564086914
+  },
+  {
+    "clip": 22,
+    "name": "run1_subject2",
+    "root_acc_rms": 3.905820846557617,
+    "root_acc_max": 25.683124542236328,
+    "ang_acc_max": 98.23723602294922,
+    "joint_acc_max": 399.6869201660156,
+    "joint_acc_rms": 33.215511322021484
+  },
+  {
+    "clip": 23,
+    "name": "run1_subject5",
+    "root_acc_rms": 4.122836112976074,
+    "root_acc_max": 86.40601348876953,
+    "ang_acc_max": 76.91427612304688,
+    "joint_acc_max": 372.8152160644531,
+    "joint_acc_rms": 35.24763488769531
+  },
+  {
+    "clip": 24,
+    "name": "run2_subject1",
+    "root_acc_rms": 3.920034646987915,
+    "root_acc_max": 19.517663955688477,
+    "ang_acc_max": 81.37468719482422,
+    "joint_acc_max": 394.7957458496094,
+    "joint_acc_rms": 34.02480697631836
+  },
+  {
+    "clip": 25,
+    "name": "run2_subject4",
+    "root_acc_rms": 3.8012375831604004,
+    "root_acc_max": 47.978336334228516,
+    "ang_acc_max": 89.27485656738281,
+    "joint_acc_max": 432.7213439941406,
+    "joint_acc_rms": 35.88045120239258
+  },
+  {
+    "clip": 26,
+    "name": "sprint1_subject2",
+    "root_acc_rms": 2.1939194202423096,
+    "root_acc_max": 100.0290756225586,
+    "ang_acc_max": 82.02677917480469,
+    "joint_acc_max": 423.9577941894531,
+    "joint_acc_rms": 31.471988677978516
+  },
+  {
+    "clip": 27,
+    "name": "sprint1_subject4",
+    "root_acc_rms": 2.091813564300537,
+    "root_acc_max": 43.402706146240234,
+    "ang_acc_max": 76.9770278930664,
+    "joint_acc_max": 503.1822204589844,
+    "joint_acc_rms": 35.39809799194336
+  },
+  {
+    "clip": 28,
+    "name": "walk1_subject1",
+    "root_acc_rms": 1.3148149251937866,
+    "root_acc_max": 9.643924713134766,
+    "ang_acc_max": 31.2053165435791,
+    "joint_acc_max": 175.21804809570312,
+    "joint_acc_rms": 11.878947257995605
+  },
+  {
+    "clip": 29,
+    "name": "walk1_subject2",
+    "root_acc_rms": 1.9044173955917358,
+    "root_acc_max": 11.64710521697998,
+    "ang_acc_max": 61.97168731689453,
+    "joint_acc_max": 301.78497314453125,
+    "joint_acc_rms": 20.619754791259766
+  },
+  {
+    "clip": 30,
+    "name": "walk1_subject5",
+    "root_acc_rms": 2.303940534591675,
+    "root_acc_max": 12.47769832611084,
+    "ang_acc_max": 59.38886260986328,
+    "joint_acc_max": 272.86651611328125,
+    "joint_acc_rms": 20.14109230041504
+  },
+  {
+    "clip": 31,
+    "name": "walk2_subject1",
+    "root_acc_rms": 1.9030680656433105,
+    "root_acc_max": 17.93499755859375,
+    "ang_acc_max": 71.87433624267578,
+    "joint_acc_max": 525.3875732421875,
+    "joint_acc_rms": 24.004955291748047
+  },
+  {
+    "clip": 32,
+    "name": "walk2_subject3",
+    "root_acc_rms": 1.4448364973068237,
+    "root_acc_max": 139.7937469482422,
+    "ang_acc_max": 57.63419723510742,
+    "joint_acc_max": 336.822265625,
+    "joint_acc_rms": 17.746721267700195
+  },
+  {
+    "clip": 33,
+    "name": "walk2_subject4",
+    "root_acc_rms": 1.4358195066452026,
+    "root_acc_max": 22.708906173706055,
+    "ang_acc_max": 71.92630767822266,
+    "joint_acc_max": 367.541259765625,
+    "joint_acc_rms": 18.15917205810547
+  },
+  {
+    "clip": 34,
+    "name": "walk3_subject1",
+    "root_acc_rms": 1.4680445194244385,
+    "root_acc_max": 10.79684066772461,
+    "ang_acc_max": 51.751747131347656,
+    "joint_acc_max": 368.8271484375,
+    "joint_acc_rms": 18.028600692749023
+  },
+  {
+    "clip": 35,
+    "name": "walk3_subject2",
+    "root_acc_rms": 1.6227772235870361,
+    "root_acc_max": 16.945274353027344,
+    "ang_acc_max": 40.69481658935547,
+    "joint_acc_max": 349.8562316894531,
+    "joint_acc_rms": 18.617544174194336
+  },
+  {
+    "clip": 36,
+    "name": "walk3_subject3",
+    "root_acc_rms": 1.0418317317962646,
+    "root_acc_max": 58.72548294067383,
+    "ang_acc_max": 37.601741790771484,
+    "joint_acc_max": 210.59303283691406,
+    "joint_acc_rms": 10.747066497802734
+  },
+  {
+    "clip": 37,
+    "name": "walk3_subject4",
+    "root_acc_rms": 1.2428016662597656,
+    "root_acc_max": 14.340686798095703,
+    "ang_acc_max": 55.633548736572266,
+    "joint_acc_max": 526.0281982421875,
+    "joint_acc_rms": 17.38944435119629
+  },
+  {
+    "clip": 38,
+    "name": "walk3_subject5",
+    "root_acc_rms": 1.7398484945297241,
+    "root_acc_max": 12.952159881591797,
+    "ang_acc_max": 51.539703369140625,
+    "joint_acc_max": 318.09283447265625,
+    "joint_acc_rms": 17.352500915527344
+  },
+  {
+    "clip": 39,
+    "name": "walk4_subject1",
+    "root_acc_rms": 1.2058740854263306,
+    "root_acc_max": 8.5593843460083,
+    "ang_acc_max": 23.832714080810547,
+    "joint_acc_max": 310.4598693847656,
+    "joint_acc_rms": 15.227693557739258
+  }
+]

@@ -52,7 +52,9 @@ class TrackingSim:
     """
 
     def __init__(self, sim_cfg, num_envs: int, motion: MotionLib, mdp: MDP, gamma: float = 0.99, eval_mode: bool = False,
-                 max_episode_steps: int = 500, reset_noise: bool = True):
+                 max_episode_steps: int = 500, reset_noise: bool = True,
+                 reset_sampling_mode: str = "return", kinematic_clusters: int = 16,
+                 fall_grace_ref_height: float = 0.0, fall_grace_ref_tilt: float = 0.0):
         self.device = sim_cfg.device
         self.sim = SimulationContext(sim_cfg)
         self.scene = instantiate(TrackingSceneCfg(num_envs=num_envs, env_spacing=0.0, replicate_physics=True))
@@ -61,6 +63,13 @@ class TrackingSim:
         assert list(self.robot.joint_names) == G1_JOINT_NAMES, self.robot.joint_names
         self.N = num_envs
         self.motion, self.mdp, self.gamma = motion, mdp, gamma
+        if reset_sampling_mode not in ("return", "kinematic"):
+            raise ValueError("reset_sampling_mode must be 'return' or 'kinematic'")
+        self.reset_sampling_mode = reset_sampling_mode
+        self.fall_grace_ref_height = float(fall_grace_ref_height)
+        self.fall_grace_ref_tilt = float(fall_grace_ref_tilt)
+        if reset_sampling_mode == "kinematic":
+            motion.build_kinematic_clusters(kinematic_clusters)
         self.eval_mode = eval_mode
         self.max_episode_steps = max_episode_steps if not eval_mode else 10**9
         self.reset_noise = reset_noise and not eval_mode
@@ -130,6 +139,19 @@ class TrackingSim:
     # ------------------------------------------------------------------ reset
     def sample_frames(self, n: int) -> tuple[torch.Tensor, torch.Tensor]:
         m = self.motion
+        if self.reset_sampling_mode == "kinematic":
+            # Uniform over discovered kinematic clusters, then uniform over
+            # their one-second bins. This removes return feedback from the
+            # reset distribution for a clean data-coverage ablation.
+            labels = m.kinematic_bin_cluster
+            table, counts = m.kinematic_cluster_bins
+            k = torch.randint(0, table.shape[0], (n,), device=self.device)
+            j = (torch.rand(n, device=self.device) * counts[k].float()).long()
+            bins = table[k, j]
+            start = m.bin_start[bins]
+            end = torch.minimum(start + 50, m.clip_end[m.bin_clip[bins]])
+            f = start + (torch.rand(n, device=self.device) * (end - start).float()).long()
+            return f, bins
         soft = torch.softmax(-25.0 * self.bin_G / self.G_max, 0)
         self.bin_w_avg.mul_(0.999).add_(0.001 * soft)
         probs = 0.5 / m.num_bins + 0.4 * soft + 0.1 * self.bin_w_avg / self.bin_w_avg.sum()
@@ -203,13 +225,24 @@ class TrackingSim:
         S1 = self.state()
         f1 = f + 1
         r, terms = self.mdp.reward(S1, f1, a, a_prev, terms=True)
-        term = self.mdp.termination(S1, f1)
+        # Keep separate cause labels with every replay transition.  These are
+        # diagnostics/sampling metadata and do not change termination itself.
+        e_z = (self.motion.root_p[f1, 2] - S1[0][:, 2]).abs()
+        e_tilt = (self.motion.root_R[f1, 2, 2] - S1[1][:, 2, 2]).abs()
+        term_height = e_z > self.mdp.cfg.term_height
+        term_tilt = e_tilt > self.mdp.cfg.term_tilt
+        if self.fall_grace_ref_height > 0.0:
+            term_height &= self.motion.root_p[f1, 2] >= self.fall_grace_ref_height
+        if self.fall_grace_ref_tilt > 0.0:
+            term_tilt &= self.motion.root_R[f1, 2, 2] >= self.fall_grace_ref_tilt
+        term = term_height | term_tilt
         clip_end = self.motion.clip_end[self.motion.clip_id[f]]
         timeout = (f1 >= clip_end) | (ep_step + 1 >= self.max_episode_steps)
         done = term | timeout
         out = {
             "s": flatten_state(S), "a": a.clone(), "a_prev": a_prev, "f": f, "s1": flatten_state(S1), "r": r,
-            "term": term, "done": done, "ep_step": ep_step, "xi": xi, "terms": terms,
+            "term": term, "term_height": term_height, "term_tilt": term_tilt,
+            "done": done, "ep_step": ep_step, "xi": xi, "terms": terms,
         }  # fmt: skip
         # bookkeeping
         self.ep_disc_ret += (self.gamma ** ep_step.float()) * r

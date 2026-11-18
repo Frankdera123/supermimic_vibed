@@ -1,0 +1,14 @@
+{
+  "checkpoint": "logs/loso4_polyupdates2_s1_1000/last.pt",
+  "iteration": 1000,
+  "rows": 2048,
+  "epochs": 80,
+  "gamma": 0.99,
+  "weight_mean": 1.0,
+  "weight_std": 1.427132487297058,
+  "weight_p95": 3.236269235610962,
+  "weight_max": 16.531532287597656,
+  "effective_sample_fraction": 0.32941192388534546,
+  "positive_weight_mean": 1.8474334478378296,
+  "historical_weight_mean": 0.15256649255752563
+}

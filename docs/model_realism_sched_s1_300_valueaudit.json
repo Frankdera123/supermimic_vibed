@@ -1,0 +1,16 @@
+{
+  "checkpoint": "logs/promo_sched_s1_300/last.pt",
+  "samples_each": 64,
+  "auroc": 0.6071428571428572,
+  "average_precision": 0.6044591387448531,
+  "brier": 0.24845276772975922,
+  "group_split": true,
+  "temperature": 0.4098460376262665,
+  "real_ratio_ess_fraction": 0.42328289576939176,
+  "real_ratio_p50": 1.8129982948303223,
+  "real_ratio_p95": 11.892276763916016,
+  "heldout_fake_logit_reward_corr": -0.15331339836120605,
+  "heldout_fake_logit_rmse_corr": 0.037834931164979935,
+  "heldout_fake_reward_mean": 0.03787959739565849,
+  "heldout_fake_rmse_mean": 0.3225032389163971
+}

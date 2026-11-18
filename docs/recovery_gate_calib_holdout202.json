@@ -1,0 +1,71 @@
+{
+  "wm_checkpoints": [
+    "logs/smoke_sched_heightstart_s1_100/last.pt",
+    "logs/smoke_sched_tiltstart_s1_100/last.pt"
+  ],
+  "policies": [
+    "logs/smoke_sched_heightstart_s1_100/last.pt",
+    "logs/smoke_sched_tiltstart_s1_100/last.pt"
+  ],
+  "samples": 64,
+  "predicted_return_mean_by_wm": [
+    [
+      0.053851012140512466,
+      0.05399187654256821
+    ],
+    [
+      0.052502021193504333,
+      0.053211912512779236
+    ]
+  ],
+  "pessimistic_return_mean": [
+    0.051894061267375946,
+    0.052392199635505676
+  ],
+  "predicted_term_mean_by_wm": [
+    [
+      0.01663069613277912,
+      0.0137126874178648
+    ],
+    [
+      0.007006887346506119,
+      0.006255654618144035
+    ]
+  ],
+  "policy1_wins_fraction_pessimistic": 0.59375,
+  "mean_pessimistic_margin_policy1_minus_policy0": 0.0004981415695510805,
+  "mean_std_score_calibration": [
+    {
+      "lambda": 0.0,
+      "policy1_wins_fraction": 0.578125,
+      "mean_margin_policy1_minus_policy0": 0.00042537914123386145
+    },
+    {
+      "lambda": 0.25,
+      "policy1_wins_fraction": 0.578125,
+      "mean_margin_policy1_minus_policy0": 0.0004435699665918946
+    },
+    {
+      "lambda": 0.5,
+      "policy1_wins_fraction": 0.59375,
+      "mean_margin_policy1_minus_policy0": 0.0004617599188350141
+    },
+    {
+      "lambda": 1.0,
+      "policy1_wins_fraction": 0.59375,
+      "mean_margin_policy1_minus_policy0": 0.0004981413367204368
+    },
+    {
+      "lambda": 2.0,
+      "policy1_wins_fraction": 0.625,
+      "mean_margin_policy1_minus_policy0": 0.0005709033575840294
+    }
+  ],
+  "actual_return_mean": [
+    6.864913463592529,
+    6.92469596862793
+  ],
+  "actual_policy1_win_fraction": 0.578125,
+  "predicted_vs_actual_margin_corr": 0.1898551881313324,
+  "predicted_winner_accuracy": 0.4375
+}

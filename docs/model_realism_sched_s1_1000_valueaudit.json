@@ -1,0 +1,16 @@
+{
+  "checkpoint": "logs/schedsample05_s1_1000/last.pt",
+  "samples_each": 4096,
+  "auroc": 0.7236853063652587,
+  "average_precision": 0.7323544189691378,
+  "brier": 0.2125719040632248,
+  "group_split": true,
+  "temperature": 0.4883923828601837,
+  "real_ratio_ess_fraction": 0.11582418302210366,
+  "real_ratio_p50": 1.3985110521316528,
+  "real_ratio_p95": 7.653319835662842,
+  "heldout_fake_logit_reward_corr": 0.05416112393140793,
+  "heldout_fake_logit_rmse_corr": 0.05202843248844147,
+  "heldout_fake_reward_mean": 0.04182207211852074,
+  "heldout_fake_rmse_mean": 0.25352296233177185
+}

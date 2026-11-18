@@ -1,0 +1,38 @@
+{
+  "steps": 300,
+  "batch": 64,
+  "seed": 123,
+  "starts": 40,
+  "results": [
+    {
+      "checkpoint": "logs/wm_uniform_300_matched/last.pt",
+      "return_norm": 0.05927814543247223,
+      "survival_at_end": 0.0,
+      "failure_rate": 1.0,
+      "height_failure_rate": 0.921875,
+      "tilt_failure_rate": 0.15625,
+      "first_failure_step_mean": 53.140625,
+      "failure_height_err_mean": 0.25652366876602173,
+      "failure_tilt_err_mean": 0.5310075879096985,
+      "failure_speed_mean": 1.8629391193389893,
+      "failure_angular_speed_mean": 3.7073898315429688,
+      "failure_action_norm_mean": 5.357816696166992,
+      "failure_frame_mean": 184119.265625
+    },
+    {
+      "checkpoint": "logs/promo_sched_s0_300/last.pt",
+      "return_norm": 0.06866459548473358,
+      "survival_at_end": 0.0,
+      "failure_rate": 1.0,
+      "height_failure_rate": 0.9375,
+      "tilt_failure_rate": 0.09375,
+      "first_failure_step_mean": 49.078125,
+      "failure_height_err_mean": 0.25375330448150635,
+      "failure_tilt_err_mean": 0.4022287130355835,
+      "failure_speed_mean": 2.038756847381592,
+      "failure_angular_speed_mean": 2.808279514312744,
+      "failure_action_norm_mean": 3.2967476844787598,
+      "failure_frame_mean": 184115.203125
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "checkpoint": "logs/promo_sched_s1_300/last.pt",
+  "samples_each": 64,
+  "auroc": 0.16944444444444443,
+  "average_precision": 0.4540857027160314,
+  "brier": 0.3265323042869568
+}
