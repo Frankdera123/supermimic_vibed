@@ -1,0 +1,149 @@
+{
+ "created": "2026-11-18 15:11:52",
+ "seed": 2300,
+ "horizon": 8,
+ "probe_clips": [
+  {
+   "clip": 2,
+   "clip_name": "dance1_subject3",
+   "frames": [
+    18009
+   ]
+  },
+  {
+   "clip": 3,
+   "clip_name": "dance2_subject1",
+   "frames": [
+    20782
+   ]
+  }
+ ],
+ "eval_clips": [
+  {
+   "clip": 0,
+   "clip_name": "dance1_subject1",
+   "frames": [
+    1733
+   ]
+  }
+ ],
+ "probe_starts": [
+  {
+   "clip": 2,
+   "clip_name": "dance1_subject3",
+   "frame": 18009
+  },
+  {
+   "clip": 3,
+   "clip_name": "dance2_subject1",
+   "frame": 20782
+  }
+ ],
+ "eval_starts": [
+  {
+   "clip": 0,
+   "clip_name": "dance1_subject1",
+   "frame": 1733
+  }
+ ],
+ "pairs": {
+  "train": {
+   "run": "online_B0",
+   "iteration": 2100,
+   "path": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B0/diag_pairs/pair_it_002100.pt",
+   "sha256": "b951c51ee5389a52bbe8ac41e522c9e6b0078cfdb5137fa9228185e61df93495",
+   "pi_updates": [
+    1599,
+    1600
+   ],
+   "pi_param_l2_diff": 0.08858928578083208
+  },
+  "unseen_B": {
+   "run": "online_B0",
+   "iteration": 2300,
+   "path": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B0/diag_pairs/pair_it_002300.pt",
+   "sha256": "70ff7577ca4cd25c73126f0ff59b661c46eff1e0cba9c67ffe488b9bf428f9d6",
+   "pi_updates": [
+    1799,
+    1800
+   ],
+   "pi_param_l2_diff": 0.09726126444049923
+  },
+  "unseen_C": {
+   "run": "online_B2",
+   "iteration": 2100,
+   "path": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B2/diag_pairs/pair_it_002100.pt",
+   "sha256": "7640f3be9c747960ed1e787380d91b3e2a28aa47038ba1c05192c83063002770",
+   "pi_updates": [
+    1599,
+    1600
+   ],
+   "pi_param_l2_diff": 0.09795726363688284
+  }
+ },
+ "motion_dir": "/home/sustech/Desktop/supermimic_vibed/data/lafan1_g1",
+ "convention": "unit dirs over flattened (H,29); policy dirs are OPEN-LOOP shared-obs deltas pi_new(o)-pi_old(o)",
+ "probe_policy_gen": [
+  {
+   "clip": "dance1_subject3",
+   "gen_frames": [
+    14485,
+    16336
+   ],
+   "delta_norms": [
+    0.46004605293273926,
+    0.8313588500022888
+   ],
+   "assigned_starts": [
+    0
+   ],
+   "degenerate_skipped": 0
+  },
+  {
+   "clip": "dance2_subject1",
+   "gen_frames": [
+    26138,
+    23959
+   ],
+   "delta_norms": [
+    0.6275883316993713,
+    0.8014407157897949
+   ],
+   "assigned_starts": [
+    1
+   ],
+   "degenerate_skipped": 0
+  }
+ ],
+ "pol_seen_pick": [
+  2,
+  0
+ ],
+ "unseen_B_gen": [
+  {
+   "clip": "dance1_subject1",
+   "gen_frames": [
+    1772,
+    2104
+   ],
+   "delta_norms": [
+    0.8639774918556213,
+    0.9033142924308777
+   ]
+  }
+ ],
+ "unseen_C_gen": [
+  {
+   "clip": "dance1_subject1",
+   "gen_frames": [
+    1772,
+    2104
+   ],
+   "delta_norms": [
+    0.6356363296508789,
+    0.8313046097755432
+   ]
+  }
+ ],
+ "elapsed_s": 3.2
+}

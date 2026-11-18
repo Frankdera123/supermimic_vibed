@@ -1,0 +1,23 @@
+{
+ "M0": {
+  "one_step_eval_base_rmse": 0.4361291863024235,
+  "one_step_probe_random_rmse": 1.0899406094104052,
+  "one_step_probe_policy_rmse": 1.0867886375635862,
+  "free_H8_rmse": 0.49986864998936653,
+  "free_H32_rmse": 0.49986864998936653
+ },
+ "M1_30": {
+  "one_step_eval_base_rmse": 0.44174860045313835,
+  "one_step_probe_random_rmse": 0.1404433837160468,
+  "one_step_probe_policy_rmse": 0.12829963420517743,
+  "free_H8_rmse": 0.4880601316690445,
+  "free_H32_rmse": 0.4880601316690445
+ },
+ "M2_30": {
+  "one_step_eval_base_rmse": 0.4350889250636101,
+  "one_step_probe_random_rmse": 0.15167062729597092,
+  "one_step_probe_policy_rmse": 0.12787339626811445,
+  "free_H8_rmse": 0.49695660546422005,
+  "free_H32_rmse": 0.49695660546422005
+ }
+}

@@ -1,0 +1,34 @@
+{
+ "date": "2026-11-18",
+ "gpu": "RTX 5090 (single card, serial)",
+ "container": "crgf_smoke (supermimic:latest, torch 2.11.0+cu130, IsaacLab/Newton/MuJoCo-Warp)",
+ "sessions": [
+  {
+   "step": "smoke sanity (gen+collect+finetune+eval, tiny)",
+   "gpu_s": 210
+  },
+  {
+   "step": "direction generation (full, cuda)",
+   "gpu_s": 3
+  },
+  {
+   "step": "probe+eval collection (195 waves, 24960 batch-steps)",
+   "gpu_s": 1810
+  },
+  {
+   "step": "fine-tune M1/M2 (2x1500 steps)",
+   "gpu_s": 36
+  },
+  {
+   "step": "evaluation run 1 (killed: fuse-risk, results discarded)",
+   "gpu_s": 640
+  },
+  {
+   "step": "evaluation run 2 (final)",
+   "gpu_s": 885
+  }
+ ],
+ "total_gpu_hours": 1.0,
+ "cap_gpu_hours": 4.0,
+ "within_cap": true
+}

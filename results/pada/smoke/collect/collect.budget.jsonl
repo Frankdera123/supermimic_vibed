@@ -1,0 +1,11 @@
+{"t": 0.0, "event": "protocol", "S_probe": 2, "S_eval": 1, "H": 8, "eps_probe": 1.0, "eps_eval": [0.03, 0.1], "envs": 4, "gamma": 0.99}
+{"t": 4.1, "event": "base_actions", "kind": "probe", "n": 2}
+{"t": 4.1, "event": "base_actions", "kind": "eval", "n": 1}
+{"t": 4.1, "event": "schedule", "kind": "probe", "branches": 16}
+{"t": 4.1, "event": "schedule", "kind": "eval", "branches": 34}
+{"t": 0.0, "event": "protocol", "S_probe": 2, "S_eval": 1, "H": 8, "eps_probe": 1.0, "eps_eval": [0.03, 0.1], "envs": 4, "gamma": 0.99}
+{"t": 3.4, "event": "base_actions", "kind": "probe", "n": 2}
+{"t": 3.4, "event": "base_actions", "kind": "eval", "n": 1}
+{"t": 3.4, "event": "schedule", "kind": "probe", "branches": 16}
+{"t": 3.4, "event": "schedule", "kind": "eval", "branches": 34}
+{"t": 48.7, "event": "waves_done", "waves": 13, "probe_branches": 16, "eval_branches": 34}

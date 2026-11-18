@@ -1,0 +1,13 @@
+{"t": 0.0, "event": "protocol", "S_probe": 12, "S_eval": 6, "H": 32, "eps_probe": 1.0, "eps_eval": [0.03, 0.1], "envs": 4, "gamma": 0.99}
+{"t": 2.9, "event": "base_actions", "kind": "probe", "n": 12}
+{"t": 2.9, "event": "base_actions", "kind": "eval", "n": 6}
+{"t": 2.9, "event": "schedule", "kind": "probe", "branches": 384}
+{"t": 2.9, "event": "schedule", "kind": "eval", "branches": 396}
+{"t": 261.2, "event": "progress", "waves": 25, "done": 100, "mem_gb": 1.25}
+{"t": 511.8, "event": "progress", "waves": 50, "done": 200, "mem_gb": 1.25}
+{"t": 756.8, "event": "progress", "waves": 75, "done": 300, "mem_gb": 1.25}
+{"t": 983.8, "event": "progress", "waves": 100, "done": 16, "mem_gb": 1.25}
+{"t": 1201.2, "event": "progress", "waves": 125, "done": 116, "mem_gb": 1.25}
+{"t": 1417.4, "event": "progress", "waves": 150, "done": 216, "mem_gb": 1.25}
+{"t": 1635.9, "event": "progress", "waves": 175, "done": 316, "mem_gb": 1.25}
+{"t": 1809.9, "event": "waves_done", "waves": 195, "probe_branches": 384, "eval_branches": 396}

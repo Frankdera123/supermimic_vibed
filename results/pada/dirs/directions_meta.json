@@ -1,0 +1,483 @@
+{
+ "created": "2026-11-18 07:21:59",
+ "seed": 2300,
+ "horizon": 32,
+ "probe_clips": [
+  {
+   "clip": 0,
+   "clip_name": "dance1_subject1",
+   "frames": [
+    4861,
+    5120
+   ]
+  },
+  {
+   "clip": 2,
+   "clip_name": "dance1_subject3",
+   "frames": [
+    15387,
+    18353
+   ]
+  },
+  {
+   "clip": 3,
+   "clip_name": "dance2_subject1",
+   "frames": [
+    21237,
+    24765
+   ]
+  },
+  {
+   "clip": 13,
+   "clip_name": "fallAndGetUp3_subject1",
+   "frames": [
+    118769,
+    118834
+   ]
+  },
+  {
+   "clip": 24,
+   "clip_name": "run2_subject1",
+   "frames": [
+    246798,
+    254827
+   ]
+  },
+  {
+   "clip": 27,
+   "clip_name": "sprint1_subject4",
+   "frames": [
+    291705,
+    295469
+   ]
+  }
+ ],
+ "eval_clips": [
+  {
+   "clip": 15,
+   "clip_name": "fight1_subject3",
+   "frames": [
+    138743,
+    144042
+   ]
+  },
+  {
+   "clip": 26,
+   "clip_name": "sprint1_subject2",
+   "frames": [
+    278318,
+    281734
+   ]
+  },
+  {
+   "clip": 38,
+   "clip_name": "walk3_subject5",
+   "frames": [
+    426532,
+    432328
+   ]
+  }
+ ],
+ "probe_starts": [
+  {
+   "clip": 0,
+   "clip_name": "dance1_subject1",
+   "frame": 4861
+  },
+  {
+   "clip": 0,
+   "clip_name": "dance1_subject1",
+   "frame": 5120
+  },
+  {
+   "clip": 2,
+   "clip_name": "dance1_subject3",
+   "frame": 15387
+  },
+  {
+   "clip": 2,
+   "clip_name": "dance1_subject3",
+   "frame": 18353
+  },
+  {
+   "clip": 3,
+   "clip_name": "dance2_subject1",
+   "frame": 21237
+  },
+  {
+   "clip": 3,
+   "clip_name": "dance2_subject1",
+   "frame": 24765
+  },
+  {
+   "clip": 13,
+   "clip_name": "fallAndGetUp3_subject1",
+   "frame": 118769
+  },
+  {
+   "clip": 13,
+   "clip_name": "fallAndGetUp3_subject1",
+   "frame": 118834
+  },
+  {
+   "clip": 24,
+   "clip_name": "run2_subject1",
+   "frame": 246798
+  },
+  {
+   "clip": 24,
+   "clip_name": "run2_subject1",
+   "frame": 254827
+  },
+  {
+   "clip": 27,
+   "clip_name": "sprint1_subject4",
+   "frame": 291705
+  },
+  {
+   "clip": 27,
+   "clip_name": "sprint1_subject4",
+   "frame": 295469
+  }
+ ],
+ "eval_starts": [
+  {
+   "clip": 15,
+   "clip_name": "fight1_subject3",
+   "frame": 138743
+  },
+  {
+   "clip": 15,
+   "clip_name": "fight1_subject3",
+   "frame": 144042
+  },
+  {
+   "clip": 26,
+   "clip_name": "sprint1_subject2",
+   "frame": 278318
+  },
+  {
+   "clip": 26,
+   "clip_name": "sprint1_subject2",
+   "frame": 281734
+  },
+  {
+   "clip": 38,
+   "clip_name": "walk3_subject5",
+   "frame": 426532
+  },
+  {
+   "clip": 38,
+   "clip_name": "walk3_subject5",
+   "frame": 432328
+  }
+ ],
+ "pairs": {
+  "train": {
+   "run": "online_B0",
+   "iteration": 2100,
+   "path": "/workspace/opcl_work/opcl_autonomous_20261117/server_artifacts/online_B0/diag_pairs/pair_it_002100.pt",
+   "sha256": "b951c51ee5389a52bbe8ac41e522c9e6b0078cfdb5137fa9228185e61df93495",
+   "pi_updates": [
+    1599,
+    1600
+   ],
+   "pi_param_l2_diff": 0.08858928578083208
+  },
+  "unseen_B": {
+   "run": "online_B0",
+   "iteration": 2300,
+   "path": "/workspace/opcl_work/opcl_autonomous_20261117/server_artifacts/online_B0/diag_pairs/pair_it_002300.pt",
+   "sha256": "70ff7577ca4cd25c73126f0ff59b661c46eff1e0cba9c67ffe488b9bf428f9d6",
+   "pi_updates": [
+    1799,
+    1800
+   ],
+   "pi_param_l2_diff": 0.09726126444049923
+  },
+  "unseen_C": {
+   "run": "online_B2",
+   "iteration": 2100,
+   "path": "/workspace/opcl_work/opcl_autonomous_20261117/server_artifacts/online_B2/diag_pairs/pair_it_002100.pt",
+   "sha256": "7640f3be9c747960ed1e787380d91b3e2a28aa47038ba1c05192c83063002770",
+   "pi_updates": [
+    1599,
+    1600
+   ],
+   "pi_param_l2_diff": 0.09795726363688284
+  }
+ },
+ "motion_dir": "/workspace/supermimic/data/lafan1_g1",
+ "convention": "unit dirs over flattened (H,29); policy dirs are OPEN-LOOP shared-obs deltas pi_new(o)-pi_old(o)",
+ "probe_policy_gen": [
+  {
+   "clip": "dance1_subject1",
+   "gen_frames": [
+    4760,
+    3442,
+    4340,
+    527,
+    1138,
+    5598,
+    3542,
+    1541
+   ],
+   "delta_norms": [
+    1.6559957265853882,
+    1.876496434211731,
+    1.7013250589370728,
+    1.2072964906692505,
+    1.2340444326400757,
+    1.2848042249679565,
+    1.5503917932510376,
+    1.3027304410934448
+   ],
+   "assigned_starts": [
+    0,
+    1
+   ],
+   "degenerate_skipped": 0
+  },
+  {
+   "clip": "dance1_subject3",
+   "gen_frames": [
+    19195,
+    16519,
+    17836,
+    14321,
+    14126,
+    16757,
+    14685,
+    17334
+   ],
+   "delta_norms": [
+    1.2461628913879395,
+    1.7408860921859741,
+    1.9310941696166992,
+    1.3919939994812012,
+    2.1129355430603027,
+    1.2844046354293823,
+    1.4398112297058105,
+    1.622047781944275
+   ],
+   "assigned_starts": [
+    2,
+    3
+   ],
+   "degenerate_skipped": 0
+  },
+  {
+   "clip": "dance2_subject1",
+   "gen_frames": [
+    21217,
+    23658,
+    27482,
+    30439,
+    21671,
+    26713,
+    21811,
+    22483
+   ],
+   "delta_norms": [
+    1.2087005376815796,
+    1.9100751876831055,
+    1.2702465057373047,
+    1.5862095355987549,
+    1.523476243019104,
+    1.527286171913147,
+    1.5565415620803833,
+    1.5624030828475952
+   ],
+   "assigned_starts": [
+    4,
+    5
+   ],
+   "degenerate_skipped": 0
+  },
+  {
+   "clip": "fallAndGetUp3_subject1",
+   "gen_frames": [
+    119864,
+    117797,
+    120562,
+    119423,
+    121129,
+    118265,
+    121823,
+    120456
+   ],
+   "delta_norms": [
+    1.3666157722473145,
+    2.3683359622955322,
+    1.3608571290969849,
+    1.4232885837554932,
+    1.6088662147521973,
+    1.954912781715393,
+    1.4116473197937012,
+    2.099169969558716
+   ],
+   "assigned_starts": [
+    6,
+    7
+   ],
+   "degenerate_skipped": 0
+  },
+  {
+   "clip": "run2_subject1",
+   "gen_frames": [
+    251609,
+    249771,
+    249377,
+    255981,
+    250568,
+    248585,
+    248473,
+    250138
+   ],
+   "delta_norms": [
+    1.4383571147918701,
+    1.452764868736267,
+    1.7754790782928467,
+    1.450024962425232,
+    1.3954358100891113,
+    1.5959539413452148,
+    1.6680753231048584,
+    1.4795000553131104
+   ],
+   "assigned_starts": [
+    8,
+    9
+   ],
+   "degenerate_skipped": 0
+  },
+  {
+   "clip": "sprint1_subject4",
+   "gen_frames": [
+    286912,
+    293891,
+    296169,
+    289951,
+    283325,
+    288932,
+    293066,
+    291779
+   ],
+   "delta_norms": [
+    1.0932103395462036,
+    1.5508432388305664,
+    1.3436915874481201,
+    1.485229253768921,
+    1.0490152835845947,
+    0.9863376617431641,
+    1.4449537992477417,
+    1.3991039991378784
+   ],
+   "assigned_starts": [
+    10,
+    11
+   ],
+   "degenerate_skipped": 0
+  }
+ ],
+ "pol_seen_pick": [
+  82,
+  77,
+  30,
+  16
+ ],
+ "unseen_B_gen": [
+  {
+   "clip": "fight1_subject3",
+   "gen_frames": [
+    138433,
+    141472,
+    143873,
+    142304
+   ],
+   "delta_norms": [
+    1.5291908979415894,
+    1.9417625665664673,
+    2.3918302059173584,
+    2.718106985092163
+   ]
+  },
+  {
+   "clip": "sprint1_subject2",
+   "gen_frames": [
+    277598,
+    272392,
+    275651,
+    269443
+   ],
+   "delta_norms": [
+    1.228554606437683,
+    1.4151508808135986,
+    0.9227139353752136,
+    2.267056941986084
+   ]
+  },
+  {
+   "clip": "walk3_subject5",
+   "gen_frames": [
+    423578,
+    421330,
+    421358,
+    430913
+   ],
+   "delta_norms": [
+    2.235368490219116,
+    2.108281135559082,
+    2.266402006149292,
+    2.5346689224243164
+   ]
+  }
+ ],
+ "unseen_C_gen": [
+  {
+   "clip": "fight1_subject3",
+   "gen_frames": [
+    138433,
+    141472,
+    143873,
+    142304
+   ],
+   "delta_norms": [
+    1.5392264127731323,
+    1.5054597854614258,
+    2.5410003662109375,
+    2.6863045692443848
+   ]
+  },
+  {
+   "clip": "sprint1_subject2",
+   "gen_frames": [
+    277598,
+    272392,
+    275651,
+    269443
+   ],
+   "delta_norms": [
+    1.4955190420150757,
+    1.4233874082565308,
+    1.2648169994354248,
+    1.9643902778625488
+   ]
+  },
+  {
+   "clip": "walk3_subject5",
+   "gen_frames": [
+    423578,
+    421330,
+    421358,
+    430913
+   ],
+   "delta_norms": [
+    1.938640832901001,
+    2.0483851432800293,
+    1.8347994089126587,
+    2.465536594390869
+   ]
+  }
+ ],
+ "elapsed_s": 3.1
+}

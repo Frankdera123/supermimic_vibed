@@ -1,0 +1,152 @@
+{
+ "created": "2026-11-18 16:25:50",
+ "policy_pairs": {
+  "train": {
+   "run": "online_B0",
+   "iteration": 2100,
+   "path": "/workspace/opcl_work/opcl_autonomous_20261117/server_artifacts/online_B0/diag_pairs/pair_it_002100.pt",
+   "sha256": "b951c51ee5389a52bbe8ac41e522c9e6b0078cfdb5137fa9228185e61df93495",
+   "pi_updates": [
+    1599,
+    1600
+   ],
+   "pi_param_l2_diff": 0.08858928578083208
+  },
+  "unseen_B": {
+   "run": "online_B0",
+   "iteration": 2300,
+   "path": "/workspace/opcl_work/opcl_autonomous_20261117/server_artifacts/online_B0/diag_pairs/pair_it_002300.pt",
+   "sha256": "70ff7577ca4cd25c73126f0ff59b661c46eff1e0cba9c67ffe488b9bf428f9d6",
+   "pi_updates": [
+    1799,
+    1800
+   ],
+   "pi_param_l2_diff": 0.09726126444049923
+  },
+  "unseen_C": {
+   "run": "online_B2",
+   "iteration": 2100,
+   "path": "/workspace/opcl_work/opcl_autonomous_20261117/server_artifacts/online_B2/diag_pairs/pair_it_002100.pt",
+   "sha256": "7640f3be9c747960ed1e787380d91b3e2a28aa47038ba1c05192c83063002770",
+   "pi_updates": [
+    1599,
+    1600
+   ],
+   "pi_param_l2_diff": 0.09795726363688284
+  }
+ },
+ "probe_starts": [
+  {
+   "clip": 0,
+   "clip_name": "dance1_subject1",
+   "frame": 4861
+  },
+  {
+   "clip": 0,
+   "clip_name": "dance1_subject1",
+   "frame": 5120
+  },
+  {
+   "clip": 2,
+   "clip_name": "dance1_subject3",
+   "frame": 15387
+  },
+  {
+   "clip": 2,
+   "clip_name": "dance1_subject3",
+   "frame": 18353
+  },
+  {
+   "clip": 3,
+   "clip_name": "dance2_subject1",
+   "frame": 21237
+  },
+  {
+   "clip": 3,
+   "clip_name": "dance2_subject1",
+   "frame": 24765
+  },
+  {
+   "clip": 13,
+   "clip_name": "fallAndGetUp3_subject1",
+   "frame": 118769
+  },
+  {
+   "clip": 13,
+   "clip_name": "fallAndGetUp3_subject1",
+   "frame": 118834
+  },
+  {
+   "clip": 24,
+   "clip_name": "run2_subject1",
+   "frame": 246798
+  },
+  {
+   "clip": 24,
+   "clip_name": "run2_subject1",
+   "frame": 254827
+  },
+  {
+   "clip": 27,
+   "clip_name": "sprint1_subject4",
+   "frame": 291705
+  },
+  {
+   "clip": 27,
+   "clip_name": "sprint1_subject4",
+   "frame": 295469
+  }
+ ],
+ "eval_starts": [
+  {
+   "clip": 15,
+   "clip_name": "fight1_subject3",
+   "frame": 138743
+  },
+  {
+   "clip": 15,
+   "clip_name": "fight1_subject3",
+   "frame": 144042
+  },
+  {
+   "clip": 26,
+   "clip_name": "sprint1_subject2",
+   "frame": 278318
+  },
+  {
+   "clip": 26,
+   "clip_name": "sprint1_subject2",
+   "frame": 281734
+  },
+  {
+   "clip": 38,
+   "clip_name": "walk3_subject5",
+   "frame": 426532
+  },
+  {
+   "clip": 38,
+   "clip_name": "walk3_subject5",
+   "frame": 432328
+  }
+ ],
+ "motion_dir": "/workspace/supermimic/data/lafan1_g1",
+ "code_variant": "OPCL proto (WM 35-dim acceleration-level, OBS 93)",
+ "train_pair_checks": {
+  "same_policy_update_verified": true,
+  "pi_normalizer_changed": false,
+  "strict_state_dict_load": true
+ },
+ "artifacts_sha256": {
+  "dirs/probe_random.pt": "f68cd552c6e3dd81140945f746d751f42231774960dd4d382a1eb113c5c9a914",
+  "dirs/probe_policy.pt": "8b8bd8977497cdf3605e27226fd587f20d54df2697a6ac425b79f10eef48005f",
+  "dirs/eval_random.pt": "b4b562bbef5c9e5bfc1e4e18ca7ee200995ad7725c22172eac2a37bf72f331a1",
+  "dirs/eval_pol_seen.pt": "b1428d1875a8cf0a98a5185bfbb6772f433a42f8fb14c40908acda176ac7b335",
+  "dirs/eval_pol_B.pt": "7bff4d8789a0afda0d7d03a5a96ca346528480a00011fc3cca3e49d3b93e0305",
+  "dirs/eval_pol_C.pt": "d06538a99bdaf0843e65522b96fcb2b0c24b8dab93a3af8b7352a6fd529a89e8",
+  "collect/probes.pt": "dcf130879211c23556970f21aee6a44b31e3413e7bd71a241a5bffc9ff5ec153",
+  "collect/eval_data.pt": "ebe592084e2236ce486fdb5eb9b0475b13a5b5ea1b5fc18015aa1e5420daf59e",
+  "eval/eval_rows.csv": "e0b0d2d2acaef748a086dac9002362b6a7272c40c0bbd55b5795915839b0a563",
+  "eval/eval_summary.json": "4463aa4cfd2710e258bbc0480a28fca7aad22834d979cbb26fc1f517ab6eb4fb",
+  "eval/level1.json": "557080d3652491d238e2fcf02a9813afacbbf4409939cb408b7b2d761cca4369"
+ }
+}
