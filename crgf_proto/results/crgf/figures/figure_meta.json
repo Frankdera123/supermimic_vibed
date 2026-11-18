@@ -1,0 +1,5 @@
+{
+ "n_rows_shared": 336,
+ "n_rows_own": 336,
+ "note": "medians over 14 starts; per-start values in the source CSVs; statistics unit = motion clip (cluster), not frame x direction"
+}

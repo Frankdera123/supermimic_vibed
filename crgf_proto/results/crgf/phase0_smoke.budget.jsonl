@@ -1,0 +1,33 @@
+{"t": 4.6, "event": "base_actions", "frames": [76143, 296365], "horizon": 16}
+{"t": 5.1, "event": "batch_failed", "B": 2, "error": "Unable to resolve the file: /workspace/opcl_work/supermimic_opcl_proto/data/ground/default_ground_plane.usda"}
+{"t": 5.1, "event": "verdict", "largest_stable_envs": 0, "deterministic_ok": false, "eps_gate_passes": "0/0", "phase1_feasible": false, "budget_multiplier": 3.0}
+{"t": 4.9, "event": "base_actions", "frames": [76143, 296365], "horizon": 16}
+{"t": 89.8, "event": "batch_scaling", "B": 2, "repeat_range": 0.0, "mem_gb": 1.1484375}
+{"t": 89.8, "event": "batch_failed", "B": 4, "error": "A SimulationContext already exists. Use SimulationContext.instance() to retrieve it, or call SimulationContext.clear_instance() before constructing a replacement."}
+{"t": 89.8, "event": "verdict", "largest_stable_envs": 4, "deterministic_ok": false, "eps_gate_passes": "0/0", "phase1_feasible": false, "budget_multiplier": 3.0}
+{"t": 5.4, "event": "base_actions", "frames": [76143, 296365], "horizon": 16}
+{"t": 25.0, "event": "batch_scaling", "B": 2, "repeat_range": 0.0, "mem_gb": 1.1484375}
+{"t": 4.0, "event": "base_actions", "frames": [76143, 296365], "horizon": 16}
+{"t": 23.6, "event": "batch_scaling", "B": 2, "repeat_range": 0.0, "mem_gb": 1.1484375}
+{"t": 26.5, "event": "batch_failed", "B": 4, "error": "The size of tensor a (29) must match the size of tensor b (8) at non-singleton dimension 0"}
+{"t": 27.5, "event": "batch_failed", "B": 8, "error": "The size of tensor a (29) must match the size of tensor b (16) at non-singleton dimension 0"}
+{"t": 28.4, "event": "batch_failed", "B": 16, "error": "The size of tensor a (29) must match the size of tensor b (32) at non-singleton dimension 0"}
+{"t": 29.4, "event": "batch_failed", "B": 32, "error": "The size of tensor a (29) must match the size of tensor b (64) at non-singleton dimension 0"}
+{"t": 30.3, "event": "batch_failed", "B": 64, "error": "The size of tensor a (29) must match the size of tensor b (128) at non-singleton dimension 0"}
+{"t": 4.9, "event": "base_actions", "frames": [76143, 296365], "horizon": 16}
+{"t": 24.4, "event": "batch_scaling", "B": 2, "repeat_range": 0.0, "mem_gb": 1.1484375}
+{"t": 27.8, "event": "batch_failed", "B": 4, "error": "Array shapes must not exceed the maximum representable value of a signed 32-bit integer, got 3258847743 in dimension 0."}
+{"t": 29.5, "event": "batch_failed", "B": 8, "error": "Array shapes must not exceed the maximum representable value of a signed 32-bit integer, got 6517683711 in dimension 0."}
+{"t": 31.1, "event": "batch_failed", "B": 16, "error": "Array shapes must not exceed the maximum representable value of a signed 32-bit integer, got 13025741055 in dimension 0."}
+{"t": 32.7, "event": "batch_failed", "B": 32, "error": "Array shapes must not exceed the maximum representable value of a signed 32-bit integer, got 26003749631 in dimension 0."}
+{"t": 34.3, "event": "batch_failed", "B": 64, "error": "Array shapes must not exceed the maximum representable value of a signed 32-bit integer, got 33063789823 in dimension 0."}
+{"t": 4.1, "event": "base_actions", "frames": [76143, 296365], "horizon": 16}
+{"t": 23.6, "event": "batch_scaling", "B": 2, "repeat_range": 0.0, "mem_gb": 1.1484375}
+{"t": 27.0, "event": "batch_failed", "B": 4, "error": "Array shapes must not exceed the maximum representable value of a signed 32-bit integer, got 3258847743 in dimension 0."}
+{"t": 28.4, "event": "batch_failed", "B": 8, "error": "Array shapes must not exceed the maximum representable value of a signed 32-bit integer, got 6517683711 in dimension 0."}
+{"t": 29.7, "event": "batch_failed", "B": 16, "error": "Array shapes must not exceed the maximum representable value of a signed 32-bit integer, got 13025741055 in dimension 0."}
+{"t": 31.1, "event": "batch_failed", "B": 32, "error": "Array shapes must not exceed the maximum representable value of a signed 32-bit integer, got 26003749631 in dimension 0."}
+{"t": 32.5, "event": "batch_failed", "B": 64, "error": "Array shapes must not exceed the maximum representable value of a signed 32-bit integer, got 33063789823 in dimension 0."}
+{"t": 43.7, "event": "eps_probe", "eps": 0.01, "D": [9.834766387939453e-05, 9.834766387939453e-05, 9.834766387939453e-05], "gate": false, "reason": "below_deadband=9.835e-05"}
+{"t": 53.3, "event": "eps_probe", "eps": 0.03, "D": [-0.0033110377844423056, -0.0033110377844423056, -0.0033110377844423056], "gate": true, "reason": "ok"}
+{"t": 53.3, "event": "verdict", "largest_stable_envs": 4, "deterministic_ok": false, "eps_gate_passes": "1/2", "phase1_feasible": false, "budget_multiplier": 3.0}

@@ -1,0 +1,73 @@
+{
+ "protocol": {
+  "gamma": 0.99,
+  "goal_frames": 10,
+  "hist": 10,
+  "horizons": [
+   8,
+   32
+  ],
+  "critic_mode": "shared",
+  "policy_ckpt": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/supermimic_opcl_proto/logs/diag_b0_s0_501/ckpt_000501.pt",
+  "policy_sha256": "95fd61f11103cad534bff151558c5fe2333769526216fb84671bacffb9c65769",
+  "note": "closed-loop imagination, WM+critic frozen, exact autograd per-path policy gradients; g_critic obtained exactly (linear differencing not needed: critic term built as its own graph)"
+ },
+ "starts": [
+  {
+   "clip": "dance1_subject1",
+   "frame": 3098
+  },
+  {
+   "clip": "dance1_subject1",
+   "frame": 4527
+  },
+  {
+   "clip": "fallAndGetUp1_subject1",
+   "frame": 78865
+  },
+  {
+   "clip": "fallAndGetUp1_subject1",
+   "frame": 83152
+  },
+  {
+   "clip": "fight1_subject2",
+   "frame": 125071
+  },
+  {
+   "clip": "fight1_subject2",
+   "frame": 133120
+  },
+  {
+   "clip": "jumps1_subject1",
+   "frame": 188288
+  },
+  {
+   "clip": "jumps1_subject1",
+   "frame": 192103
+  },
+  {
+   "clip": "run1_subject2",
+   "frame": 226025
+  },
+  {
+   "clip": "run1_subject2",
+   "frame": 226173
+  },
+  {
+   "clip": "sprint1_subject2",
+   "frame": 271891
+  },
+  {
+   "clip": "sprint1_subject2",
+   "frame": 277231
+  },
+  {
+   "clip": "walk1_subject1",
+   "frame": 301692
+  },
+  {
+   "clip": "walk1_subject1",
+   "frame": 301792
+  }
+ ]
+}

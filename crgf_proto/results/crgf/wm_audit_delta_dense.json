@@ -1,0 +1,313 @@
+{
+ "protocol": {
+  "gamma": 0.99,
+  "tz": 0.02,
+  "tt": 0.04,
+  "goal_frames": 10,
+  "hist": 10,
+  "motion_dir": "data/lafan1_g1",
+  "horizons": [
+   32
+  ],
+  "direction_sets": [
+   "delta"
+  ],
+  "starts": [
+   {
+    "clip": "dance1_subject1",
+    "frames": [
+     1323
+    ]
+   },
+   {
+    "clip": "dance1_subject1",
+    "frames": [
+     1527
+    ]
+   },
+   {
+    "clip": "dance1_subject1",
+    "frames": [
+     1896
+    ]
+   },
+   {
+    "clip": "dance1_subject1",
+    "frames": [
+     3196
+    ]
+   },
+   {
+    "clip": "dance1_subject1",
+    "frames": [
+     4668
+    ]
+   },
+   {
+    "clip": "fallAndGetUp1_subject1",
+    "frames": [
+     80058
+    ]
+   },
+   {
+    "clip": "fallAndGetUp1_subject1",
+    "frames": [
+     80565
+    ]
+   },
+   {
+    "clip": "fallAndGetUp1_subject1",
+    "frames": [
+     80592
+    ]
+   },
+   {
+    "clip": "fallAndGetUp1_subject1",
+    "frames": [
+     81103
+    ]
+   },
+   {
+    "clip": "fallAndGetUp1_subject1",
+    "frames": [
+     82445
+    ]
+   },
+   {
+    "clip": "fight1_subject2",
+    "frames": [
+     123002
+    ]
+   },
+   {
+    "clip": "fight1_subject2",
+    "frames": [
+     127341
+    ]
+   },
+   {
+    "clip": "fight1_subject2",
+    "frames": [
+     129858
+    ]
+   },
+   {
+    "clip": "fight1_subject2",
+    "frames": [
+     130170
+    ]
+   },
+   {
+    "clip": "fight1_subject2",
+    "frames": [
+     130727
+    ]
+   },
+   {
+    "clip": "jumps1_subject1",
+    "frames": [
+     189511
+    ]
+   },
+   {
+    "clip": "jumps1_subject1",
+    "frames": [
+     189644
+    ]
+   },
+   {
+    "clip": "jumps1_subject1",
+    "frames": [
+     190001
+    ]
+   },
+   {
+    "clip": "jumps1_subject1",
+    "frames": [
+     190255
+    ]
+   },
+   {
+    "clip": "jumps1_subject1",
+    "frames": [
+     193240
+    ]
+   },
+   {
+    "clip": "run1_subject2",
+    "frames": [
+     223462
+    ]
+   },
+   {
+    "clip": "run1_subject2",
+    "frames": [
+     223921
+    ]
+   },
+   {
+    "clip": "run1_subject2",
+    "frames": [
+     229219
+    ]
+   },
+   {
+    "clip": "run1_subject2",
+    "frames": [
+     229301
+    ]
+   },
+   {
+    "clip": "run1_subject2",
+    "frames": [
+     231638
+    ]
+   },
+   {
+    "clip": "sprint1_subject2",
+    "frames": [
+     270073
+    ]
+   },
+   {
+    "clip": "sprint1_subject2",
+    "frames": [
+     272772
+    ]
+   },
+   {
+    "clip": "sprint1_subject2",
+    "frames": [
+     275222
+    ]
+   },
+   {
+    "clip": "sprint1_subject2",
+    "frames": [
+     277749
+    ]
+   },
+   {
+    "clip": "sprint1_subject2",
+    "frames": [
+     279418
+    ]
+   },
+   {
+    "clip": "walk1_subject1",
+    "frames": [
+     297505
+    ]
+   },
+   {
+    "clip": "walk1_subject1",
+    "frames": [
+     301089
+    ]
+   },
+   {
+    "clip": "walk1_subject1",
+    "frames": [
+     305037
+    ]
+   },
+   {
+    "clip": "walk1_subject1",
+    "frames": [
+     305390
+    ]
+   },
+   {
+    "clip": "walk1_subject1",
+    "frames": [
+     307964
+    ]
+   }
+  ],
+  "policy_ckpt": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/supermimic_opcl_proto/logs/diag_b0_s0_501/ckpt_000501.pt",
+  "policy_sha256": "95fd61f11103cad534bff151558c5fe2333769526216fb84671bacffb9c65769",
+  "critic_mode": "shared",
+  "shared_critic_ckpt": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/supermimic_opcl_proto/logs/diag_b0_s0_501/ckpt_000501.pt",
+  "note": "WM-side exact autograd directional derivatives; open-loop action sequences; soft termination; obs histories repeat the start frame (synthetic step 0, matching the 2026-11-18 OPCL pilot protocol)"
+ },
+ "models": [
+  {
+   "wm_ckpt": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B0/last.pt",
+   "sha256": "77a79801ae5092b6bb84ded6a6002f3fa3baf78c9b964e675ef55f66607a5835",
+   "iteration": 2300,
+   "action_gain": 1.0,
+   "residual_branch": false,
+   "critic_source": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/supermimic_opcl_proto/logs/diag_b0_s0_501/ckpt_000501.pt",
+   "per_horizon": {
+    "32": {
+     "J_return_mean": 1.2141143202781677,
+     "J_total_mean": 1.355100553376334,
+     "ori_clamp_frac": 0.2,
+     "hard_done_any_frac": 0.34285714285714286,
+     "grad_norm": {
+      "state": 0.6582576632499695,
+      "direct": 0.0021477036643773317,
+      "critic": 1.185821294784546,
+      "total": 1.5486496686935425,
+      "cross": 0.34435397386550903
+     },
+     "n_direction_sets": {
+      "delta": 35
+     }
+    }
+   }
+  },
+  {
+   "wm_ckpt": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B1/last.pt",
+   "sha256": "8adc7f8315e45b88825557d624e9b9b4367c7b8c4dc3b31f2cc81ce5a2c92f8d",
+   "iteration": 2300,
+   "action_gain": 1.0,
+   "residual_branch": false,
+   "critic_source": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/supermimic_opcl_proto/logs/diag_b0_s0_501/ckpt_000501.pt",
+   "per_horizon": {
+    "32": {
+     "J_return_mean": 1.2305780325617108,
+     "J_total_mean": 1.3780193516186305,
+     "ori_clamp_frac": 0.14285714285714285,
+     "hard_done_any_frac": 0.2857142857142857,
+     "grad_norm": {
+      "state": 0.6661207675933838,
+      "direct": 0.00213639042340219,
+      "critic": 2.5123565196990967,
+      "total": 2.716083288192749,
+      "cross": 0.42673560976982117
+     },
+     "n_direction_sets": {
+      "delta": 35
+     }
+    }
+   }
+  },
+  {
+   "wm_ckpt": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B2/last.pt",
+   "sha256": "9b80677f34836b40a37911ca1e9da416850d5ee6d7eaaed501f889652af4bbab",
+   "iteration": 2300,
+   "action_gain": 1.0,
+   "residual_branch": false,
+   "critic_source": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/supermimic_opcl_proto/logs/diag_b0_s0_501/ckpt_000501.pt",
+   "per_horizon": {
+    "32": {
+     "J_return_mean": 1.1918087397302901,
+     "J_total_mean": 1.3206531303269522,
+     "ori_clamp_frac": 0.11428571428571428,
+     "hard_done_any_frac": 0.2857142857142857,
+     "grad_norm": {
+      "state": 0.6543573141098022,
+      "direct": 0.002133296336978674,
+      "critic": 1.0853605270385742,
+      "total": 1.3984302282333374,
+      "cross": 0.1987750381231308
+     },
+     "n_direction_sets": {
+      "delta": 35
+     }
+    }
+   }
+  }
+ ]
+}

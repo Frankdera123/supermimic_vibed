@@ -1,0 +1,137 @@
+{
+ "fidelity_stats": {
+  "online_B0|H32|delta|critic": {
+   "n": 5,
+   "sign_agreement": 1.0,
+   "mae": 0.0012377187376841903,
+   "median_ratio": 0.8081015724129423,
+   "spearman": 1.0
+  },
+  "online_B0|H32|delta|state": {
+   "n": 7,
+   "sign_agreement": 0.8571428571428571,
+   "mae": 0.00670571207384845,
+   "median_ratio": 0.579120605341117,
+   "spearman": 0.8214285714285714
+  },
+  "online_B1|H32|delta|critic": {
+   "n": 5,
+   "sign_agreement": 1.0,
+   "mae": 0.0016871294006705283,
+   "median_ratio": 0.8361202396648793,
+   "spearman": 0.9
+  },
+  "online_B1|H32|delta|state": {
+   "n": 7,
+   "sign_agreement": 0.7142857142857143,
+   "mae": 0.008275696334229516,
+   "median_ratio": 0.44998815565914435,
+   "spearman": 0.39285714285714285
+  },
+  "online_B2|H32|delta|critic": {
+   "n": 5,
+   "sign_agreement": 1.0,
+   "mae": 0.002349970117211342,
+   "median_ratio": 1.133979280237416,
+   "spearman": 0.9
+  },
+  "online_B2|H32|delta|state": {
+   "n": 7,
+   "sign_agreement": 0.7142857142857143,
+   "mae": 0.007811810405525778,
+   "median_ratio": 0.657492666232073,
+   "spearman": 0.5357142857142857
+  }
+ },
+ "H4_direction_relevance": {
+  "online_B0|H32|critic|relevant": {
+   "n": 5,
+   "sign_agreement": 1.0,
+   "mae": 0.0012377187376841903,
+   "median_ratio": 0.8081015724129423,
+   "spearman": 1.0
+  },
+  "online_B0|H32|state|relevant": {
+   "n": 7,
+   "sign_agreement": 0.8571428571428571,
+   "mae": 0.00670571207384845,
+   "median_ratio": 0.579120605341117,
+   "spearman": 0.8214285714285714
+  },
+  "online_B1|H32|critic|relevant": {
+   "n": 5,
+   "sign_agreement": 1.0,
+   "mae": 0.0016871294006705283,
+   "median_ratio": 0.8361202396648793,
+   "spearman": 0.9
+  },
+  "online_B1|H32|state|relevant": {
+   "n": 7,
+   "sign_agreement": 0.7142857142857143,
+   "mae": 0.008275696334229516,
+   "median_ratio": 0.44998815565914435,
+   "spearman": 0.39285714285714285
+  },
+  "online_B2|H32|critic|relevant": {
+   "n": 5,
+   "sign_agreement": 1.0,
+   "mae": 0.002349970117211342,
+   "median_ratio": 1.133979280237416,
+   "spearman": 0.9
+  },
+  "online_B2|H32|state|relevant": {
+   "n": 7,
+   "sign_agreement": 0.7142857142857143,
+   "mae": 0.007811810405525778,
+   "median_ratio": 0.657492666232073,
+   "spearman": 0.5357142857142857
+  }
+ },
+ "H5_critic_vs_state": {
+  "online_B0|H32|delta|critic": {
+   "n": 5,
+   "sign_agreement": 1.0,
+   "mae": 0.0012377187376841903,
+   "median_ratio": 0.8081015724129423,
+   "spearman": 1.0
+  },
+  "online_B0|H32|delta|state": {
+   "n": 7,
+   "sign_agreement": 0.8571428571428571,
+   "mae": 0.00670571207384845,
+   "median_ratio": 0.579120605341117,
+   "spearman": 0.8214285714285714
+  },
+  "online_B1|H32|delta|critic": {
+   "n": 5,
+   "sign_agreement": 1.0,
+   "mae": 0.0016871294006705283,
+   "median_ratio": 0.8361202396648793,
+   "spearman": 0.9
+  },
+  "online_B1|H32|delta|state": {
+   "n": 7,
+   "sign_agreement": 0.7142857142857143,
+   "mae": 0.008275696334229516,
+   "median_ratio": 0.44998815565914435,
+   "spearman": 0.39285714285714285
+  },
+  "online_B2|H32|delta|critic": {
+   "n": 5,
+   "sign_agreement": 1.0,
+   "mae": 0.002349970117211342,
+   "median_ratio": 1.133979280237416,
+   "spearman": 0.9
+  },
+  "online_B2|H32|delta|state": {
+   "n": 7,
+   "sign_agreement": 0.7142857142857143,
+   "mae": 0.007811810405525778,
+   "median_ratio": 0.657492666232073,
+   "spearman": 0.5357142857142857
+  }
+ },
+ "H3_metric_validity": null,
+ "B2_vs_B1_paired_delta_H32": {},
+ "note": "statistics unit = motion clip; gated samples only (fail-closed); D_sim model-independent, D_WM per model"
+}

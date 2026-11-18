@@ -1,0 +1,8 @@
+{
+ "fidelity_stats": {},
+ "H4_direction_relevance": {},
+ "H5_critic_vs_state": {},
+ "H3_metric_validity": null,
+ "B2_vs_B1_paired_delta_H32": {},
+ "note": "statistics unit = motion clip; gated samples only (fail-closed); D_sim model-independent, D_WM per model"
+}

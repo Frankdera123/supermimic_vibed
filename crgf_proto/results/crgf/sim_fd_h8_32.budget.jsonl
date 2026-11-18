@@ -1,0 +1,21 @@
+{"t": 4.2, "event": "protocol", "n_starts": 14, "horizons": [8, 32], "eps": [0.01, 0.03, 0.1], "direction_sets": ["random", "repeated", "delta", "ascent_online_B0", "ascent_online_B1", "ascent_online_B2"], "repeats": 3, "envs": 4}
+{"t": 4.3, "event": "base_actions", "horizon": 8}
+{"t": 4.3, "event": "base_actions", "horizon": 32}
+{"t": 4.3, "event": "schedule", "triplets": 1512}
+{"t": 4.7, "event": "protocol", "n_starts": 14, "horizons": [8, 32], "eps": [0.01, 0.03, 0.1], "direction_sets": ["random", "repeated", "delta", "ascent_online_B0", "ascent_online_B1", "ascent_online_B2"], "repeats": 3, "envs": 4}
+{"t": 4.8, "event": "base_actions", "horizon": 8}
+{"t": 4.8, "event": "base_actions", "horizon": 32}
+{"t": 4.8, "event": "schedule", "triplets": 1512}
+{"t": 4.2, "event": "protocol", "n_starts": 14, "horizons": [8, 32], "eps": [0.01, 0.03, 0.1], "direction_sets": ["random", "repeated", "delta", "ascent_online_B0", "ascent_online_B1", "ascent_online_B2"], "repeats": 3, "envs": 4}
+{"t": 4.2, "event": "base_actions", "horizon": 8}
+{"t": 4.3, "event": "base_actions", "horizon": 32}
+{"t": 4.3, "event": "schedule", "triplets": 1512}
+{"t": 4.7, "event": "protocol", "n_starts": 14, "horizons": [8, 32], "eps": [0.01, 0.03, 0.1], "direction_sets": ["random", "repeated", "delta", "ascent_online_B0", "ascent_online_B1", "ascent_online_B2"], "repeats": 3, "envs": 4}
+{"t": 4.8, "event": "base_actions", "horizon": 8}
+{"t": 4.9, "event": "base_actions", "horizon": 32}
+{"t": 4.9, "event": "schedule", "triplets": 1512}
+{"t": 401.9, "event": "progress", "waves": 50, "rows": 198, "mem_gb": 1.23}
+{"t": 792.4, "event": "progress", "waves": 100, "rows": 394, "mem_gb": 1.23}
+{"t": 1178.6, "event": "progress", "waves": 150, "rows": 592, "mem_gb": 1.23}
+{"t": 1709.5, "event": "progress", "waves": 200, "rows": 788, "mem_gb": 1.23}
+{"t": 3011.9, "event": "progress", "waves": 250, "rows": 986, "mem_gb": 1.23}

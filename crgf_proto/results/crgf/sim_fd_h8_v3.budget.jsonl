@@ -1,0 +1,6 @@
+{"t": 4.0, "event": "protocol", "n_starts": 14, "horizons": [8], "eps": [0.03, 0.1], "direction_sets": ["random", "repeated", "delta", "ascent_online_B0", "ascent_online_B1", "ascent_online_B2"], "repeats": 2, "envs": 4}
+{"t": 4.1, "event": "base_actions", "horizon": 8}
+{"t": 4.1, "event": "schedule", "triplets": 336}
+{"t": 372.7, "event": "progress", "waves": 50, "rows": 200, "mem_gb": 1.23}
+{"t": 616.1, "event": "waves_done", "waves": 84, "rows": 336}
+{"t": 616.4, "event": "done", "rows": 336, "gated": 196}

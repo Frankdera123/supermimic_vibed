@@ -1,0 +1,252 @@
+{
+ "protocol": {
+  "gamma": 0.99,
+  "tz": 0.02,
+  "tt": 0.04,
+  "goal_frames": 10,
+  "hist": 10,
+  "motion_dir": "data/lafan1_g1",
+  "horizons": [
+   8,
+   32
+  ],
+  "direction_sets": [
+   "random",
+   "repeated",
+   "delta",
+   "ascent"
+  ],
+  "starts": [
+   {
+    "clip": "dance1_subject1",
+    "frames": [
+     3098,
+     4527
+    ]
+   },
+   {
+    "clip": "fallAndGetUp1_subject1",
+    "frames": [
+     78865,
+     83152
+    ]
+   },
+   {
+    "clip": "fight1_subject2",
+    "frames": [
+     125071,
+     133120
+    ]
+   },
+   {
+    "clip": "jumps1_subject1",
+    "frames": [
+     188288,
+     192103
+    ]
+   },
+   {
+    "clip": "run1_subject2",
+    "frames": [
+     226025,
+     226173
+    ]
+   },
+   {
+    "clip": "sprint1_subject2",
+    "frames": [
+     271891,
+     277231
+    ]
+   },
+   {
+    "clip": "walk1_subject1",
+    "frames": [
+     301692,
+     301792
+    ]
+   }
+  ],
+  "policy_ckpt": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/supermimic_opcl_proto/logs/diag_b0_s0_501/ckpt_000501.pt",
+  "policy_sha256": "95fd61f11103cad534bff151558c5fe2333769526216fb84671bacffb9c65769",
+  "critic_mode": "shared",
+  "shared_critic_ckpt": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/supermimic_opcl_proto/logs/diag_b0_s0_501/ckpt_000501.pt",
+  "note": "WM-side exact autograd directional derivatives; open-loop action sequences; soft termination; obs histories repeat the start frame (synthetic step 0, matching the 2026-11-18 OPCL pilot protocol)"
+ },
+ "models": [
+  {
+   "wm_ckpt": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B0/last.pt",
+   "sha256": "77a79801ae5092b6bb84ded6a6002f3fa3baf78c9b964e675ef55f66607a5835",
+   "iteration": 2300,
+   "action_gain": 2.9,
+   "residual_branch": false,
+   "critic_source": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/supermimic_opcl_proto/logs/diag_b0_s0_501/ckpt_000501.pt",
+   "per_horizon": {
+    "8": {
+     "J_return_mean": 0.46904057051454273,
+     "J_total_mean": 0.8502000996044704,
+     "ori_clamp_frac": 0.14285714285714285,
+     "hard_done_any_frac": 0.0,
+     "grad_norm": {
+      "state": 0.2903062105178833,
+      "direct": 0.001306914142332971,
+      "critic": 2.7904913425445557,
+      "total": 2.826878070831299,
+      "cross": 0.0006326439906843007
+     },
+     "n_direction_sets": {
+      "random": 14,
+      "repeated": 14,
+      "delta": 14,
+      "ascent": 14
+     }
+    }
+   }
+  },
+  {
+   "wm_ckpt": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B0/last.pt",
+   "sha256": "77a79801ae5092b6bb84ded6a6002f3fa3baf78c9b964e675ef55f66607a5835",
+   "iteration": 2300,
+   "action_gain": 2.9,
+   "residual_branch": false,
+   "critic_source": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/supermimic_opcl_proto/logs/diag_b0_s0_501/ckpt_000501.pt",
+   "per_horizon": {
+    "32": {
+     "J_return_mean": 1.267422126872199,
+     "J_total_mean": 1.383442563670022,
+     "ori_clamp_frac": 0.21428571428571427,
+     "hard_done_any_frac": 0.21428571428571427,
+     "grad_norm": {
+      "state": 1.211950659751892,
+      "direct": 0.0013598826481029391,
+      "critic": 2.4878382682800293,
+      "total": 2.924462080001831,
+      "cross": 0.14633424580097198
+     },
+     "n_direction_sets": {
+      "random": 14,
+      "repeated": 14,
+      "delta": 14,
+      "ascent": 14
+     }
+    }
+   }
+  },
+  {
+   "wm_ckpt": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B1/last.pt",
+   "sha256": "8adc7f8315e45b88825557d624e9b9b4367c7b8c4dc3b31f2cc81ce5a2c92f8d",
+   "iteration": 2300,
+   "action_gain": 2.9,
+   "residual_branch": false,
+   "critic_source": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/supermimic_opcl_proto/logs/diag_b0_s0_501/ckpt_000501.pt",
+   "per_horizon": {
+    "8": {
+     "J_return_mean": 0.4716701166970389,
+     "J_total_mean": 0.8501474112272263,
+     "ori_clamp_frac": 0.0,
+     "hard_done_any_frac": 0.0,
+     "grad_norm": {
+      "state": 0.2852661907672882,
+      "direct": 0.001302101882174611,
+      "critic": 2.642364978790283,
+      "total": 2.6836180686950684,
+      "cross": 0.000866510032210499
+     },
+     "n_direction_sets": {
+      "random": 14,
+      "repeated": 14,
+      "delta": 14,
+      "ascent": 14
+     }
+    }
+   }
+  },
+  {
+   "wm_ckpt": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B1/last.pt",
+   "sha256": "8adc7f8315e45b88825557d624e9b9b4367c7b8c4dc3b31f2cc81ce5a2c92f8d",
+   "iteration": 2300,
+   "action_gain": 2.9,
+   "residual_branch": false,
+   "critic_source": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/supermimic_opcl_proto/logs/diag_b0_s0_501/ckpt_000501.pt",
+   "per_horizon": {
+    "32": {
+     "J_return_mean": 1.2844710946083069,
+     "J_total_mean": 1.4114338074411665,
+     "ori_clamp_frac": 0.0,
+     "hard_done_any_frac": 0.21428571428571427,
+     "grad_norm": {
+      "state": 1.201363205909729,
+      "direct": 0.0013492151629179716,
+      "critic": 2.215313196182251,
+      "total": 2.758194923400879,
+      "cross": 0.4044409990310669
+     },
+     "n_direction_sets": {
+      "random": 14,
+      "repeated": 14,
+      "delta": 14,
+      "ascent": 14
+     }
+    }
+   }
+  },
+  {
+   "wm_ckpt": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B2/last.pt",
+   "sha256": "9b80677f34836b40a37911ca1e9da416850d5ee6d7eaaed501f889652af4bbab",
+   "iteration": 2300,
+   "action_gain": 2.9,
+   "residual_branch": false,
+   "critic_source": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/supermimic_opcl_proto/logs/diag_b0_s0_501/ckpt_000501.pt",
+   "per_horizon": {
+    "8": {
+     "J_return_mean": 0.4712656225476946,
+     "J_total_mean": 0.8592249218906675,
+     "ori_clamp_frac": 0.0,
+     "hard_done_any_frac": 0.0,
+     "grad_norm": {
+      "state": 0.28644007444381714,
+      "direct": 0.001301489188335836,
+      "critic": 2.7315967082977295,
+      "total": 2.7669029235839844,
+      "cross": 0.0007209912873804569
+     },
+     "n_direction_sets": {
+      "random": 14,
+      "repeated": 14,
+      "delta": 14,
+      "ascent": 14
+     }
+    }
+   }
+  },
+  {
+   "wm_ckpt": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B2/last.pt",
+   "sha256": "9b80677f34836b40a37911ca1e9da416850d5ee6d7eaaed501f889652af4bbab",
+   "iteration": 2300,
+   "action_gain": 2.9,
+   "residual_branch": false,
+   "critic_source": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/supermimic_opcl_proto/logs/diag_b0_s0_501/ckpt_000501.pt",
+   "per_horizon": {
+    "32": {
+     "J_return_mean": 1.2432274264948708,
+     "J_total_mean": 1.3571432403155737,
+     "ori_clamp_frac": 0.14285714285714285,
+     "hard_done_any_frac": 0.21428571428571427,
+     "grad_norm": {
+      "state": 1.184336543083191,
+      "direct": 0.0013470621779561043,
+      "critic": 2.3306832313537598,
+      "total": 2.7871594429016113,
+      "cross": 0.1556471437215805
+     },
+     "n_direction_sets": {
+      "random": 14,
+      "repeated": 14,
+      "delta": 14,
+      "ascent": 14
+     }
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+{"t": 4.7, "event": "protocol", "n_starts": 35, "horizons": [32], "eps": [0.03, 0.1], "direction_sets": ["delta"], "repeats": 2, "envs": 4}
+{"t": 4.9, "event": "base_actions", "horizon": 32}
+{"t": 4.9, "event": "schedule", "triplets": 140}
+{"t": 878.8, "event": "waves_done", "waves": 35, "rows": 140}
+{"t": 879.1, "event": "done", "rows": 140, "gated": 28}

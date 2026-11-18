@@ -1,0 +1,21 @@
+{"t": 4.4, "event": "protocol", "n_starts": 14, "horizons": [8, 32, 64], "eps": [0.01, 0.03, 0.1], "direction_sets": ["random", "repeated", "delta", "ascent_online_B0", "ascent_online_B1", "ascent_online_B2"], "repeats": 3, "envs": 1}
+{"t": 4.5, "event": "base_actions", "horizon": 8}
+{"t": 4.6, "event": "base_actions", "horizon": 32}
+{"t": 4.6, "event": "base_actions", "horizon": 64}
+{"t": 4.6, "event": "schedule", "triplets": 2268}
+{"t": 150.5, "event": "progress", "waves": 50, "rows": 50, "mem_gb": 1.23}
+{"t": 277.5, "event": "progress", "waves": 100, "rows": 100, "mem_gb": 1.23}
+{"t": 411.2, "event": "progress", "waves": 150, "rows": 150, "mem_gb": 1.23}
+{"t": 545.2, "event": "progress", "waves": 200, "rows": 200, "mem_gb": 1.23}
+{"t": 671.5, "event": "progress", "waves": 250, "rows": 250, "mem_gb": 1.23}
+{"t": 810.1, "event": "progress", "waves": 300, "rows": 300, "mem_gb": 1.23}
+{"t": 936.8, "event": "progress", "waves": 350, "rows": 350, "mem_gb": 1.23}
+{"t": 1070.7, "event": "progress", "waves": 400, "rows": 400, "mem_gb": 1.23}
+{"t": 1204.0, "event": "progress", "waves": 450, "rows": 450, "mem_gb": 1.23}
+{"t": 1330.6, "event": "progress", "waves": 500, "rows": 500, "mem_gb": 1.23}
+{"t": 1470.1, "event": "progress", "waves": 550, "rows": 550, "mem_gb": 1.23}
+{"t": 1596.0, "event": "progress", "waves": 600, "rows": 600, "mem_gb": 1.23}
+{"t": 1730.4, "event": "progress", "waves": 650, "rows": 650, "mem_gb": 1.23}
+{"t": 1863.8, "event": "progress", "waves": 700, "rows": 700, "mem_gb": 1.23}
+{"t": 1990.0, "event": "progress", "waves": 750, "rows": 750, "mem_gb": 1.23}
+{"t": 2416.9, "event": "progress", "waves": 800, "rows": 800, "mem_gb": 1.23}

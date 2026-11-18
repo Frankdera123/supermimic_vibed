@@ -1,0 +1,38 @@
+{
+ "batch_scaling": [
+  {
+   "batch_envs": 4,
+   "repeat_range": 0.0,
+   "mem_gb": 1.15
+  }
+ ],
+ "eps_probe": [
+  {
+   "eps": 0.01,
+   "D_values": [
+    9.834766387939453e-05,
+    9.834766387939453e-05,
+    9.834766387939453e-05
+   ],
+   "gate": false,
+   "reason": "below_deadband=9.835e-05"
+  },
+  {
+   "eps": 0.03,
+   "D_values": [
+    -0.0033110377844423056,
+    -0.0033110377844423056,
+    -0.0033110377844423056
+   ],
+   "gate": true,
+   "reason": "ok"
+  }
+ ],
+ "verdict": {
+  "largest_stable_envs": 4,
+  "deterministic_ok": false,
+  "eps_gate_passes": "1/2",
+  "phase1_feasible": false,
+  "budget_multiplier": 3.0
+ }
+}

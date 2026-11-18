@@ -16,3 +16,6 @@ logs/
 results/analysis/
 # third-party paper
 *.pdf
+# CRGF direction sets are small (1.6MB) and required to reproduce the
+# exact perturbation protocols of the gradient-fidelity audits
+!crgf_proto/results/crgf/*.pt
