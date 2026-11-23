@@ -1,0 +1,415 @@
+{
+  "schema": "sacv_mother_asset_manifest_v1",
+  "generated_at": "2026-11-20 02:20:33",
+  "purpose": "CVF-1a frozen mother (WM online_B0@2100 + pi_old@2100 + critic B0@2100_post)",
+  "python": "3.12.13",
+  "torch": "2.13.0+cu130",
+  "cuda_available_at_verify": true,
+  "server_artifacts": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts",
+  "files": {
+    "ckpt_002100": {
+      "path": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B0/ckpt_002100.pt",
+      "size": 72179897,
+      "sha256": "f14eaeaf08957f030e5b41d468a72f8fb7301c49e5a9f0dd50a433b7642cf057"
+    },
+    "ckpt_002300": {
+      "path": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B0/ckpt_002300.pt",
+      "size": 72179897,
+      "sha256": "2db24d625e1f45ae79f30fc7ad7fdca98ca7b5abe6aa248ebfd2aa9800fb0cc7"
+    },
+    "pair_it_002100": {
+      "path": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B0/diag_pairs/pair_it_002100.pt",
+      "size": 109355747,
+      "sha256": "b951c51ee5389a52bbe8ac41e522c9e6b0078cfdb5137fa9228185e61df93495"
+    },
+    "pair_it_002300": {
+      "path": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B0/diag_pairs/pair_it_002300.pt",
+      "size": 109355747,
+      "sha256": "70ff7577ca4cd25c73126f0ff59b661c46eff1e0cba9c67ffe488b9bf428f9d6"
+    },
+    "last": {
+      "path": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B0/last.pt",
+      "size": 216504257,
+      "sha256": "77a79801ae5092b6bb84ded6a6002f3fa3baf78c9b964e675ef55f66607a5835"
+    }
+  },
+  "bundle": {
+    "keys": [
+      "args",
+      "bundle_source",
+      "component_sha256",
+      "critic",
+      "critic_post",
+      "critic_pre",
+      "critic_updates_after",
+      "critic_updates_before",
+      "goal_norm_count_post",
+      "goal_norm_count_pre",
+      "is_synthetic",
+      "iteration",
+      "obs_norm_count_post",
+      "obs_norm_count_pre",
+      "operation_order",
+      "pair_validation_reason",
+      "pi_new",
+      "pi_normalizer_changed",
+      "pi_old",
+      "pi_param_l2_diff",
+      "pi_param_max_abs_diff",
+      "pi_updates_after",
+      "pi_updates_before",
+      "policy_normalizer_post",
+      "policy_normalizer_pre",
+      "run_id",
+      "same_policy_update_verified",
+      "saved_at",
+      "schema_version",
+      "seed",
+      "sim_steps",
+      "wall_time",
+      "wm",
+      "wm_updates_after",
+      "wm_updates_before"
+    ],
+    "same_policy_update_verified": true,
+    "pair_validation_reason": "VALID_SINGLE_POLICY_UPDATE",
+    "operation_order": [
+      "collect",
+      "wm_update",
+      "snapshot_pre_policy_update",
+      "policy_update_single_step",
+      "critic_update",
+      "snapshot_post_policy_update"
+    ],
+    "pi_updates": [
+      1599,
+      1600
+    ],
+    "pi_param_l2_diff": 0.08858928578083208,
+    "args_core": {
+      "horizon": 32,
+      "gamma": 0.99,
+      "lam": 0.95,
+      "hist": 10,
+      "seed": 0,
+      "lr": 0.0002,
+      "num_envs": 4096,
+      "buffer_steps": 1000,
+      "motion_dir": "/workspace/supermimic/data/lafan1_g1",
+      "critic_epochs": 5,
+      "critic_minibatches": 4,
+      "no_critic": false,
+      "amp": "bf16",
+      "resume": "/workspace/input/b0_resume_2000.pt",
+      "wm_window": 8,
+      "wm_batches": 10,
+      "wm_batch": 2048,
+      "pi_batch": 4096,
+      "opcl_enabled": false,
+      "action_noise": 0.1
+    },
+    "critic_in_dim": 938,
+    "critic_hidden": [
+      [
+        256,
+        938
+      ],
+      [
+        256
+      ],
+      [
+        256
+      ],
+      [
+        256
+      ],
+      [
+        128,
+        256
+      ],
+      [
+        128
+      ],
+      [
+        128
+      ],
+      [
+        128
+      ],
+      [
+        1,
+        128
+      ],
+      [
+        1
+      ]
+    ],
+    "recomputed_component_sha256": {
+      "pi_old": "c4810c4db2b49ca55d20d758c718cf04976260e3f9cfb3ec04275eead372f6b0",
+      "pi_new": "5a1e098e89d874879e343873c400f7776ae4f956c4ab84ecac14054cca27ccbf",
+      "wm": "43cd7f5a550e03645bdbedc5599d260d5bb99fbdc5850509ed35bdb65cb160f5",
+      "critic_pre": "0a7325d82b9c2b7b2914dd039a7bbd586c09612d3aef4322b4bf28e98ca8d11f",
+      "critic_post": "65118115d917958430279afc5ffc37a8666c52104bcea3f10d4de1ae8bd73f54"
+    }
+  },
+  "ckpt_002100": {
+    "keys": [
+      "args",
+      "critic",
+      "critic_updates",
+      "iteration",
+      "pi",
+      "pi_updates",
+      "run_id",
+      "saved_at",
+      "sim_steps",
+      "wall_time",
+      "wm",
+      "wm_updates"
+    ],
+    "wm_state_key": "wm",
+    "wm_state_sha256": "43cd7f5a550e03645bdbedc5599d260d5bb99fbdc5850509ed35bdb65cb160f5"
+  },
+  "phase0": {
+    "path": "/home/sustech/Desktop/supermimic_vibed/results/cvf/phase0/phase0_starts_and_dirs.pt",
+    "sha256": "b228acebd502e191d7082d1dbe77b23d6337847ccbbbd1bfc7d9743185558d6b",
+    "keys": [
+      "S_star",
+      "a_prev_star",
+      "f0",
+      "f_star",
+      "oh_prev9_star",
+      "oracle1_dirs",
+      "oracle2_base_A",
+      "oracle2_dirs",
+      "pose_meta_critic",
+      "pose_meta_random",
+      "starts"
+    ],
+    "n_starts": 20,
+    "start0_keys": [
+      "clip_id",
+      "clip_name",
+      "frame"
+    ],
+    "f0_shape": [
+      20
+    ],
+    "oracle1_dirs": {
+      "vel_critic": [
+        20,
+        70
+      ],
+      "vel_reachable": [
+        20,
+        70
+      ],
+      "vel_random_0": [
+        20,
+        70
+      ],
+      "vel_random_1": [
+        20,
+        70
+      ],
+      "pose_safe_critic": [
+        20,
+        70
+      ],
+      "pose_safe_random": [
+        20,
+        70
+      ]
+    },
+    "oracle2_dirs": {
+      "delta_2100": [
+        20,
+        32,
+        29
+      ],
+      "delta_2300": [
+        20,
+        32,
+        29
+      ],
+      "ascent": [
+        20,
+        32,
+        29
+      ],
+      "random": [
+        20,
+        32,
+        29
+      ]
+    },
+    "oracle2_base_A_shape": [
+      20,
+      32,
+      29
+    ]
+  },
+  "oracle_data": {
+    "oracle1_sim.pt": {
+      "path": "/home/sustech/Desktop/supermimic_vibed/results/cvf/phase1b/oracle1_sim.pt",
+      "size": 608235,
+      "sha256": "65a9155849dfd801337a9a3d5361101bca95acdeb20c40e2fca182f8977f7554"
+    },
+    "oracle2_sim.pt": {
+      "path": "/home/sustech/Desktop/supermimic_vibed/results/cvf/phase1b/oracle2_sim.pt",
+      "size": 704475,
+      "sha256": "ba19837cb45b91c1445314f921595624ccb6a193e633395cdbcec3bc41e12442"
+    },
+    "oracle1_batch_0.pt": {
+      "path": "/home/sustech/Desktop/supermimic_vibed/results/cvf/phase1b/oracle1_batch_0.pt",
+      "size": 153165,
+      "sha256": "30f24a9f1407e0fb3b2ddadf3e85b30393c9ed32c5d7199fcacf311dc9ca7532"
+    },
+    "oracle2_batch_0.pt": {
+      "path": "/home/sustech/Desktop/supermimic_vibed/results/cvf/phase1b/oracle2_batch_0.pt",
+      "size": 176997,
+      "sha256": "98f3b5b29da8b8d376291a4ec6a1cd7e91c805493fad81ffc7918758ef518237"
+    }
+  },
+  "checks": [
+    {
+      "check": "exists:diag_pair_manifest.json",
+      "ok": true,
+      "detail": 6554
+    },
+    {
+      "check": "file_hash:pair_it_002100",
+      "ok": true,
+      "detail": {
+        "got": "b951c51ee5389a52bbe8ac41e522c9e6b0078cfdb5137fa9228185e61df93495",
+        "recorded": "b951c51ee5389a52bbe8ac41e522c9e6b0078cfdb5137fa9228185e61df93495"
+      }
+    },
+    {
+      "check": "file_hash:pair_it_002300",
+      "ok": true,
+      "detail": {
+        "got": "70ff7577ca4cd25c73126f0ff59b661c46eff1e0cba9c67ffe488b9bf428f9d6",
+        "recorded": "70ff7577ca4cd25c73126f0ff59b661c46eff1e0cba9c67ffe488b9bf428f9d6"
+      }
+    },
+    {
+      "check": "component:pi_old",
+      "ok": true,
+      "detail": {
+        "got": "c4810c4db2b49ca55d20d758c718cf04976260e3f9cfb3ec04275eead372f6b0",
+        "recorded": "c4810c4db2b49ca55d20d758c718cf04976260e3f9cfb3ec04275eead372f6b0"
+      }
+    },
+    {
+      "check": "component:pi_new",
+      "ok": true,
+      "detail": {
+        "got": "5a1e098e89d874879e343873c400f7776ae4f956c4ab84ecac14054cca27ccbf",
+        "recorded": "5a1e098e89d874879e343873c400f7776ae4f956c4ab84ecac14054cca27ccbf"
+      }
+    },
+    {
+      "check": "component:wm",
+      "ok": true,
+      "detail": {
+        "got": "43cd7f5a550e03645bdbedc5599d260d5bb99fbdc5850509ed35bdb65cb160f5",
+        "recorded": "43cd7f5a550e03645bdbedc5599d260d5bb99fbdc5850509ed35bdb65cb160f5"
+      }
+    },
+    {
+      "check": "component:critic_pre",
+      "ok": true,
+      "detail": {
+        "got": "0a7325d82b9c2b7b2914dd039a7bbd586c09612d3aef4322b4bf28e98ca8d11f",
+        "recorded": "0a7325d82b9c2b7b2914dd039a7bbd586c09612d3aef4322b4bf28e98ca8d11f"
+      }
+    },
+    {
+      "check": "component:critic_post",
+      "ok": true,
+      "detail": {
+        "got": "65118115d917958430279afc5ffc37a8666c52104bcea3f10d4de1ae8bd73f54",
+        "recorded": "65118115d917958430279afc5ffc37a8666c52104bcea3f10d4de1ae8bd73f54"
+      }
+    },
+    {
+      "check": "component:policy_normalizer",
+      "ok": true,
+      "detail": {
+        "got": "707507dd9245a9a2e985b4baad79dd9508116a3d3a85b83cd8f94cb52c2537d5",
+        "recorded": "707507dd9245a9a2e985b4baad79dd9508116a3d3a85b83cd8f94cb52c2537d5"
+      }
+    },
+    {
+      "check": "ckpt_wm_matches_bundle_wm",
+      "ok": true,
+      "detail": {
+        "got": "43cd7f5a550e03645bdbedc5599d260d5bb99fbdc5850509ed35bdb65cb160f5",
+        "bundle": "43cd7f5a550e03645bdbedc5599d260d5bb99fbdc5850509ed35bdb65cb160f5"
+      }
+    },
+    {
+      "check": "exists:phase0_starts_and_dirs.pt",
+      "ok": true,
+      "detail": 496313
+    },
+    {
+      "check": "oracle_da01_match:oracle1_sim.pt",
+      "ok": true,
+      "detail": {
+        "got": "65a9155849dfd801337a9a3d5361101bca95acdeb20c40e2fca182f8977f7554",
+        "da01": "65a9155849dfd801337a9a3d5361101bca95acdeb20c40e2fca182f8977f7554"
+      }
+    },
+    {
+      "check": "oracle_da01_match:oracle2_sim.pt",
+      "ok": true,
+      "detail": {
+        "got": "ba19837cb45b91c1445314f921595624ccb6a193e633395cdbcec3bc41e12442",
+        "da01": "ba19837cb45b91c1445314f921595624ccb6a193e633395cdbcec3bc41e12442"
+      }
+    },
+    {
+      "check": "oracle_da01_match:oracle1_batch_0.pt",
+      "ok": true,
+      "detail": {
+        "got": "30f24a9f1407e0fb3b2ddadf3e85b30393c9ed32c5d7199fcacf311dc9ca7532",
+        "da01": "30f24a9f1407e0fb3b2ddadf3e85b30393c9ed32c5d7199fcacf311dc9ca7532"
+      }
+    },
+    {
+      "check": "oracle_da01_match:oracle2_batch_0.pt",
+      "ok": true,
+      "detail": {
+        "got": "98f3b5b29da8b8d376291a4ec6a1cd7e91c805493fad81ffc7918758ef518237",
+        "da01": "98f3b5b29da8b8d376291a4ec6a1cd7e91c805493fad81ffc7918758ef518237"
+      }
+    }
+  ],
+  "diag_pair_manifest": {
+    "path": "/home/sustech/Documents/Codex/2026-11-14/new-chat-2/work/opcl_autonomous_20261117/server_artifacts/online_B0/diag_pairs/diag_pair_manifest.json",
+    "num_real_pairs": 3,
+    "recorded_file_sha256_it2100": "b951c51ee5389a52bbe8ac41e522c9e6b0078cfdb5137fa9228185e61df93495",
+    "component_sha256_it2100": {
+      "pi_old": "c4810c4db2b49ca55d20d758c718cf04976260e3f9cfb3ec04275eead372f6b0",
+      "pi_new": "5a1e098e89d874879e343873c400f7776ae4f956c4ab84ecac14054cca27ccbf",
+      "wm": "43cd7f5a550e03645bdbedc5599d260d5bb99fbdc5850509ed35bdb65cb160f5",
+      "critic_pre": "0a7325d82b9c2b7b2914dd039a7bbd586c09612d3aef4322b4bf28e98ca8d11f",
+      "critic_post": "65118115d917958430279afc5ffc37a8666c52104bcea3f10d4de1ae8bd73f54",
+      "policy_normalizer_pre": "707507dd9245a9a2e985b4baad79dd9508116a3d3a85b83cd8f94cb52c2537d5",
+      "policy_normalizer_post": "707507dd9245a9a2e985b4baad79dd9508116a3d3a85b83cd8f94cb52c2537d5"
+    },
+    "operation_order_it2100": [
+      "collect",
+      "wm_update",
+      "snapshot_pre_policy_update",
+      "policy_update_single_step",
+      "critic_update",
+      "snapshot_post_policy_update"
+    ]
+  },
+  "da01_inventory_used": true,
+  "verdict": "VERIFIED",
+  "elapsed_s": 0.5
+}

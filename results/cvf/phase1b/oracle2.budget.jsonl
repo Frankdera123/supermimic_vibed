@@ -1,0 +1,6 @@
+{"t": 4.2, "event": "start", "n_starts": 16, "h_open": 32, "t_cont": 96, "eps_grid": [0.015, 0.03]}
+{"t": 783.8, "event": "batch_done", "batch_idx": 0, "repeat_range": 0.0}
+{"t": 1586.4, "event": "batch_done", "batch_idx": 1, "repeat_range": 0.0}
+{"t": 2366.1, "event": "batch_done", "batch_idx": 2, "repeat_range": 0.0}
+{"t": 3041.8, "event": "batch_done", "batch_idx": 3, "repeat_range": 0.0}
+{"t": 3042.1, "event": "done", "n_batches": 4, "elapsed_s": 3042.1}

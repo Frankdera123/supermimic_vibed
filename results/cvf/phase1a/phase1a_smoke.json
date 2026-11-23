@@ -1,0 +1,48 @@
+{
+  "restore_determinism_repeat_range": 0.0,
+  "deterministic_ok": true,
+  "t_max": 160,
+  "pose_safe_modes": [
+    "pose_zero_pen",
+    "pose_zero_pen",
+    "pose_zero_pen",
+    "pose_zero_pen"
+  ],
+  "pose_safe_min_clear_pm": -0.014551532454788685,
+  "pose_safe_min_slack_pm": 0.061137765645980835,
+  "gate_summary_T160": {
+    "vel_critic": {
+      "0.005_0.015": {
+        "passed": 1,
+        "total": 4,
+        "med_tail_rho_128_end": 0.08664860535243121,
+        "crit_vs_sim_sign": 1.0,
+        "wm_vs_sim_sign": 1.0
+      },
+      "0.015_0.03": {
+        "passed": 1,
+        "total": 4,
+        "med_tail_rho_128_end": 0.023201564510221904,
+        "crit_vs_sim_sign": 1.0,
+        "wm_vs_sim_sign": 1.0
+      }
+    },
+    "pose_safe_critic": {
+      "0.005_0.015": {
+        "passed": 1,
+        "total": 4,
+        "med_tail_rho_128_end": 0.32095357596759005,
+        "crit_vs_sim_sign": 1.0,
+        "wm_vs_sim_sign": 1.0
+      },
+      "0.015_0.03": {
+        "passed": 1,
+        "total": 4,
+        "med_tail_rho_128_end": 0.1351321046793731,
+        "crit_vs_sim_sign": 1.0,
+        "wm_vs_sim_sign": 1.0
+      }
+    }
+  },
+  "elapsed_s": 897.0
+}

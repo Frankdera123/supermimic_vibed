@@ -1,0 +1,96 @@
+{
+  "schema": "sacv_experiment_registry_v1",
+  "updated_at": "2026-11-20 16:18:05",
+  "mode": "APPROVED=true (Phase B/C/D executed; E gated out)",
+  "budget": {
+    "gpu_hours_used": 2.96,
+    "gpu_hours_cap": 6.0
+  },
+  "experiments": [
+    {
+      "id": "sacv_A1_verify_mother",
+      "phase": "A",
+      "status": "DONE",
+      "artifact": "results/cvf/sacv/manifests/mother_asset_manifest.json",
+      "verdict": "VERIFIED 15/15 checks"
+    },
+    {
+      "id": "sacv_A5_split_manifest",
+      "phase": "A",
+      "status": "DONE",
+      "artifact": "results/cvf/sacv/manifests/CVF1A_SPLIT_MANIFEST.json",
+      "verdict": "train 12 / val 4 / test 6 clips, seed 2701"
+    },
+    {
+      "id": "sacv_A8_unit_tests",
+      "phase": "A",
+      "status": "DONE",
+      "artifact": "cvf_proto/sacv/tests/test_sacv.py",
+      "verdict": "16/16 PASS (families 1-15 of Goal sec.10)"
+    },
+    {
+      "id": "sacv_D_eval_fixture_smoke",
+      "phase": "D-prep",
+      "status": "DONE",
+      "artifact": "results/cvf/sacv/metrics/eval_fixture_val_h96.json",
+      "verdict": "metric wiring smoke on synthetic schema"
+    },
+    {
+      "id": "sacv_B1_smoke",
+      "phase": "B",
+      "status": "DONE",
+      "artifact": "results/cvf/sacv/logs/smoke_run.log",
+      "verdict": "PASS all checks (det 0.0, restore 2.4e-7, companion 0.0, rew 1.5e-8, G-recalc 1.8e-6); B=8 MJWarp int32 overflow -> B=4"
+    },
+    {
+      "id": "sacv_B2_collect",
+      "phase": "B",
+      "status": "DONE",
+      "artifact": "results/cvf/sacv/datasets/raw/multi/",
+      "verdict": "R2 ladder, 11/11 batches, 44 starts, 78848 transitions, 1.83 GPU-h, rep_rng 0.0"
+    },
+    {
+      "id": "sacv_C1_train_C1C2C0",
+      "phase": "C",
+      "status": "DONE",
+      "artifact": "results/cvf/sacv/checkpoints/",
+      "verdict": "C1/C2/C0 @ s0250/s0500 (500-step matched), sigma_dy=0.0635, pair_scale=247.9"
+    },
+    {
+      "id": "sacv_D1_eval",
+      "phase": "D",
+      "status": "DONE",
+      "artifact": "results/cvf/sacv/metrics/stats_val_h96.json + stats_test_h96.json + label_snr_decomposition.json",
+      "verdict": "INCONCLUSIVE(neg-leaning): no fine-tune group beats C-init on pair response; C2 gated degradation on Val; label variance 99.5% tail-dominated on Train"
+    },
+    {
+      "id": "sacv_E1_policy_update",
+      "phase": "E",
+      "status": "NOT RUN (conditional)"
+    },
+    {
+      "id": "sacv_E1_policy_update",
+      "phase": "E",
+      "status": "NOT RUN (gate failed: no candidate improved on Val; D2/D5 no positive mechanism signal)",
+      "artifact": "-",
+      "verdict": "-"
+    }
+  ],
+  "artifacts_sha256": {
+    "results/cvf/sacv/manifests/mother_asset_manifest.json": "dd41b352cd201eaaff82263b8b4b1e83f3c7854d397fe604a11c08990fdc0d43",
+    "results/cvf/sacv/manifests/CVF1A_SPLIT_MANIFEST.json": "0a580bd8830315aea8c70c230f977e1e06ef2d5451b0c55f9830122a9acbdea0",
+    "docs/cvf/sacv/CVF1A_DATA_CONTRACT.md": "4f96fef1f352f5ddb137b444e6f6180f687fd0195222b268193208c07ecc2ab8",
+    "docs/cvf/sacv/CVF1A_EXPERIMENT_PROTOCOL.md": "0bdef21e36171c6e459d3effba7cca74d30dc979d419755609ef208258f56fc9",
+    "docs/cvf/sacv/CVF1A_BUDGET_PLAN.md": "93193876a802c4ac822dae1a0b5827c2a51ee315690065168492c951e226c646",
+    "docs/cvf/sacv/CVF1A_READINESS_REPORT.md": "a88ba32bab1e537c91ff357824ab9e97e3e93df949cf6830d2fc1315fd4f1fb2",
+    "docs/cvf/sacv/OVERNIGHT_PROGRESS.md": "59c8af211d5a0fff694c3fb856f6319cabd477871c9cc6f03b6919802dc9ba51",
+    "results/cvf/sacv/metrics/stats_val_h96.json": "0333a9534679255c4b593e4050e444ef74fcec385f5edba76823f31c179cf18e",
+    "results/cvf/sacv/metrics/label_snr_decomposition.json": "a9dff9c33aad00af122b900b40fdcabe654b87c71dd94f850a2d409d863b7250",
+    "docs/cvf/sacv/CVF1B_CRITIC_RESULTS.md": "82b1c70dfc12bdf6c19bb073bfc0b0cb84936e01ae5ba8b15e9d2800b9d808d9",
+    "docs/cvf/sacv/CVF1B_MECHANISM_ANALYSIS.md": "632bb7420e9e351fa9f6115e7df7734130efe50aca49aa95b9f37e95c43524b3",
+    "docs/cvf/sacv/CVF2A_POLICY_RESULTS.md": "0db9da0441b665658f33447c0e3dc3fa276ebb74d8f164315cd86d8ccb124a2c",
+    "docs/cvf/sacv/CVF_OVERNIGHT_RESEARCH_REPORT.md": "5f256681de34129e79ed61147d7a66a1933a548a21637208c912a709b41a6d4a",
+    "docs/cvf/sacv/CVF_NEXT_DECISION.md": "5ce3334d07084452eefa8d357364066594e5a874ea6500808686c892214df9ab",
+    "results/cvf/sacv/final_summary.json": "53de56edbb46d7e255a9f5d31bbb456404bcccb752b2c7bf7b1a799343ad6282"
+  }
+}

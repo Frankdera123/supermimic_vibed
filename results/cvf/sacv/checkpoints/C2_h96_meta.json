@@ -1,0 +1,14 @@
+{
+  "group": "C2",
+  "alpha": 0.3,
+  "pair_scale": 247.85711379378995,
+  "sigma_dy": 0.06351836431815513,
+  "steps": 500,
+  "final_val": {
+    "val_value_rmse": 0.6565265655517578,
+    "val_pair_sign": 0.7708333333333334,
+    "val_pair_spearman": 0.6245115067303517,
+    "n_val": 48
+  },
+  "train_sha256": "fa1c62344fc246a5f9ec59eba6796847921e552f39ee6193b22a6a58a646aad8"
+}

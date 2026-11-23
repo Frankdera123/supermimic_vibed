@@ -1,0 +1,6 @@
+{"t": 4.0, "event": "start", "clips": ["dance2_subject2", "fallAndGetUp1_subject1", "fight1_subject5", "jumps1_subject5"], "frames": [34322, 77432, 151229, 211198]}
+{"t": 18.9, "event": "prefix_done", "sim_clear_min": -0.01377823855727911, "sim_slack_min": 0.061137765645980835}
+{"t": 193.3, "event": "restore_determinism", "repeat_range": 0.0}
+{"t": 548.3, "event": "subspace_done", "subspace": "vel_critic"}
+{"t": 896.7, "event": "subspace_done", "subspace": "pose_safe_critic"}
+{"t": 897.0, "event": "done", "elapsed_s": 897.0, "det_ok": true}

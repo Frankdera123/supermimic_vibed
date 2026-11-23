@@ -1,0 +1,76 @@
+{
+  "schema": "sacv_dataset_manifest_v1",
+  "split": "val",
+  "generated_at": "2026-11-20 14:37:22",
+  "n_pairs": 144,
+  "n_scalars": 8,
+  "per_horizon_pairs": {
+    "32": 48,
+    "64": 48,
+    "96": 48
+  },
+  "n_clips": 4,
+  "raw_batches": [
+    {
+      "file": "batch_0000.pt",
+      "sha256": "40e91590b382ae5bd9a36f2689c5300275b40d780d5d50c89d55e2c07113a5d4"
+    },
+    {
+      "file": "batch_0004.pt",
+      "sha256": "4409ed486e069a58475ce2f3980b51fdb45a0adf03077a07811458935d27a943"
+    },
+    {
+      "file": "batch_0008.pt",
+      "sha256": "b2ac345c30d30d570cedb756a62801d548706a72ca01fe460361de8c0e6feb28"
+    },
+    {
+      "file": "batch_0012.pt",
+      "sha256": "cbc396925e061d1240e3e18a395c1da6216f8d87f7836e9a9ee2f3186d50f693"
+    },
+    {
+      "file": "batch_0016.pt",
+      "sha256": "ac3ee9079582502ab9be01065290bf5181f14746470b6e575790f93cb2718269"
+    },
+    {
+      "file": "batch_0020.pt",
+      "sha256": "7b9a5f775f5158e8f8d330e90698fac8fd9480703711653a6bade18cf655a31c"
+    },
+    {
+      "file": "batch_0024.pt",
+      "sha256": "d7a942079c9d457c40bb43151cd0124dd4dbd5395f3b09204d123aaf7cc833b5"
+    },
+    {
+      "file": "batch_0028.pt",
+      "sha256": "19be4980400738e4cc620258096436e2bc53787a6f97e796e38ca749a6b44ada"
+    },
+    {
+      "file": "batch_0032.pt",
+      "sha256": "ad67d3a8ab505db3aed9d71e89b69707ca6a70aa72681441f0449147e8364294"
+    },
+    {
+      "file": "batch_0036.pt",
+      "sha256": "743ed10c6db6a037975ece864515745890668a8abb089185217decbe6d33017a"
+    },
+    {
+      "file": "batch_0040.pt",
+      "sha256": "a58c20ea95d5bf7b169b2b1e34d7c5fc795624b4e94b2a74be856e5fe481fc92"
+    }
+  ],
+  "outputs": {
+    "pairs": {
+      "file": "val_pairs.pt",
+      "sha256": "20bacdb0285e83bee898d4c8c5ef38c43df379aff5a2109d371e14bf304d9b2d"
+    },
+    "scalars": {
+      "file": "val_scalars.pt",
+      "sha256": "ee774f0275ce438ce71c35d801905e18a76f53c926f3329201c08db40055c27b"
+    }
+  },
+  "reliability": {
+    "reward_reconstruction_max": 1.4028046280145645e-08,
+    "g_recalc_max": 3.7841778528502346e-06,
+    "base_repeat_range_max": 0.0
+  },
+  "v_ref": "pair_it_002100.pt[critic_post] (frozen C-init)",
+  "elapsed_s": 5.3
+}

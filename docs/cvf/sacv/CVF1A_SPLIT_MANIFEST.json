@@ -1,0 +1,367 @@
+{
+  "schema": "sacv_split_manifest_v1",
+  "generated_at": "2026-11-20 02:25:13",
+  "seed": 2701,
+  "h_prefix": 32,
+  "t_max": 96,
+  "min_frame_gap": 64,
+  "motion_dir": "/home/sustech/Desktop/supermimic_vibed/data/lafan1_g1",
+  "cvf0_excluded_clips": [
+    "dance2_subject2",
+    "fallAndGetUp1_subject1",
+    "fight1_subject5",
+    "fightAndSports1_subject4",
+    "jumps1_subject5",
+    "run2_subject4",
+    "sprint1_subject2",
+    "walk1_subject2",
+    "walk3_subject3",
+    "walk4_subject1"
+  ],
+  "skipped": {
+    "cvf0_reuse": [
+      "dance2_subject2",
+      "fallAndGetUp1_subject1",
+      "fight1_subject5",
+      "fightAndSports1_subject4",
+      "jumps1_subject5",
+      "run2_subject4",
+      "sprint1_subject2",
+      "walk1_subject2",
+      "walk3_subject3",
+      "walk4_subject1"
+    ],
+    "too_short": []
+  },
+  "splits": {
+    "train": {
+      "clips": [
+        "fallAndGetUp1_subject4",
+        "fallAndGetUp1_subject5",
+        "fallAndGetUp2_subject2",
+        "fight1_subject2",
+        "jumps1_subject2",
+        "run1_subject2",
+        "run1_subject5",
+        "walk1_subject1",
+        "walk2_subject1",
+        "walk2_subject3",
+        "walk3_subject2",
+        "walk3_subject4"
+      ],
+      "n_clips": 12,
+      "n_starts": 24,
+      "category_counts": {
+        "fallAndGetUp1": 2,
+        "fallAndGetUp2": 1,
+        "fight1": 1,
+        "jumps1": 1,
+        "run1": 2,
+        "walk1": 1,
+        "walk2": 2,
+        "walk3": 2
+      },
+      "per_clip": {
+        "fallAndGetUp1_subject4": {
+          "category": "fallAndGetUp1",
+          "clip_id": 9,
+          "clip_start": 84553,
+          "clip_end": 92963,
+          "frames": [
+            89061,
+            89531
+          ],
+          "csv_sha256": "5e9cf9acddc62a8646151567fffac09c7e088186d87a9a8543743cac517ddf0b"
+        },
+        "fallAndGetUp1_subject5": {
+          "category": "fallAndGetUp1",
+          "clip_id": 10,
+          "clip_start": 92964,
+          "clip_end": 101374,
+          "frames": [
+            99812,
+            99906
+          ],
+          "csv_sha256": "55a22ca723f26170aae8529ccb26dbda9bf2cb816b4f29eed3c57260dadb05ca"
+        },
+        "fallAndGetUp2_subject2": {
+          "category": "fallAndGetUp2",
+          "clip_id": 11,
+          "clip_start": 101375,
+          "clip_end": 109570,
+          "frames": [
+            107959,
+            108951
+          ],
+          "csv_sha256": "49ae9726ae176b10b1213b441535946ffcca93586e1091e8398e239f4a049a47"
+        },
+        "fight1_subject2": {
+          "category": "fight1",
+          "clip_id": 14,
+          "clip_start": 122876,
+          "clip_end": 135119,
+          "frames": [
+            129217,
+            129779
+          ],
+          "csv_sha256": "c9ae5b9d90258061dfc79f617eaded73f2dde581fe37ac2d8e6b229c1a4a0ecb"
+        },
+        "jumps1_subject2": {
+          "category": "jumps1",
+          "clip_id": 20,
+          "clip_start": 196344,
+          "clip_end": 208565,
+          "frames": [
+            202184,
+            206932
+          ],
+          "csv_sha256": "fde765a738e3aa586be3694163795502d4dc932757178956f4512e7c9d317a58"
+        },
+        "run1_subject2": {
+          "category": "run1",
+          "clip_id": 22,
+          "clip_start": 220788,
+          "clip_end": 232678,
+          "frames": [
+            221292,
+            222425
+          ],
+          "csv_sha256": "ec02af4447a62214a6fec6afff60c75d0ecc8f80f8fb45e3cd4119fed9ceac8d"
+        },
+        "run1_subject5": {
+          "category": "run1",
+          "clip_id": 23,
+          "clip_start": 232679,
+          "clip_end": 244569,
+          "frames": [
+            234372,
+            243143
+          ],
+          "csv_sha256": "eacc38d7d6f5d7f32bfefcdf5d91510fea5f815000be870f91cc6e3483a126f6"
+        },
+        "walk1_subject1": {
+          "category": "walk1",
+          "clip_id": 28,
+          "clip_start": 296364,
+          "clip_end": 309429,
+          "frames": [
+            300293,
+            304714
+          ],
+          "csv_sha256": "68c7887438e94f1f3d9ebacd3a8ce59251a22c7b05129a0f5d7cacaedc48c28d"
+        },
+        "walk2_subject1": {
+          "category": "walk2",
+          "clip_id": 31,
+          "clip_start": 335562,
+          "clip_end": 347470,
+          "frames": [
+            340271,
+            341147
+          ],
+          "csv_sha256": "51cf310f14ecbb8be1f41ea09345df0c89024ff884fb9ab881cac339f820c787"
+        },
+        "walk2_subject3": {
+          "category": "walk2",
+          "clip_id": 32,
+          "clip_start": 347471,
+          "clip_end": 359379,
+          "frames": [
+            352293,
+            355484
+          ],
+          "csv_sha256": "43a4342a9534ebb49e0dd9ef11ff40bf8a11d4925dac86352ebc7e7ae1220644"
+        },
+        "walk3_subject2": {
+          "category": "walk3",
+          "clip_id": 35,
+          "clip_start": 383620,
+          "clip_end": 395950,
+          "frames": [
+            388675,
+            389628
+          ],
+          "csv_sha256": "55e8b8fe0e6a9a62b1f437985c4456055d750c75f46a17adbcbe3392fd33c674"
+        },
+        "walk3_subject4": {
+          "category": "walk3",
+          "clip_id": 37,
+          "clip_start": 408282,
+          "clip_end": 420612,
+          "frames": [
+            413356,
+            415645
+          ],
+          "csv_sha256": "11a79dd8c534a562b99abdb42a221064b2b2166948d088f7ca9b63ac13f25368"
+        }
+      }
+    },
+    "val": {
+      "clips": [
+        "dance1_subject3",
+        "jumps1_subject1",
+        "run2_subject1",
+        "walk2_subject4"
+      ],
+      "n_clips": 4,
+      "n_starts": 8,
+      "category_counts": {
+        "dance1": 1,
+        "jumps1": 1,
+        "run2": 1,
+        "walk2": 1
+      },
+      "per_clip": {
+        "dance1_subject3": {
+          "category": "dance1",
+          "clip_id": 2,
+          "clip_start": 13148,
+          "clip_end": 19721,
+          "frames": [
+            17032,
+            19021
+          ],
+          "csv_sha256": "983ab290f7ac70fcd4baa56ea5321bc48522f613980986e4a0a83c884b940884"
+        },
+        "jumps1_subject1": {
+          "category": "jumps1",
+          "clip_id": 19,
+          "clip_start": 184122,
+          "clip_end": 196343,
+          "frames": [
+            185282,
+            193243
+          ],
+          "csv_sha256": "3f55c1a0f87564044a71817d62dc2a40aa76332aa1cab3f1c817333a197c78c2"
+        },
+        "run2_subject1": {
+          "category": "run2",
+          "clip_id": 24,
+          "clip_start": 244570,
+          "clip_end": 256810,
+          "frames": [
+            253277,
+            253687
+          ],
+          "csv_sha256": "ae64767c4b4e8f59578c22c5848cefc569923fea8bd3755c8dfb02b5313773da"
+        },
+        "walk2_subject4": {
+          "category": "walk2",
+          "clip_id": 33,
+          "clip_start": 359380,
+          "clip_end": 371288,
+          "frames": [
+            359954,
+            370174
+          ],
+          "csv_sha256": "d8e8d0383a64f0277218c0c490d55e4fcc20bd14776c0c8772f38a0cd4b88679"
+        }
+      }
+    },
+    "test": {
+      "clips": [
+        "dance1_subject2",
+        "fallAndGetUp3_subject1",
+        "fight1_subject3",
+        "fightAndSports1_subject1",
+        "sprint1_subject4",
+        "walk1_subject5"
+      ],
+      "n_clips": 6,
+      "n_starts": 12,
+      "category_counts": {
+        "dance1": 1,
+        "fallAndGetUp3": 1,
+        "fight1": 1,
+        "fightAndSports1": 1,
+        "sprint1": 1,
+        "walk1": 1
+      },
+      "per_clip": {
+        "dance1_subject2": {
+          "category": "dance1",
+          "clip_id": 1,
+          "clip_start": 6574,
+          "clip_end": 13147,
+          "frames": [
+            7602,
+            7975
+          ],
+          "csv_sha256": "3c2d37391ab08af18224f7a63ea55f1cd83480bdec779c320acb4d0b3062633e"
+        },
+        "fallAndGetUp3_subject1": {
+          "category": "fallAndGetUp3",
+          "clip_id": 13,
+          "clip_start": 117767,
+          "clip_end": 122875,
+          "frames": [
+            121128,
+            122082
+          ],
+          "csv_sha256": "fc00701411a270a9ab61c321ba836ba36437c61630c65f8fe276ac851f23ccd7"
+        },
+        "fight1_subject3": {
+          "category": "fight1",
+          "clip_id": 15,
+          "clip_start": 135120,
+          "clip_end": 147363,
+          "frames": [
+            136906,
+            145418
+          ],
+          "csv_sha256": "013b7219ddbbb37d17483d2bd0c28ae3d4307c2fec6d4180feed27c65d2acfcd"
+        },
+        "fightAndSports1_subject1": {
+          "category": "fightAndSports1",
+          "clip_id": 17,
+          "clip_start": 159608,
+          "clip_end": 171864,
+          "frames": [
+            169562,
+            170895
+          ],
+          "csv_sha256": "076c2614df1a155e52c2b14074da8aa3b209176d930d2e3ffd059a9e9847fdc2"
+        },
+        "sprint1_subject4": {
+          "category": "sprint1",
+          "clip_id": 27,
+          "clip_start": 282708,
+          "clip_end": 296363,
+          "frames": [
+            283220,
+            293709
+          ],
+          "csv_sha256": "96d207b15323ef823274aa73ea1c2aaea7e98b4fe0f6de217332763bdf04ce00"
+        },
+        "walk1_subject5": {
+          "category": "walk1",
+          "clip_id": 30,
+          "clip_start": 322496,
+          "clip_end": 335561,
+          "frames": [
+            327439,
+            328201
+          ],
+          "csv_sha256": "5421216dfbd2f16a90b5a7a52d4530b6269f7f9407f7ccfd09b5e5d3a72117af"
+        }
+      }
+    }
+  },
+  "reserve_unused_clips": [
+    "dance1_subject1",
+    "dance2_subject1",
+    "dance2_subject3",
+    "dance2_subject4",
+    "dance2_subject5",
+    "fallAndGetUp2_subject3",
+    "walk3_subject1",
+    "walk3_subject5"
+  ],
+  "rules": [
+    "positive/negative branches, epsilons, prefix and continuation never cross splits",
+    "overlapping windows of one trajectory never cross splits",
+    "CVF-0 data is a historical diagnostic regression set only",
+    "Test split never participates in hyperparameter / alpha / horizon selection"
+  ],
+  "elapsed_s": 2.9
+}

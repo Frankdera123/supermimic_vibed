@@ -1,0 +1,13 @@
+{
+  "synthetic": true,
+  "n_all": 200,
+  "n_gated": 0,
+  "d2_all": {
+    "sign": 0.0,
+    "spearman": 0.01575339383484587,
+    "rmse": 0.23355751231016858,
+    "mag_ratio_median": 0.0,
+    "n": 200
+  },
+  "note": "fixture smoke of metric wiring only"
+}

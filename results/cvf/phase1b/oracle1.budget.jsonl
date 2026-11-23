@@ -1,0 +1,6 @@
+{"t": 3.4, "event": "start", "n_starts": 16, "clips": ["dance2_subject2", "fallAndGetUp1_subject1", "fight1_subject5", "fightAndSports1_subject4", "jumps1_subject5", "run2_subject4", "sprint1_subject2", "walk1_subject2"], "t_max": 128, "eps_grid": [0.015, 0.03]}
+{"t": 995.4, "event": "batch_done", "batch_idx": 0, "repeat_range": 0.0, "sim_clear_min": -0.005072140134871006, "sim_slack_min": 0.12209635972976685}
+{"t": 2030.6, "event": "batch_done", "batch_idx": 1, "repeat_range": 0.0, "sim_clear_min": -0.01377823855727911, "sim_slack_min": 0.0023569464683532715}
+{"t": 3033.2, "event": "batch_done", "batch_idx": 2, "repeat_range": 0.0, "sim_clear_min": -0.004034907557070255, "sim_slack_min": 0.061137765645980835}
+{"t": 3882.5, "event": "batch_done", "batch_idx": 3, "repeat_range": 0.0, "sim_clear_min": -0.0020385095849633217, "sim_slack_min": 0.1769479513168335}
+{"t": 3882.8, "event": "done", "n_batches": 4, "elapsed_s": 3882.8}

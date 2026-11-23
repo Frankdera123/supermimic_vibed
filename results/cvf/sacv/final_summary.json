@@ -1,0 +1,42 @@
+{
+  "schema": "sacv_final_summary_v1",
+  "updated_at": "2026-11-20 16:21:19",
+  "phase_A": {
+    "status": "COMPLETE",
+    "gpu_hours": 0.0,
+    "tests": "16/16 PASS",
+    "mother_verification": "VERIFIED"
+  },
+  "phase_B": {
+    "status": "COMPLETE",
+    "gpu_hours": 2.28,
+    "data": "44 starts (train24/val8/test12), 78848 transitions, R2 ladder, det=0.0"
+  },
+  "phase_C": {
+    "status": "COMPLETE",
+    "gpu_hours": 0.68,
+    "groups": "C1/C2(alpha_eff=74.4)/C0 x 500 steps matched, horizon T=96 frozen"
+  },
+  "phase_D": {
+    "status": "COMPLETE",
+    "gpu_hours": 0.0,
+    "verdict": "INCONCLUSIVE (neg-leaning): no fine-tune beats C-init; root cause = tail-dominated pair labels (99.5%+ variance), quantified in label_snr_decomposition.json"
+  },
+  "phase_E": {
+    "status": "NOT RUN (gates 2/5 failed)"
+  },
+  "gpu_total": {
+    "used": 2.96,
+    "cap": 6.0
+  },
+  "key_deliverable": "fixable label-contract flaw identified: scalar targets keep tail, pair targets must use Delta-G96",
+  "next_recommended": "CVF-1b-prime retrain (~2.5 GPU-h), see CVF_NEXT_DECISION.md",
+  "reports": [
+    "docs/cvf/sacv/CVF1B_CRITIC_RESULTS.md",
+    "docs/cvf/sacv/CVF1B_MECHANISM_ANALYSIS.md",
+    "docs/cvf/sacv/CVF2A_POLICY_RESULTS.md",
+    "docs/cvf/sacv/CVF_OVERNIGHT_RESEARCH_REPORT.md",
+    "docs/cvf/sacv/CVF_NEXT_DECISION.md",
+    "docs/cvf/sacv/OVERNIGHT_PROGRESS.md"
+  ]
+}
