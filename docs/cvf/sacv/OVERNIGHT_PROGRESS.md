@@ -151,3 +151,45 @@ Test 未参与，属预注册事前调整）。
 `CVF2A_POLICY_RESULTS.md`（NOT RUN）、`CVF_OVERNIGHT_RESEARCH_REPORT.md`（Q1–Q8）、
 `CVF_NEXT_DECISION.md`（CVF-1b′ 修正标签合同重训，≈2.5 GPU-h）。
 `final_summary.json` 已更新。
+
+---
+
+## 会话 4：2026-11-23（勘误、修正重跑、仓库整理与研究路线图）
+
+### 触发
+用户要求整理仓库并梳理研究路线。整理前的例行审计（"审计 CVF-1b 实现是否与预注册
+合同一致"）发现 v1 对照实验存在状态-标签错位：critic 被评在续推结束状态 x_{H+96}，
+而全部标签定义在前缀末端 x_H；且 `Delta_Y` 字段实际存的是 ΔG。**v1 结果无效**，
+已发布结论撤回。
+
+### 执行
+1. **勘误**：`CVF1B_ERRATUM.md`（7 项缺陷清单、数据复核表、预评估承诺——含初始化
+   测量 L_value=0.649/L_pair=0.099/梯度范数比 1:519，以及修正后的 α 尺度定义
+   gradmatch）。v1 产物原地保留，修正版写入 `datasets/v2/`、`checkpoints/v2/`、
+   `metrics/v2/`（schema 带 v2，加载时 fail-closed）。
+2. **修正重跑**（GPU ≈0.08）：builder v2 + C0 WM 目标 + C1/C0/C2gm{01,03,10}/C2sig03
+   ×1000 步（输入预计算后每组 ~2 分钟）+ 新回归测试 4 项（20/20 全绿，含
+   `test_pairs_v2_state_label_alignment`：从原始步记录独立重算每个标签）。
+3. **评估**（预评估承诺内）：Val 选择 + Test 一次性盲评 + 非 circular ΔG 口径 +
+   剂量效应 + autograd/FD 对照 + 跨时域目标可靠性。裁定 **INCONCLUSIVE（负面倾向）**：
+   无组超过 C-init 的方向响应；C1 的 Val 小幅改善不迁移；C2 有害（剂量效应）；
+   Sim 标量锚定改善 held-out 标量价值（Test −27% RMSE）为唯一稳健正面结果；
+   T=96 ΔG 在新 clip 上与短时域信号失相关（sp +0.45）→ 噪声天花板假说。
+   Phase E 门禁再失败，NOT RUN。结果：`CVF1B_CRITIC_RESULTS_V2.md`。
+4. **研究线核对**：CRGF/OPCL 与 PADA 由子代理逐文档核对完成（发现：CRGF NO-GO 判据
+   只统计 delta-critic 路径、gate 剔除率越线未降级、survival 索引差一步、GPU 账目
+   ±0.2h；PADA-0A 把提交版"偏 YES"降级为不成立、其产物未提交）。concurrent 线的
+   核对代理两次失败（一次继承主模型触发 5h 限额），改由主线自读核心决策文档，
+   `wm_only_iters` 覆盖问题列为待核实项（train.py:347 默认 500 vs 线内自称 5）。
+5. **仓库整理**（保守）：新增 `docs/README.md`（docs 导航 + 根目录散页家族索引）、
+   `docs/RESEARCH_ROADMAP.md`（五线综合路线图）、README 增 "Research lines" 指针；
+   补交 PADA-0A 未跟踪产物（audit md + 2 工具 + offline_audit 结果）与
+   `crgf_proto/data` 符号链接（crgf README 文档化的 setup 步骤）。docs 根 ~336 个
+   JSON **保持原位**（是 concurrent_exploration.md 的相对引用底座，移动会断链）。
+
+### 资源结算（会话 4）
+GPU ≈0.08；其余 CPU。测试 20/20。
+
+### 状态
+CVF 线按 `CVF_NEXT_DECISION.md`（2026-11-23 修订版）暂停在"T=96 噪声天花板量化"
+（0 GPU-h，数据在盘）之前；仓库整理完成并推送。

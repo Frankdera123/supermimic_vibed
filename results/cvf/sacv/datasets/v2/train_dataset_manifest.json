@@ -1,0 +1,84 @@
+{
+  "schema": "sacv_dataset_manifest_v2",
+  "split": "train",
+  "generated_at": "2026-11-23 19:04:53",
+  "n_pairs": 432,
+  "n_starts": 24,
+  "per_horizon_pairs": {
+    "32": 144,
+    "64": 144,
+    "96": 144
+  },
+  "n_clips": 12,
+  "n_pairs_single_sided_term_h96": 6,
+  "n_pairs_either_side_term_h96": 24,
+  "label_composition_h96": {
+    "ascent": {
+      "n": 24,
+      "std_DeltaG": 0.08546870818878512,
+      "std_DeltaY": 0.2156328801649425,
+      "tail_var_over_signal_var": 4.9717008528671665
+    },
+    "delta_2100": {
+      "n": 48,
+      "std_DeltaG": 0.05356364901063552,
+      "std_DeltaY": 0.3007101139910241,
+      "tail_var_over_signal_var": 27.376609279006477
+    },
+    "delta_2300": {
+      "n": 48,
+      "std_DeltaG": 0.0673830181189335,
+      "std_DeltaY": 0.3921897121877003,
+      "tail_var_over_signal_var": 30.405303403153884
+    },
+    "random": {
+      "n": 24,
+      "std_DeltaG": 0.04194396972627928,
+      "std_DeltaY": 0.2231124012992496,
+      "tail_var_over_signal_var": 25.98003918132418
+    }
+  },
+  "raw_batches": [
+    {
+      "file": "batch_0000.pt",
+      "sha256": "40e91590b382ae5bd9a36f2689c5300275b40d780d5d50c89d55e2c07113a5d4"
+    },
+    {
+      "file": "batch_0004.pt",
+      "sha256": "4409ed486e069a58475ce2f3980b51fdb45a0adf03077a07811458935d27a943"
+    },
+    {
+      "file": "batch_0008.pt",
+      "sha256": "b2ac345c30d30d570cedb756a62801d548706a72ca01fe460361de8c0e6feb28"
+    },
+    {
+      "file": "batch_0012.pt",
+      "sha256": "cbc396925e061d1240e3e18a395c1da6216f8d87f7836e9a9ee2f3186d50f693"
+    },
+    {
+      "file": "batch_0016.pt",
+      "sha256": "ac3ee9079582502ab9be01065290bf5181f14746470b6e575790f93cb2718269"
+    },
+    {
+      "file": "batch_0020.pt",
+      "sha256": "7b9a5f775f5158e8f8d330e90698fac8fd9480703711653a6bade18cf655a31c"
+    }
+  ],
+  "outputs": {
+    "pairs": {
+      "file": "train_pairs.pt",
+      "sha256": "642cfc8cdd42c3bfeead6285c59cee2bb2d8d140f1c7e5603d19381b46efe3ff"
+    },
+    "scalars": {
+      "file": "train_scalars.pt",
+      "sha256": "eaf4cddadcc5c120252f5569a58f4758135680e7eb77ad3054df99b9dfa6a942"
+    }
+  },
+  "reliability": {
+    "reward_reconstruction_max": 2.9802322387695312e-08,
+    "g_recalc_max": 3.7841778528502346e-06
+  },
+  "base_repeat_range_max": 0.0,
+  "v_ref": "pair_it_002100.pt[critic_post] (frozen C-init), evaluated on true sim state x_{H+T}",
+  "elapsed_s": 15.0
+}

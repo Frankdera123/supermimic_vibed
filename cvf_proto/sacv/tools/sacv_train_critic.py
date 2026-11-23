@@ -1,21 +1,26 @@
-"""CVF-1a Phase C: Critic fine-tuning under frozen supervision groups (GPU; APPROVED-gated).
+"""CVF-1a Phase C: Critic fine-tuning under frozen supervision groups (GPU; APPROVED=true).
 
-Groups (protocol §1): C1 = sim scalar, C2 = sim scalar + alpha*pair, C0 = WM scalar.
-All groups start from the SAME frozen C-init (B0@2100_post), share the frozen
-RunningNorm (eval mode, never updated), lr=2e-4 Adam (original config), identical
-batch schedule and RNG stream, and differ ONLY in the supervision signal.
+v2 (2026-11-23) -- corrected contract: the critic is evaluated at the prefix-end
+state x_H (datasets/v2, schema sacv_pairs_v2), where the labels are defined and
+where the policy update bootstraps.  v1 trained/evaluated at x_{H+T} and is INVALID
+(docs/cvf/sacv/CVF1B_ERRATUM.md).  v1 refuses to load here (fail-closed).
 
-C0 targets: WM closed-loop continuation from the SAME real branch-end states with
-the same V_ref tail contract (precomputed via --gen_wm_targets into
-train_wm_targets.pt).  WM and Policy are never trained here (single-module optimizer).
+Groups (protocol sec. 1), all from the SAME frozen C-init (B0@2100_post):
+  C1  L_value = 1/2 E[(V+ - Y+)^2 + (V- - Y-)^2]           real-simulator scalar targets
+  C2  L = L_value + alpha * L_pair / sigma^2(Delta Y_train)  + explicit pair term
+  C0  L_value with Y replaced by Y_WM (WM closed-loop continuation from the SAME x_H,
+      same frozen V_ref tail contract)
+Frozen everywhere: WM, pi_old, Critic RunningNorm (never updated), architecture, lr,
+optimizer config, sampling stream.  Matched steps / batch / sample exposure / init.
 
-Checkpoints carry parent hash / split hash / config / seed / steps / loss defs /
-validation probes, per protocol §6.
+The pair scale is the registered definition (1 / sigma^2 of the TRUE Delta Y on the
+Train split, frozen once).  The init measurement the protocol asks for -- value loss,
+pair loss and their critic-parameter gradient norms -- is computed before training and
+stored in every checkpoint (``init_scales``).
 """
 from __future__ import annotations
 
 import argparse
-import copy
 import hashlib
 import json
 import sys
@@ -35,12 +40,13 @@ import torch  # noqa: E402
 
 sys.path.insert(0, str(_SACV))
 from sacv.losses import value_losses as L  # noqa: E402
-from sacv.losses import targets as vt  # noqa: E402
 from sacv.evaluation import metrics as M  # noqa: E402
 
 GAMMA = 0.99
-PRIMARY_H = 96            # frozen by data-contract §4.4 rule (confirm on Val before training)
-CKPT_STEPS = (250, 500, 1000, 2000)
+PRIMARY_H = 96            # frozen by data-contract sec. 4.4 rule
+CKPT_STEPS = (250, 500, 1000)
+PAIRS_SCHEMA = "sacv_pairs_v2"
+C_INIT_SHA256 = "65118115d917958430279afc5ffc37a8666c52104bcea3f10d4de1ae8bd73f54"
 
 
 def sha256_file(p: Path) -> str:
@@ -53,24 +59,31 @@ def sha256_file(p: Path) -> str:
 
 def load_pairs(path: Path, horizon: int) -> list[dict]:
     d = torch.load(path, map_location="cpu", weights_only=False)
+    if d.get("schema") != PAIRS_SCHEMA:
+        raise SystemExit(f"{path.name}: schema {d.get('schema')!r} != {PAIRS_SCHEMA!r} "
+                         "(v1 datasets are INVALID: critic state was x_{H+T}, see ERRATUM)")
     return [p for p in d["pairs"] if p["horizon"] == horizon]
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--group", choices=("C1", "C2", "C0"), required=True)
-    ap.add_argument("--alpha", type=float, default=0.3, help="C2 pair weight (protocol §1)")
+    ap.add_argument("--alpha", type=float, default=0.3, help="C2 pair weight (protocol sec. 1)")
     ap.add_argument("--steps", type=int, default=1000)
     ap.add_argument("--batch", type=int, default=128)
     ap.add_argument("--lr", type=float, default=2e-4)
     ap.add_argument("--seed", type=int, default=2700)
     ap.add_argument("--horizon", type=int, default=PRIMARY_H)
-    ap.add_argument("--datasets", type=Path, default=_REPO / "results/cvf/sacv/datasets")
-    ap.add_argument("--out_dir", type=Path, default=_REPO / "results/cvf/sacv/checkpoints")
-    ap.add_argument("--pair_sigma", type=float, default=None,
-                    help="frozen sigma(Delta Y) normalizer; if unset, computed from Train once")
+    ap.add_argument("--datasets", type=Path, default=_REPO / "results/cvf/sacv/datasets/v2")
+    ap.add_argument("--raw_root", type=Path, default=_REPO / "results/cvf/sacv/datasets/raw")
+    ap.add_argument("--out_dir", type=Path, default=_REPO / "results/cvf/sacv/checkpoints/v2")
     ap.add_argument("--gen_wm_targets_only", action="store_true")
+    ap.add_argument("--pair_scale_mode", choices=("sigma2", "gradmatch"), default="gradmatch")
+    ap.add_argument("--tag", default=None,
+                    help="variant name stored in checkpoints and used in file names "
+                         "(e.g. C2gm03); defaults to the group name")
     args = ap.parse_args()
+    args.name = args.tag or args.group
     dev = "cuda:0" if torch.cuda.is_available() else "cpu"
 
     import pada_bridge as bridge
@@ -78,15 +91,13 @@ def main() -> int:
     bridge.import_stack()
     bridge.fix_paths()
     from supermimic.mdp import normalize_xi, unflatten_state
+    from supermimic.networks import Critic
 
     pair2100 = bridge.load_pair_bundle("online_B0", 2100, device=dev)
     world = bridge.setup_world(device=dev, pair=pair2100)
     proto, wm, pi_old = world["proto"], pair2100["wm"], pair2100["pi_old"]
-    from supermimic.networks import Critic
-
-    raw2100 = torch.load(bridge.pairs_root() / "online_B0/diag_pairs/pair_it_002100.pt",
-                         map_location="cpu", weights_only=False)
-    v_ref_sd = raw2100["critic_post"]           # C-init (bridge's "critic" == pre)
+    v_ref_sd = torch.load(bridge.pairs_root() / "online_B0/diag_pairs/pair_it_002100.pt",
+                          map_location="cpu", weights_only=False)["critic_post"]   # C-init
     v_ref = Critic(v_ref_sd["norm.mean"].shape[0])
     v_ref.load_state_dict(v_ref_sd, strict=True)
     v_ref.eval().to(dev)
@@ -98,127 +109,139 @@ def main() -> int:
     if not train or not val:
         print(json.dumps({"error": "empty dataset - run sacv_build_dataset.py first"}))
         return 1
-    train_path = args.datasets / "train_pairs.pt"
-    split_sha = sha256_file(train_path)
+    split_sha = sha256_file(args.datasets / "train_pairs.pt")
 
-    # raw-batch cache for extended-state fetching during training
-    snaps: dict[str, dict] = {}
+    raw_cache: dict[str, dict] = {}
 
-    def eval_vref(S, f, a_prev):
-        with torch.no_grad():
-            gw = proto.wm_goal(f, S)
-            return v_ref(proto.critic_input(S, f, xi_n, gw))
+    def branch_of(pref: dict) -> tuple[dict, int]:
+        if pref["batch"] not in raw_cache:
+            raw_cache[pref["batch"]] = torch.load(
+                next(args.raw_root.rglob(pref["batch"])), map_location="cpu", weights_only=False)
+        b = raw_cache[pref["batch"]]
+        br = b["branches"][pref["branch"]] if pref["branch"] != "base0" else b["base_res"][0]
+        return br, pref["slot"]
 
-    # ---------------- C0 target generation --------------------------------
+    def critic_row(pref: dict) -> torch.Tensor:
+        """Critic input row (1, 938) at the prefix-end state x_H (fail-closed)."""
+        if pref.get("snap_group") != "snaps_prefix" or pref.get("snap_key") != "prefix_32":
+            raise SystemExit(f"pair state is not x_H: {pref}")
+        br, slot = branch_of(pref)
+        snap = br["snaps_prefix"][pref["snap_key"]]
+        S = unflatten_state(snap["S_flat"][slot:slot + 1].to(dev))   # proto lives on dev
+        f = snap["f"][slot:slot + 1].to(dev)
+        return proto.critic_input(S, f, xi_n, proto.wm_goal(f, S))
+
+    with torch.no_grad():
+        X_tr_p = torch.cat([critic_row(p["state_plus"]) for p in train], 0)
+        X_tr_m = torch.cat([critic_row(p["state_minus"]) for p in train], 0)
+        X_va_p = torch.cat([critic_row(p["state_plus"]) for p in val], 0)
+        X_va_m = torch.cat([critic_row(p["state_minus"]) for p in val], 0)
+    f64 = lambda xs: torch.tensor(xs, device=dev, dtype=torch.float64)  # noqa: E731
+    y_tr_p, y_tr_m = f64([p["Y_plus"] for p in train]), f64([p["Y_minus"] for p in train])
+    dG_tr, dY_tr = f64([p["Delta_G"] for p in train]), f64([p["Delta_Y"] for p in train])
+    dG_va, dY_va = f64([p["Delta_G"] for p in val]), f64([p["Delta_Y"] for p in val])
+    y_va = torch.cat([f64([p["Y_plus"] for p in val]), f64([p["Y_minus"] for p in val])])
+
+    # ---- init measurement (protocol sec. 1 / C4): loss magnitudes and gradient norms
+    def init_scales() -> dict:
+        c = Critic(v_ref_sd["norm.mean"].shape[0]).to(dev)
+        c.load_state_dict(v_ref_sd, strict=True)
+        v = c(torch.cat([X_tr_p, X_tr_m], 0))
+        vp, vm = v[:len(train)], v[len(train):]
+        l_val = L.value_loss(vp, vm, y_tr_p, y_tr_m)
+        l_pair = L.pair_loss(vp, vm, y_tr_p, y_tr_m)
+        params = list(c.parameters())
+        g_v = torch.autograd.grad(l_val, params, retain_graph=True)
+        g_p = torch.autograd.grad(l_pair, params)
+        n = lambda g: float(torch.sqrt(sum((x.double() ** 2).sum() for x in g)))  # noqa: E731
+        cos = float(sum((a.double() * b.double()).sum() for a, b in zip(g_v, g_p))
+                    / max(n(g_v) * n(g_p), 1e-12))
+        d = vp - vm   # predicted pair response Delta V = V(x_H+) - V(x_H-)
+        return {"train_value_loss": float(l_val), "train_pair_loss": float(l_pair),
+                "train_pair_over_value": float(l_pair / l_val),
+                "grad_norm_value": n(g_v), "grad_norm_pair": n(g_p),
+                "grad_norm_pair_over_value": n(g_p) / max(n(g_v), 1e-12),
+                "grad_cos_value_pair": cos,
+                "init_pair_vs_dG": M.direction_metrics(d, dG_tr),
+                "init_pair_vs_dY": M.direction_metrics(d, dY_tr)}
+
+    scales = init_scales()
+    print(json.dumps({"init_scales": scales}), flush=True)
+
+    # ---- pair-loss scale, frozen once from the Train init measurement above (ERRATUM sec. 5)
+    #   sigma2   : 1 / sigma^2(Delta Y_train)   -- the v1 protocol's literal definition
+    #   gradmatch: g_value^0 / g_pair^0         -- alpha = pair share of the value gradient norm
+    sigma_dy = float(dY_tr.std().clamp_min(1e-8))
+    if args.pair_scale_mode == "gradmatch":
+        pair_scale = scales["grad_norm_value"] / max(scales["grad_norm_pair"], 1e-12)
+    else:
+        pair_scale = 1.0 / (sigma_dy ** 2)
+    print(json.dumps({"sigma_dy": sigma_dy, "pair_scale": pair_scale,
+                      "pair_scale_mode": args.pair_scale_mode, "alpha": args.alpha,
+                      "alpha_eff": args.alpha * pair_scale}), flush=True)
+
+    # ---------------- C0 targets (WM continuation from the SAME x_H) ----------------
     if args.group == "C0" or args.gen_wm_targets_only:
         wm_targets_path = args.datasets / f"train_wm_targets_h{args.horizon}.pt"
         if args.gen_wm_targets_only or not wm_targets_path.exists():
-            gen = _gen_wm_targets(train, proto, wm, pi_old, v_ref, xi_one, dev, args.horizon)
-            torch.save({"schema": "sacv_wm_targets_v1", "horizon": args.horizon,
-                        "targets": gen}, wm_targets_path)
+            gen = _gen_wm_targets(train, proto, wm, pi_old, v_ref, xi_one, dev, args.horizon,
+                                  args.raw_root)
+            torch.save({"schema": "sacv_wm_targets_v2", "horizon": args.horizon,
+                        "start_state": "snaps_prefix/prefix_32 (x_H)", "targets": gen},
+                       wm_targets_path)
             print(json.dumps({"wm_targets": len(gen), "out": str(wm_targets_path)}))
             if args.gen_wm_targets_only:
                 return 0
-    wm_t = None
-    if args.group == "C0":
         wm_t = torch.load(wm_targets_path, map_location="cpu", weights_only=False)["targets"]
         assert len(wm_t) == len(train), f"wm targets {len(wm_t)} != train pairs {len(train)}"
-        for p, rec in zip(train, wm_t):   # merge by pair order (generator preserved order)
-            p["Y_wm_plus"] = rec["Y_wm_plus"]
-            p["Y_wm_minus"] = rec["Y_wm_minus"]
+        y_tr_p = f64([rec["Y_wm_plus"] for rec in wm_t])
+        y_tr_m = f64([rec["Y_wm_minus"] for rec in wm_t])
 
-    # ---------------- training --------------------------------------------
+    # ---------------- training -------------------------------------------------------
     torch.manual_seed(args.seed)
     critic = Critic(v_ref_sd["norm.mean"].shape[0])
     critic.load_state_dict(v_ref_sd, strict=True)
     critic = critic.to(dev)
-    critic.train()                      # modules in train mode; RunningNorm NEVER updated
     for p in critic.parameters():
         p.requires_grad_(True)
-    opt = torch.optim.Adam(critic.parameters(), lr=args.lr)  # original optimizer config
+    opt = torch.optim.Adam(critic.parameters(), lr=args.lr, betas=(0.9, 0.999))
     g = torch.Generator().manual_seed(args.seed)
-    order = torch.randperm(len(train), generator=g)
-
-    # frozen pair-scale normalizer (protocol §1): computed once from Train, never updated
-    sigma_dy = args.pair_sigma or float(torch.tensor([p["Delta_Y"] for p in train]).double().std().clamp_min(1e-8))
-    pair_scale = 1.0 / (sigma_dy ** 2)
-
-    def state_tensors(pkey: str, pref: dict):
-        """Fetch one branch-end extended state as tensors on dev."""
-        if pref["batch"] not in snaps:
-            snaps[pref["batch"]] = torch.load(_batch_path(pref["batch"]), map_location="cpu",
-                                              weights_only=False)
-        batch = snaps[pref["batch"]]
-        br = batch["branches"].get(pref["branch"]) if pref["branch"] != "base0" \
-            else batch["base_res"][0]
-        snap = br["snaps_cont"][pref["snap_key"]]
-        slot = pref["slot"]
-        S = unflatten_state(snap["S_flat"][slot:slot + 1].to(dev))
-        f_t = snap["f"][slot:slot + 1].to(dev)
-        ap_t = snap["a_prev"][slot:slot + 1].to(dev)
-        return S, f_t, ap_t
-
-    def _batch_path(name: str) -> Path:
-        return next((args.datasets / "raw").rglob(name))
-
-    def v_of(pref: dict):
-        S, f_t, ap_t = state_tensors("x", pref)
-        gw = proto.wm_goal(f_t, S)
-        vin = proto.critic_input(S, f_t, xi_n, gw)
-        return critic(vin), vin
 
     def val_probe() -> dict:
         critic.eval()
-        errs, signs, dys, dvs = [], [], [], []
         with torch.no_grad():
-            for p in val[:256]:
-                vp, _ = v_of(p["snap_plus"])
-                vm, _ = v_of(p["snap_minus"])
-                errs.append((float(vp) - p["Y_plus"], float(vm) - p["Y_minus"]))
-                dys.append(p["Y_plus"] - p["Y_minus"])
-                dvs.append(float(vp) - float(vm))
+            vp, vm = critic(X_va_p), critic(X_va_m)
         critic.train()
-        e = torch.tensor(errs)
-        rmse = float(torch.sqrt((e ** 2).mean()))
-        dys_t, dvs_t = torch.tensor(dys), torch.tensor(dvs)
-        return {"val_value_rmse": rmse, "val_pair_sign": M.sign_agreement(dvs_t, dys_t),
-                "val_pair_spearman": M.spearman(dvs_t, dys_t), "n_val": len(errs)}
+        res = {"val_value_rmse_vsY": float(torch.sqrt(0.5 * ((vp.double() - y_va[:len(val)]) ** 2
+                                                             + (vm.double() - y_va[len(val):]) ** 2).mean()))}
+        for tag, ref in (("dY", dY_va), ("dG", dG_va)):
+            m = M.direction_metrics(vp - vm, ref)
+            res[f"val_pair_{tag}"] = {"sign": m["sign"], "spearman": m["spearman"],
+                                      "rmse": m["rmse"], "ratio": m["mag_ratio_median"]}
+        return res
 
-    log_rows = []
+    log_rows: list[dict] = []
     t0 = time.time()
     cursor = 0
+    order = torch.randperm(len(train), generator=g)
     for step in range(1, args.steps + 1):
         if cursor + args.batch > len(order):
             order = torch.randperm(len(train), generator=g)
             cursor = 0
-        idx = order[cursor: cursor + args.batch]
+        idx = order[cursor: cursor + args.batch].to(dev)
         cursor += args.batch
-        samples = [train[i] for i in idx.tolist()]
-        v_ps, v_ms, y_ps, y_ms = [], [], [], []
-        rows = []
-        for smp in samples:
-            for side in ("snap_plus", "snap_minus"):
-                S_b, f_b, ap_b = state_tensors("x", smp[side])
-                gw_b = proto.wm_goal(f_b, S_b)
-                rows.append(proto.critic_input(S_b, f_b, xi_n, gw_b))
-            if args.group == "C0":
-                y_ps.append(smp["Y_wm_plus"]); y_ms.append(smp["Y_wm_minus"])
-            else:
-                y_ps.append(smp["Y_plus"]); y_ms.append(smp["Y_minus"])
-        X = torch.cat(rows, 0)                      # (2B, 938) single forward
-        v = critic(X)
-        v_ps, v_ms = v[0::2], v[1::2]
-        y_ps = torch.tensor(y_ps, device=dev, dtype=torch.float64)
-        y_ms = torch.tensor(y_ms, device=dev, dtype=torch.float64)
+        n = len(idx)
+        v = critic(torch.cat([X_tr_p[idx], X_tr_m[idx]], 0))
+        v_ps, v_ms = v[:n], v[n:]
+        y_ps, y_ms = y_tr_p[idx], y_tr_m[idx]
         if args.group == "C0":
-            loss = ((v_ps.double() - y_ps) ** 2).mean() + ((v_ms.double() - y_ms) ** 2).mean()
+            loss = L.wm_scalar_loss(torch.cat([v_ps, v_ms], 0), torch.cat([y_ps, y_ms], 0))
             comp = {"value": loss.detach(), "pair": torch.zeros((), device=dev)}
         elif args.group == "C1":
-            lv = L.value_loss(v_ps, v_ms, y_ps, y_ms)
-            loss, comp = lv, {"value": lv.detach(), "pair": torch.zeros((), device=dev)}
+            loss = L.value_loss(v_ps, v_ms, y_ps, y_ms)
+            comp = {"value": loss.detach(), "pair": torch.zeros((), device=dev)}
         else:  # C2
-            c = L.combined_loss(v_ps, v_ms, y_ps, y_ms,
-                                alpha=args.alpha * pair_scale if args.alpha else 0.0)
+            c = L.combined_loss(v_ps, v_ms, y_ps, y_ms, alpha=args.alpha * pair_scale)
             loss, comp = c["loss"], {k: c[k].detach() for k in ("value", "pair")}
         opt.zero_grad(set_to_none=True)
         loss.backward()
@@ -234,41 +257,50 @@ def main() -> int:
             print(json.dumps({"step": step, "loss": float(loss), "grad_norm": gn, **vp,
                               "elapsed_s": round(time.time() - t0, 1)}), flush=True)
         if step in CKPT_STEPS:
-            _save_ckpt(critic, opt, args, step, split_sha, sigma_dy, log_rows,
-                       val_probe(), pair2100, args.out_dir)
+            _save_ckpt(critic, opt, args, step, split_sha, sigma_dy, pair_scale, scales, log_rows,
+                       val_probe(), args.out_dir)
 
     final = val_probe()
-    out_meta = {"group": args.group, "alpha": args.alpha, "pair_scale": pair_scale,
-                "sigma_dy": sigma_dy, "steps": args.steps, "final_val": final,
-                "train_sha256": split_sha}
-    (args.out_dir / f"{args.group}_h{args.horizon}_meta.json").write_text(json.dumps(out_meta, indent=2))
-    print(json.dumps({"done": args.group, **out_meta}))
+    out_meta = {"schema": "sacv_critic_meta_v2", "name": args.name, "group": args.group,
+                "alpha": args.alpha, "pair_scale": pair_scale,
+                "pair_scale_mode": args.pair_scale_mode,
+                "alpha_eff": args.alpha * pair_scale, "sigma_dy": sigma_dy, "steps": args.steps,
+                "contract": "critic at x_H; Y_T = G_T + gamma^T c_T V_ref(x_{H+T})",
+                "init_scales": scales, "final_val": final, "train_sha256": split_sha}
+    args.out_dir.mkdir(parents=True, exist_ok=True)
+    (args.out_dir / f"{args.name}_h{args.horizon}_s{args.seed}_meta.json").write_text(
+        json.dumps(out_meta, indent=2))
+    print(json.dumps({"done": args.name, "final_val": final}))
     return 0
 
 
-def _save_ckpt(critic, opt, args, step, split_sha, sigma_dy, log_rows, val, pair2100,
+def _save_ckpt(critic, opt, args, step, split_sha, sigma_dy, pair_scale, scales, log_rows, val,
                out_dir: Path):
     out_dir.mkdir(parents=True, exist_ok=True)
-    path = out_dir / f"{args.group}_h{args.horizon}_s{step:04d}.pt"
+    path = out_dir / f"{args.name}_h{args.horizon}_s{args.seed}_{step:04d}.pt"
     torch.save({
-        "schema": "sacv_critic_ckpt_v1", "group": args.group, "alpha": args.alpha,
+        "schema": "sacv_critic_ckpt_v2", "name": args.name, "group": args.group,
+        "alpha": args.alpha, "pair_scale": pair_scale, "pair_scale_mode": args.pair_scale_mode,
+        "alpha_eff": args.alpha * pair_scale,
         "steps": step, "horizon": args.horizon, "seed": args.seed, "lr": args.lr,
+        "contract": "critic at x_H; Y_T = G_T + gamma^T c_T V_ref(x_{H+T})",
         "critic": critic.state_dict(), "optimizer": opt.state_dict(),
-        "parent": {"bundle": "pair_it_002100.pt",
-                   "critic_post_sha256": "65118115d917958430279afc5ffc37a8666c52104bcea3f10d4de1ae8bd73f54"},
+        "normalizer": "RunningNorm buffers frozen (C-init values; never updated)",
+        "parent": {"bundle": "pair_it_002100.pt", "critic_post_sha256": C_INIT_SHA256},
         "train_split_sha256": split_sha, "sigma_dy": sigma_dy,
         "loss_defs": {"C1": "0.5*E[(V+ - Y+)^2 + (V- - Y-)^2]",
-                      "C2": "C1 + alpha*pair_scale*E[((V+ - V-) - (Y+ - Y-))^2]",
-                      "C0": "E[(V - Y_wm)^2]"}[args.group],
-        "val_probe": val, "log_tail": log_rows[-50:],
+                      "C2": "C1 + alpha*pair_scale*E[((V+ - V-) - (Y+ - Y-))^2] (pair_scale_mode: sigma2 -> 1/sigma^2(DeltaY_train); gradmatch -> g_value^0/g_pair^0)",
+                      "C0": "E[(V - Y_WM)^2] over both branches (Y_WM: WM continuation from x_H)"}[args.group],
+        "init_scales": scales, "val_probe": val, "log_tail": log_rows[-50:],
     }, path)
-    path.with_suffix(".sha256").write_text(sha256_file(path))
+    path.with_suffix(".sha256").write_text(sha256_file(path) + "\n")
     print(json.dumps({"ckpt": str(path)}), flush=True)
 
 
-def _gen_wm_targets(train, proto, wm, pi_old, v_ref, xi_one, dev, horizon: int) -> list[dict]:
-    """Y_WM for C0: WM closed-loop continuation from the SAME real branch-end states,
-    with the SAME gamma^T c_T V_ref(ŝ_T^WM) tail contract (data-contract §4.3)."""
+def _gen_wm_targets(train, proto, wm, pi_old, v_ref, xi_one, dev, horizon: int,
+                    raw_root: Path) -> list[dict]:
+    """Y_WM for C0: WM closed-loop continuation from the SAME real prefix-end states x_H
+    (with their recorded o_hist / a_prev), same gamma^T c_T V_ref(sh_T^WM) tail contract."""
     from supermimic.mdp import normalize_xi, unflatten_state
 
     raw_cache: dict[str, dict] = {}
@@ -276,56 +308,39 @@ def _gen_wm_targets(train, proto, wm, pi_old, v_ref, xi_one, dev, horizon: int) 
 
     def batch_of(name: str) -> dict:
         if name not in raw_cache:
-            path = next((_REPO / "results/cvf/sacv/datasets/raw").rglob(name))
-            raw_cache[name] = torch.load(path, map_location="cpu", weights_only=False)
+            raw_cache[name] = torch.load(next(raw_root.rglob(name)), map_location="cpu",
+                                         weights_only=False)
         return raw_cache[name]
 
-    xi_one_b = xi_one
     out = []
     for p in train:
         for side in ("plus", "minus"):
-            pref = p[f"snap_{side}"]
-            batch = batch_of(pref["batch"])
-            br = batch["branches"].get(pref["branch"]) if pref["branch"] != "base0" \
-                else batch["base_res"][0]
-            snap = br["snaps_cont"][pref["snap_key"]]
+            pref = p[f"state_{side}"]
+            if pref.get("snap_group") != "snaps_prefix" or pref.get("snap_key") != "prefix_32":
+                raise SystemExit(f"pair state is not x_H: {pref}")
+            b = batch_of(pref["batch"])
+            br = b["branches"][pref["branch"]] if pref["branch"] != "base0" else b["base_res"][0]
+            snap = br["snaps_prefix"][pref["snap_key"]]
             slot = pref["slot"]
             S = tuple(x[slot:slot + 1].to(dev) for x in unflatten_state(snap["S_flat"]))
-            f0 = snap["f"][slot:slot + 1].to(dev)
-            a_prev = snap["a_prev"][slot:slot + 1].to(dev)
+            f = snap["f"][slot:slot + 1].to(dev)
+            ap = snap["a_prev"][slot:slot + 1].to(dev)
             oh = snap["o_hist"][slot:slot + 1].to(dev)
-            o_cur = proto.obs(S, a_prev, xi_one_b, f0)
-            o_hist = torch.cat((oh[:, :-1], o_cur.unsqueeze(1)), 1)
             c_soft = torch.ones(1, device=dev)
             G = torch.zeros(1, device=dev)
-            S_c = S
-            f_c = f0.clone()
-            ap = a_prev
-            oh_c = o_hist
             with torch.no_grad():
                 for k in range(horizon):
-                    ag = proto.actor_goal(f_c, S_c)
-                    a = torch.clamp(pi_old(oh_c, ag), -20.0, 20.0)
-                    S_c = tuple(proto.wm_step(wm, S_c, a, xi_n))
-                    f_c = f_c + 1
-                    r = proto.mdp.reward(S_c, f_c, a, ap)
-                    ds = proto.mdp.soft_termination(S_c, f_c)
-                    G = G + (GAMMA ** k) * c_soft * r
-                    c_soft = c_soft * (1.0 - ds)
+                    a = torch.clamp(pi_old(oh, proto.actor_goal(f, S)), -20.0, 20.0)
+                    S = tuple(proto.wm_step(wm, S, a, xi_n))
+                    f = f + 1
+                    G = G + (GAMMA ** k) * c_soft * proto.mdp.reward(S, f, a, ap)
+                    c_soft = c_soft * (1.0 - proto.mdp.soft_termination(S, f))
                     ap = a
-                    oh_c = torch.cat((oh_c[:, 1:], proto.obs(S_c, a, xi_one_b, f_c).unsqueeze(1)), 1)
-                gw_end = proto.wm_goal(f_c, S_c)
-                v_tail = v_ref(proto.critic_input(S_c, f_c, xi_n, gw_end))
-            y_wm = float(G + (GAMMA ** horizon) * c_soft * v_tail)
-            out.append({"pair_idx": len(out) // 2, "side": side, "Y_wm": y_wm})
-    # regroup per pair
-    regrouped = [{} for _ in range(len(out) // 2)]
-    for rec in out:
-        regrouped[rec["pair_idx"]]["Y_wm_" + rec["side"]] = rec["Y_wm"]
-    for i, p in enumerate(train):
-        p["Y_wm_plus"] = regrouped[i]["Y_wm_plus"]
-        p["Y_wm_minus"] = regrouped[i]["Y_wm_minus"]
-    return regrouped
+                    oh = torch.cat((oh[:, 1:], proto.obs(S, a, xi_one, f).unsqueeze(1)), 1)
+                v_tail = v_ref(proto.critic_input(S, f, xi_n, proto.wm_goal(f, S)))
+            out.append(float(G + (GAMMA ** horizon) * c_soft * v_tail))
+    assert len(out) == 2 * len(train)
+    return [{"Y_wm_plus": out[2 * i], "Y_wm_minus": out[2 * i + 1]} for i in range(len(train))]
 
 
 if __name__ == "__main__":

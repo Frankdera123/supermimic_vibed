@@ -1,14 +1,19 @@
 """CVF-1a: build train/val/test pair datasets from raw collection batches (CPU-only).
 
-Reads results/cvf/sacv/datasets/raw/<split>/batch_*.pt, computes per-branch value
-targets under the frozen data contract (docs/cvf/sacv/CVF1A_DATA_CONTRACT.md §4):
+v2 (2026-11-23) -- corrected state/label contract.  v1 (2026-11-20) was INVALID:
+it evaluated the critic at the end-of-continuation state x_{H+T} while every label
+is defined for the prefix-end state x_H, and it stored Delta G in the ``Delta_Y``
+field.  v1 artifacts are left untouched under ``datasets/`` (see
+docs/cvf/sacv/CVF1B_ERRATUM.md); v2 is written to ``datasets/v2/``.
 
-  G_T        = sum gamma^k c_k r_k over the CONTINUATION segment only (float64)
-  Y_T        = G_T + gamma^T c_T V_ref(x_T)      (V_ref = frozen C-init = B0@2100_post)
-  Delta Y    = Y+ - Y- per (start, family, eps)
-
-and emits {split}_pairs.pt + {split}_scalars.pt + reliability_report.json +
-dataset manifest with sha256 provenance.  Never modifies raw files.
+Contract (docs/cvf/sacv/CVF1A_DATA_CONTRACT.md sec. 3-4), H = 32 action prefix:
+  x_H       = real-simulator state at prefix end           (snaps_prefix['prefix_32'])
+  G_T(x_H)  = sum_{k<T} gamma^k c_k r_k, continuation only (independent target)
+  c_T       = prod_{k<T} (1 - d_k)
+  Y_T(x_H)  = G_T + gamma^T c_T V_ref(x_{H+T})             (matched training target,
+              V_ref = frozen C-init = B0@2100_post evaluated on the TRUE sim state)
+  Delta G   = G+ - G-,   Delta Y = Y+ - Y-   (same start / family / epsilon)
+The critic input of a pair is ALWAYS x_H^+/-; x_{H+T} only enters the tail.
 """
 from __future__ import annotations
 
@@ -35,6 +40,8 @@ from sacv.losses import targets as vt  # noqa: E402
 
 GAMMA = 0.99
 HORIZONS = (32, 64, 96)
+H_PREFIX = 32
+SCHEMA = "sacv_pairs_v2"
 
 
 def sha256_file(path: Path) -> str:
@@ -45,16 +52,9 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--split", choices=("train", "val", "test"), required=True)
-    ap.add_argument("--raw_root", type=Path, default=_REPO / "results/cvf/sacv/datasets/raw")
-    ap.add_argument("--out_root", type=Path, default=_REPO / "results/cvf/sacv/datasets")
-    ap.add_argument("--horizons", type=int, nargs="+", default=list(HORIZONS))
-    args = ap.parse_args()
-    t0 = time.time()
-    horizons = tuple(args.horizons)
-
+def build_split(split: str, raw_root: Path, horizons: tuple[int, ...]) -> dict:
+    """Return {'pairs': [...], 'scalars': [...], 'reliability': {...}, 'batches': [...]},
+    routed by the split recorded on each start (collection ran with --split all)."""
     import pada_bridge as bridge
 
     bridge.import_stack()
@@ -63,151 +63,159 @@ def main() -> int:
     from supermimic.networks import Critic
 
     pair2100 = bridge.load_pair_bundle("online_B0", 2100, device="cpu")
-    world = bridge.setup_world(device="cpu", pair=pair2100)
-    mdp, proto = world["mdp"], world["proto"]
-    # C-init = critic_post lives only in the raw bundle (bridge exports bundle["critic"]==pre)
-    raw2100 = torch.load(bridge.pairs_root() / "online_B0/diag_pairs/pair_it_002100.pt",
-                         map_location="cpu", weights_only=False)
-    v_ref_sd = raw2100["critic_post"]
+    proto = bridge.setup_world(device="cpu", pair=pair2100)["proto"]
+    # C-init = critic_post lives only in the raw bundle (bridge exports bundle["critic"] == pre)
+    v_ref_sd = torch.load(bridge.pairs_root() / "online_B0/diag_pairs/pair_it_002100.pt",
+                          map_location="cpu", weights_only=False)["critic_post"]
     v_ref = Critic(v_ref_sd["norm.mean"].shape[0])
     v_ref.load_state_dict(v_ref_sd, strict=True)
     v_ref.eval()
-    xi_one1 = torch.zeros(1, 33); xi_one1[:, 0] = 1.0
-    xi_n1 = normalize_xi(xi_one1)            # WM / critic_features convention (CVF-0)
+    xi_n = normalize_xi(torch.zeros(1, 33) + torch.tensor([[1.0] + [0.0] * 32]))
 
-    def critic_value(S, f, a_prev):
-        """Frozen V_ref at extended state (S 5-tuple, f, a_prev), nominal xi."""
+    def v_ref_at(S, f) -> float:
         with torch.no_grad():
-            gw = proto.wm_goal(f, S)
-            vin = proto.critic_input(S, f, xi_n1, gw)
-            return v_ref(vin).cpu()
+            return float(v_ref(proto.critic_input(S, f, xi_n, proto.wm_goal(f, S)))[0])
 
-    raw_dir = args.raw_root
-    batch_files = sorted(raw_dir.glob(f"*/batch_*.pt"))  # routed by start metadata, not dir
-    if not batch_files:
-        print(json.dumps({"error": "no raw batches", "dir": str(raw_dir)}))
-        return 1
+    def branch_records(br: dict, tag: str, bf: Path, slot: int, hz: tuple[int, ...]) -> dict:
+        pl = br["prefix_len"]
+        assert pl == H_PREFIX, f"prefix_len {pl} != {H_PREFIX}"
+        r = br["full"]["r"][slot:slot + 1, pl:]            # (1, T) continuation rewards
+        d = br["full"]["d_soft"][slot:slot + 1, pl:]
+        dh = br["full"]["d_hard"][slot:slot + 1, pl:]
+        G = vt.discounted_return(r, d, GAMMA, horizons=hz)
+        Gh = vt.discounted_return(r, dh, GAMMA, horizons=hz)
+        out = {"tag": tag, "batch": bf.name, "slot": slot, "Y_soft": {}, "Y_hard": {},
+               "Y_tail": {}}
+        for h in hz:
+            c_s, c_h = vt.survival_after(d, h), vt.survival_after(dh, h)
+            snap_T = br["snaps_cont"][f"cont_{h}"]          # TRUE sim state x_{H+T}
+            S_T = unflatten_state(snap_T["S_flat"][slot:slot + 1])
+            v_h = v_ref_at(S_T, snap_T["f"][slot:slot + 1])
+            tail = (GAMMA ** h) * c_s * torch.tensor([v_h], dtype=torch.float64)
+            out[f"G_soft_{h}"] = float(G[h][0])
+            out[f"G_hard_{h}"] = float(Gh[h][0])
+            out[f"c_soft_{h}"] = float(c_s[0])
+            out[f"c_hard_{h}"] = float(c_h[0])
+            out[f"hard_term_{h}"] = float(dh[:, :h].max())
+            out[f"V_ref_{h}"] = v_h
+            out["Y_soft"][h] = float((G[h].double() + tail)[0])
+            out["Y_hard"][h] = float((Gh[h].double()
+                                      + (GAMMA ** h) * c_h * torch.tensor([v_h], dtype=torch.float64))[0])
+            out["Y_tail"][h] = float(tail[0])
+        # the state the CRITIC is evaluated on: prefix end x_H (never x_{H+T})
+        out["critic_state"] = {"batch": bf.name, "branch": tag, "slot": slot,
+                               "snap_group": "snaps_prefix", "snap_key": f"prefix_{H_PREFIX}"}
+        return out
 
-    pairs: list[dict] = []
-    scalars: list[dict] = []
-    reliability = {"per_start": [], "reward_reconstruction_max": 0.0, "g_recalc_max": 0.0}
+    batch_files = sorted(raw_root.glob(f"*/batch_*.pt"))
+    pairs, scalars, batches, per_start = [], [], [], []
+    rel = {"reward_reconstruction_max": 0.0, "g_recalc_max": 0.0}
     for bf in batch_files:
         batch = torch.load(bf, map_location="cpu", weights_only=False)
-        n_valid = batch["n_valid"]
-        t_cont = batch["t_cont"]
-        hz = tuple(h for h in horizons if h <= t_cont)
-        # route by the split recorded on each start (collection may run --split all)
-        # ---- per-branch value targets -----------------------------------
-        def branch_records(br: dict, tag: str, slot: int) -> dict:
-            pl = br["prefix_len"]
-            r = br["full"]["r"][slot:slot + 1, pl:]      # continuation rewards (1, T)
-            d = br["full"]["d_soft"][slot:slot + 1, pl:]
-            dh = br["full"]["d_hard"][slot:slot + 1, pl:]
-            G = vt.discounted_return(r, d, GAMMA, horizons=hz)
-            Gh = vt.discounted_return(r, dh, GAMMA, horizons=hz)
-            out = {"tag": tag, "batch": bf.name, "slot": slot}
-            for h in hz:
-                out[f"G_soft_{h}"] = float(G[h][0])
-                out[f"G_hard_{h}"] = float(Gh[h][0])
-                out[f"c_soft_{h}"] = float(vt.survival_at(d, h)[0])
-                out[f"c_hard_{h}"] = float(vt.survival_at(dh, h)[0])
-            # extended terminal state at the longest horizon
-            key = f"cont_{hz[-1]}"
-            snap = br["snaps_cont"][key]
-            S_flat = snap["S_flat"][slot:slot + 1]
-            f_t = snap["f"][slot:slot + 1]
-            a_prev_t = snap["a_prev"][slot:slot + 1]
-            S = unflatten_state(S_flat)
-            out["V_ref_xT"] = float(critic_value(S, f_t, a_prev_t)[0])
-            v_ref_t = torch.tensor([out["V_ref_xT"]], dtype=torch.float64)
-            out["Y_soft"] = {h: float(vt.matched_target(G[h].view(1), vt.survival_at(d, h).view(1),
-                                                        GAMMA, h, v_ref_t)[0])
-                             for h in hz}
-            out["snap_ref"] = {"batch": bf.name, "branch": tag, "slot": slot,
-                               "snap_key": key}   # extended state fetched by reference
-            return out
-
-        for slot in range(n_valid):
+        hz = tuple(h for h in horizons if h <= batch["t_cont"])
+        branches_all = [*batch["base_res"], *batch["branches"].values()]
+        rel["reward_reconstruction_max"] = max(
+            rel["reward_reconstruction_max"],
+            max(float((br["full"]["r"] - br["full"]["r_state"] - br["full"]["r_direct"]).abs().max())
+                for br in branches_all))
+        rel["g_recalc_max"] = max(rel["g_recalc_max"],
+                                  max(br["g_recalc_vsoft_absdiff"] for br in branches_all))
+        used = False
+        for slot in range(batch["n_valid"]):
             st = batch["starts"][slot]
-            if st["split"] != args.split:
+            if st["split"] != split:
                 continue
-            rec = {"clip": st["clip"], "split": st["split"], "frame": st["frame"],
-                   "base_repeat_range": batch["base_repeat_range"]}
-            for rep, br in enumerate(batch["base_res"]):
-                rec[f"base{rep}"] = branch_records(br, f"base{rep}", slot)
-            reliability["reward_reconstruction_max"] = max(
-                reliability["reward_reconstruction_max"],
-                max(float((br["full"]["r"] - br["full"]["r_state"] - br["full"]["r_direct"]).abs().max())
-                    for br in [batch["base_res"][0], batch["base_res"][1]]))
-            reliability["g_recalc_max"] = max(reliability["g_recalc_max"],
-                                              batch["base_res"][0]["g_recalc_vsoft_absdiff"])
-            # scalars: base + every branch end state
-            scalars.append({"clip": st["clip"], "frame": st["frame"],
-                            "base": rec["base0"], **{k: v for k, v in rec.items()
-                                                     if k not in ("base0", "base1", "clip", "frame", "split")}})
-            for key, br in batch["branches"].items():
-                fam, eps, sign = key.split("|")
-                eps = float(eps.removeprefix("eps"))
-                reliability["reward_reconstruction_max"] = max(
-                    reliability["reward_reconstruction_max"],
-                    float((br["full"]["r"] - br["full"]["r_state"] - br["full"]["r_direct"]).abs().max()))
-                reliability["g_recalc_max"] = max(reliability["g_recalc_max"],
-                                                  br["g_recalc_vsoft_absdiff"])
-            # pair assembly for this start
-            for key in batch["branches"]:
-                fam, eps, sign = key.split("|")
+            used = True
+            base0 = branch_records(batch["base_res"][0], "base0", bf, slot, hz)
+            base1 = branch_records(batch["base_res"][1], "base1", bf, slot, hz)
+            scalars.append({"clip": st["clip"], "split": st["split"], "frame": st["frame"],
+                            "base": base0, "base1": base1})
+            for key, br_plus in batch["branches"].items():
+                fam, eps_s, sign = key.split("|")
                 if sign != "plus":
                     continue
                 mk = key.replace("|plus", "|minus")
                 if mk not in batch["branches"]:
                     continue
-                plus = branch_records(batch["branches"][key], key, slot)
-                minus = branch_records(batch["branches"][mk], mk, slot)
+                eps = float(eps_s.removeprefix("eps"))
+                plus = branch_records(br_plus, key, bf, slot, hz)
+                minus = branch_records(batch["branches"][mk], mk, bf, slot, hz)
                 for h in hz:
-                    dy = vt.pair_difference(torch.tensor([plus[f"G_soft_{h}"]]),
-                                            torch.tensor([minus[f"G_soft_{h}"]]))
                     pairs.append({
                         "clip": st["clip"], "split": st["split"], "frame": st["frame"],
-                        "family": fam, "eps": float(eps.removeprefix("eps")), "horizon": h,
-                        "Y_plus": plus["Y_soft"][h], "Y_minus": minus["Y_soft"][h],
+                        "family": fam, "eps": eps, "horizon": h,
                         "G_plus": plus[f"G_soft_{h}"], "G_minus": minus[f"G_soft_{h}"],
+                        "Y_plus": plus["Y_soft"][h], "Y_minus": minus["Y_soft"][h],
+                        "Delta_G": plus[f"G_soft_{h}"] - minus[f"G_soft_{h}"],
+                        "Delta_Y": plus["Y_soft"][h] - minus["Y_soft"][h],
                         "c_plus": plus[f"c_soft_{h}"], "c_minus": minus[f"c_soft_{h}"],
-                        "Delta_Y": float(dy[0]),
-                        "V_ref_xT_plus": plus["V_ref_xT"], "V_ref_xT_minus": minus["V_ref_xT"],
-                        "snap_plus": plus["snap_ref"], "snap_minus": minus["snap_ref"],
+                        "term_plus": plus[f"hard_term_{h}"], "term_minus": minus[f"hard_term_{h}"],
+                        "V_ref_plus": plus[f"V_ref_{h}"], "V_ref_minus": minus[f"V_ref_{h}"],
+                        "state_plus": plus["critic_state"], "state_minus": minus["critic_state"],
                         "base_repeat_range": batch["base_repeat_range"],
                     })
-            reliability["per_start"].append(rec)
+            per_start.append({"clip": st["clip"], "frame": st["frame"]})
+        if used:
+            batches.append({"file": bf.name, "sha256": sha256_file(bf)})
+    return {"pairs": pairs, "scalars": scalars, "reliability": rel,
+            "base_repeat_range_max": max((p["base_repeat_range"] for p in pairs), default=float("nan")),
+            "raw_batches": batches, "n_starts": len(per_start)}
 
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--split", choices=("train", "val", "test"), required=True)
+    ap.add_argument("--raw_root", type=Path, default=_REPO / "results/cvf/sacv/datasets/raw")
+    ap.add_argument("--out_root", type=Path, default=_REPO / "results/cvf/sacv/datasets/v2")
+    ap.add_argument("--horizons", type=int, nargs="+", default=list(HORIZONS))
+    args = ap.parse_args()
+    t0 = time.time()
+    horizons = tuple(args.horizons)
+
+    out = build_split(args.split, args.raw_root, horizons)
+    args.out_root.mkdir(parents=True, exist_ok=True)
     out_pairs = args.out_root / f"{args.split}_pairs.pt"
     out_scalars = args.out_root / f"{args.split}_scalars.pt"
-    args.out_root.mkdir(parents=True, exist_ok=True)
-    torch.save({"schema": "sacv_pairs_v1", "gamma": GAMMA, "horizons": list(horizons),
-                "pairs": pairs}, out_pairs)
-    torch.save({"schema": "sacv_scalars_v1", "gamma": GAMMA, "horizons": list(horizons),
-                "scalars": scalars}, out_scalars)
+    torch.save({"schema": SCHEMA, "gamma": GAMMA, "horizons": list(horizons),
+                "critic_state": f"snaps_prefix/prefix_{H_PREFIX} (x_H)",
+                "pairs": out["pairs"]}, out_pairs)
+    torch.save({"schema": "sacv_scalars_v2", "gamma": GAMMA, "horizons": list(horizons),
+                "scalars": out["scalars"]}, out_scalars)
+
+    # label composition at the frozen horizon (largest): real signal vs frozen-critic tail
+    import numpy as np
+    hz = horizons[-1]
+    comp = {}
+    for fam in sorted({p["family"] for p in out["pairs"]}):
+        fp = [p for p in out["pairs"] if p["horizon"] == hz and p["family"] == fam]
+        dG = np.array([p["Delta_G"] for p in fp])
+        dY = np.array([p["Delta_Y"] for p in fp])
+        comp[fam] = {"n": len(fp), "std_DeltaG": float(dG.std()), "std_DeltaY": float(dY.std()),
+                     "tail_var_over_signal_var": float((dY - dG).var() / max(dG.var(), 1e-12))}
+    ph = [p for p in out["pairs"] if p["horizon"] == hz]
     manifest = {
-        "schema": "sacv_dataset_manifest_v1",
-        "split": args.split,
+        "schema": "sacv_dataset_manifest_v2", "split": args.split,
         "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
-        "n_pairs": len(pairs), "n_scalars": len(scalars),
-        "per_horizon_pairs": {h: sum(1 for p in pairs if p["horizon"] == h) for h in horizons},
-        "n_clips": len({p["clip"] for p in pairs}),
-        "raw_batches": [{"file": b.name, "sha256": sha256_file(b)} for b in batch_files],
+        "n_pairs": len(out["pairs"]), "n_starts": out["n_starts"],
+        "per_horizon_pairs": {h: sum(1 for p in out["pairs"] if p["horizon"] == h) for h in horizons},
+        "n_clips": len({p["clip"] for p in out["pairs"]}),
+        "n_pairs_single_sided_term_h%d" % hz: sum(
+            1 for p in ph if (p["c_plus"] < 0.5) != (p["c_minus"] < 0.5)),
+        "n_pairs_either_side_term_h%d" % hz: sum(1 for p in ph if p["c_plus"] < 0.5 or p["c_minus"] < 0.5),
+        "label_composition_h%d" % hz: comp,
+        "raw_batches": out["raw_batches"],
         "outputs": {"pairs": {"file": out_pairs.name, "sha256": sha256_file(out_pairs)},
                     "scalars": {"file": out_scalars.name, "sha256": sha256_file(out_scalars)}},
-        "reliability": {"reward_reconstruction_max": reliability["reward_reconstruction_max"],
-                        "g_recalc_max": reliability["g_recalc_max"],
-                        "base_repeat_range_max": max(
-                            (r["base_repeat_range"] for r in reliability["per_start"]),
-                            default=float("nan"))},
-        "v_ref": "pair_it_002100.pt[critic_post] (frozen C-init)",
+        "reliability": out["reliability"],
+        "base_repeat_range_max": out["base_repeat_range_max"],
+        "v_ref": "pair_it_002100.pt[critic_post] (frozen C-init), evaluated on true sim state x_{H+T}",
         "elapsed_s": round(time.time() - t0, 1),
     }
     mpath = args.out_root / f"{args.split}_dataset_manifest.json"
     mpath.write_text(json.dumps(manifest, indent=2))
-    print(json.dumps({"split": args.split, "n_pairs": len(pairs), "n_scalars": len(scalars),
-                      "reliability": manifest["reliability"], "out": str(mpath)}))
+    print(json.dumps({"split": args.split, "n_pairs": len(out["pairs"]), "n_starts": out["n_starts"],
+                      "single_sided_term": manifest[f"n_pairs_single_sided_term_h{hz}"],
+                      "reliability": out["reliability"], "out": str(mpath)}))
     return 0
 
 

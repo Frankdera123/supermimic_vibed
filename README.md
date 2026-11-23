@@ -25,6 +25,14 @@ motion. Clips: dance, jumps, fall-and-get-up, sprint.*
 
 Progress and timestamps: [MILESTONES.md](MILESTONES.md).
 
+## Research lines (fork)
+
+Five research lines have been run on top of this reproduction — concurrent WM/policy
+exploration, OPCL, CRGF, PADA, CVF (critic value-gradient fidelity and simulator-anchored
+critic fine-tuning). Overview, per-line verdicts, corrected errata, and next decisions:
+[docs/RESEARCH_ROADMAP.md](docs/RESEARCH_ROADMAP.md); per-line index and the docs/
+layout guide: [docs/README.md](docs/README.md).
+
 ## Layout
 
 | Path | What |

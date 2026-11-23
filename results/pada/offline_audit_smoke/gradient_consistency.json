@@ -1,0 +1,32 @@
+{
+ "state|H8": {
+  "n": 4,
+  "mean_abs_legacy_minus_center": 5.809232243336737e-05,
+  "mean_abs_fd_minus_center": 2.286047674715519e-06,
+  "rel_to_typical_scale": 0.022665497076023392
+ },
+ "direct|H8": {
+  "n": 4,
+  "mean_abs_legacy_minus_center": 0.00012296345084905624,
+  "mean_abs_fd_minus_center": 1.4110992196947336e-07,
+  "rel_to_typical_scale": 0.10009853030913422
+ },
+ "critic|H8": {
+  "n": 4,
+  "mean_abs_legacy_minus_center": 2.2465101210400462e-05,
+  "mean_abs_fd_minus_center": 5.9604644775390625e-06,
+  "rel_to_typical_scale": 0.00611382997058626
+ },
+ "total|H8": {
+  "n": 4,
+  "mean_abs_legacy_minus_center": 0.0001906445831991732,
+  "mean_abs_fd_minus_center": 6.68864231556654e-06,
+  "rel_to_typical_scale": 0.038263663633969325
+ },
+ "legacy_reproduction_vs_original": {
+  "n_compared": 16,
+  "mean_rel_dev": 0.0022141195786624735,
+  "max_rel_dev": 0.013392152294043797,
+  "note": "original computed on cuda:0; this audit on cpu -> expected small float deviation; large deviations would indicate a structural change"
+ }
+}

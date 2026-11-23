@@ -12,6 +12,7 @@ import math
 import sys
 from pathlib import Path
 
+import numpy as np
 import torch
 
 _HERE = Path(__file__).resolve().parent
@@ -374,6 +375,147 @@ def test_metrics_sanity():
     # asymmetric survival enters per-branch
     d2 = M.gamma_survival_weighted_prefix_fd(2.0, 1.0, 1.0, 0.0, GAMMA, 32, 0.015)
     approx(d2, (GAMMA ** 32) * 2.0 / (2 * 0.015))
+
+
+# ------------------------------------------- v2 contract regressions (ERRATUM)
+def test_survival_after_last_step_termination():
+    d = torch.zeros(1, 8)
+    d[0, 7] = 1.0                       # termination at the very last step of the window
+    approx(float(T.survival_after(d, 8)[0]), 0.0)    # tail weight must vanish
+    approx(float(T.survival_after(d, 7)[0]), 1.0)    # c_7 does not include step 7
+    d2 = torch.tensor([[0.1, 0.2, 0.0, 0.5]], dtype=torch.float64)
+    approx(float(T.survival_after(d2, 3)[0]), 0.9 * 0.8 * 1.0)
+    approx(float(T.survival_after(d2, 4)[0]), 0.9 * 0.8 * 0.5)
+    torch.manual_seed(7)
+    dd = torch.rand(3, 12) * 0.3
+    cs = T.survival_soft(dd)                      # c_0 .. c_11
+    for t in range(1, 12):                        # survival_after(d, t) is exactly c_t
+        assert torch.allclose(cs[:, t], T.survival_after(dd, t)), f"indexing mismatch at t={t}"
+
+
+def _v2_pairs(split: str = "val", horizon: int = 96):
+    path = _REPO / f"results/cvf/sacv/datasets/v2/{split}_pairs.pt"
+    if not path.exists():
+        return None
+    d = torch.load(path, map_location="cpu", weights_only=False)
+    assert d["schema"] == "sacv_pairs_v2", d["schema"]
+    return [p for p in d["pairs"] if p["horizon"] == horizon]
+
+
+def test_pairs_v2_state_label_alignment():
+    """The critic state must be x_H (prefix end) and every label must be reproducible
+    from the raw step records.  Guards against the v1 misalignment (ERRATUM sec. 2)."""
+    pairs = _v2_pairs()
+    if pairs is None:
+        print("skip (no v2 dataset)")
+        return
+    for p in pairs:
+        for side in ("plus", "minus"):
+            st = p[f"state_{side}"]
+            assert st["snap_group"] == "snaps_prefix" and st["snap_key"] == "prefix_32", st
+        assert abs(p["Delta_G"] - (p["G_plus"] - p["G_minus"])) < 1e-12
+        assert abs(p["Delta_Y"] - (p["Y_plus"] - p["Y_minus"])) < 1e-12
+        assert abs(p["c_plus"] - p["c_plus"]) == 0 and 0.0 <= p["c_plus"] <= 1.0 + 1e-9
+
+    import pada_bridge as bridge
+
+    bridge.import_stack()
+    bridge.fix_paths()
+    from supermimic.mdp import normalize_xi, unflatten_state
+    from supermimic.networks import Critic
+
+    v_ref_sd = torch.load(SA / "online_B0/diag_pairs/pair_it_002100.pt",
+                          map_location="cpu", weights_only=False)["critic_post"]
+    v_ref = Critic(938)
+    v_ref.load_state_dict(v_ref_sd, strict=True)
+    v_ref.eval()
+    proto = bridge.setup_world(device="cpu")["proto"]
+    xi_n = normalize_xi(torch.zeros(1, 33) + torch.tensor([[1.0] + [0.0] * 32]))
+    raw_cache: dict = {}
+    step = max(1, len(pairs) // 4)
+    for p in pairs[::step]:
+        for side in ("plus", "minus"):
+            st = p[f"state_{side}"]
+            if st["batch"] not in raw_cache:
+                raw_cache[st["batch"]] = torch.load(
+                    next((_REPO / "results/cvf/sacv/datasets/raw").rglob(st["batch"])),
+                    map_location="cpu", weights_only=False)
+            b = raw_cache[st["batch"]]
+            br = b["branches"][st["branch"]]
+            slot = st["slot"]
+            # (a) x_H is the prefix-end snapshot and is NOT the continuation-end snapshot
+            S_H = br["snaps_prefix"]["prefix_32"]["S_flat"][slot]
+            S_T = br["snaps_cont"]["cont_96"]["S_flat"][slot]
+            assert not torch.allclose(S_H, S_T), "prefix-end and continuation-end states coincide?"
+            # (b) labels re-derived from the raw step records
+            pl = br["prefix_len"]
+            assert pl == 32
+            r = br["full"]["r"][slot:slot + 1, pl:]
+            dsoft = br["full"]["d_soft"][slot:slot + 1, pl:]
+            G = T.discounted_return(r, dsoft, GAMMA, (96,))[96]
+            c = T.survival_after(dsoft, 96)
+            snap_T = br["snaps_cont"]["cont_96"]
+            S = unflatten_state(snap_T["S_flat"][slot:slot + 1])
+            f = snap_T["f"][slot:slot + 1]
+            with torch.no_grad():
+                v = float(v_ref(proto.critic_input(S, f, xi_n, proto.wm_goal(f, S)))[0])
+            assert abs(float(G) - p[f"G_{side}"]) < 1e-9
+            assert abs(float(c) - p[f"c_{side}"]) < 1e-12
+            assert abs(v - p[f"V_ref_{side}"]) < 1e-4
+            assert abs(float(G) + GAMMA ** 96 * float(c) * v - p[f"Y_{side}"]) < 1e-4
+            # (c) the re-derived return equals the collector's online accumulation
+            assert abs(float(G) - float(br["cont"]["V_soft"][96][slot])) < 1e-4
+
+
+def test_chord_delta_roundtrip():
+    """chord_delta(Sm, Sp) is the exact tangent taking Sm onto Sp in perturb_state coords."""
+    from cvf_core import perturb_state
+    from sacv.evaluation.sacv_dump_preds import chord_delta
+
+    torch.manual_seed(11)
+
+    def rand_state(n):
+        from supermimic.rotations import so3_exp
+
+        return (torch.randn(n, 3), so3_exp(torch.randn(n, 3) * 1.5), torch.randn(n, 3) * 2,
+                torch.randn(n, 3) * 3, torch.randn(n, 29) * 0.5, torch.randn(n, 29) * 4)
+
+    Sm, Sp = rand_state(16), rand_state(16)
+    back = perturb_state(Sm, chord_delta(Sm, Sp))
+    for a, b_ in zip(back, Sp):
+        assert torch.allclose(a, b_, atol=1e-4), float((a - b_).abs().max())
+    assert torch.allclose(chord_delta(Sm, Sm), torch.zeros(16, 70), atol=1e-6)
+
+
+def test_stats_primitives():
+    from sacv.evaluation import sacv_stats as S
+
+    x = np.array([0.3, -0.1, -2.0, 1.0, 0.0])
+    y = np.array([1.0, -0.5, -1.0, 2.0, 0.0])
+    approx(S._spearman(x, y), 1.0)
+    assert S._sign(x, y) == 1.0
+    # ties are rank-averaged: ranks x = [1.5, 1.5, 3], y = [1, 2, 3] -> 1.5 / sqrt(1.5 * 2)
+    approx(S._spearman(np.array([1.0, 1.0, 2.0]), np.array([1.0, 2.0, 3.0])), 1.5 / np.sqrt(3.0), 1e-9)
+    approx(S._binom_two_sided(8, 8), 2 / 256, 1e-12)
+    approx(S._binom_two_sided(4, 8), 1.0, 1e-12)
+    # layer construction: single-sided termination and cross-epsilon inconsistency are excluded
+    meta = [
+        {"clip": "a", "frame": 1, "family": "delta_2100", "eps": 0.015, "Delta_G": 0.0030, "c_plus": 1.0, "c_minus": 1.0, "term_plus": 0.0, "term_minus": 0.0},
+        {"clip": "a", "frame": 1, "family": "delta_2100", "eps": 0.03, "Delta_G": 0.0060, "c_plus": 1.0, "c_minus": 1.0, "term_plus": 0.0, "term_minus": 0.0},
+        {"clip": "a", "frame": 2, "family": "delta_2300", "eps": 0.015, "Delta_G": 0.0030, "c_plus": 1.0, "c_minus": 1.0, "term_plus": 0.0, "term_minus": 0.0},
+        {"clip": "b", "frame": 3, "family": "delta_2300", "eps": 0.03, "Delta_G": -0.0090, "c_plus": 1.0, "c_minus": 1.0, "term_plus": 0.0, "term_minus": 0.0},
+        {"clip": "b", "frame": 4, "family": "ascent", "eps": 0.015, "Delta_G": 0.02, "c_plus": 1.0, "c_minus": 0.1, "term_plus": 0.0, "term_minus": 1.0},
+        {"clip": "c", "frame": 5, "family": "random", "eps": 0.015, "Delta_G": 0.02, "c_plus": 1.0, "c_minus": 0.1, "term_plus": 0.0, "term_minus": 0.0},
+    ]
+    L = S.build_layers(meta)
+    assert L["all"] == [0, 1, 2, 3, 4, 5]
+    assert L["nobif"] == [0, 1, 2, 3]
+    assert L["gated"] == [0, 1], L["gated"]        # D(eps)=0.1 for both eps of pair (0,1)
+    clips = ["a", "a", "a", "b"]
+    idx = [0, 1, 2, 3]
+    ci1 = S.clip_boot(lambda s: float(np.mean(s)), idx, clips, n_boot=200, seed=3)
+    ci2 = S.clip_boot(lambda s: float(np.mean(s)), idx, clips, n_boot=200, seed=3)
+    assert ci1 == ci2
 
 
 if __name__ == "__main__":

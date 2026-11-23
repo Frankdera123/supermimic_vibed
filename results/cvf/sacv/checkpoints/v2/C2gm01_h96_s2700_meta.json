@@ -1,0 +1,51 @@
+{
+  "schema": "sacv_critic_meta_v2",
+  "name": "C2gm01",
+  "group": "C2",
+  "alpha": 0.1,
+  "pair_scale": 518.6219909248557,
+  "pair_scale_mode": "gradmatch",
+  "alpha_eff": 51.862199092485575,
+  "sigma_dy": 0.3187642601142853,
+  "steps": 1000,
+  "contract": "critic at x_H; Y_T = G_T + gamma^T c_T V_ref(x_{H+T})",
+  "init_scales": {
+    "train_value_loss": 0.6491078277940001,
+    "train_pair_loss": 0.0990590631140474,
+    "train_pair_over_value": 0.15260802423335532,
+    "grad_norm_value": 13.729966183495659,
+    "grad_norm_pair": 0.026473937518559684,
+    "grad_norm_pair_over_value": 0.0019281866513541114,
+    "grad_cos_value_pair": -0.04428459041802535,
+    "init_pair_vs_dG": {
+      "sign": 0.6388888888888888,
+      "spearman": 0.37795997106341933,
+      "rmse": 0.053440836153879116,
+      "mag_ratio_median": 0.4556071210580872,
+      "n": 144
+    },
+    "init_pair_vs_dY": {
+      "sign": 0.5972222222222222,
+      "spearman": 0.2574149987943091,
+      "rmse": 0.31473649790586317,
+      "mag_ratio_median": 0.4193958468802115,
+      "n": 144
+    }
+  },
+  "final_val": {
+    "val_value_rmse_vsY": 0.5959708489952095,
+    "val_pair_dY": {
+      "sign": 0.5625,
+      "spearman": 0.39155449413808074,
+      "rmse": 0.05615948066702442,
+      "ratio": 0.9925425447446111
+    },
+    "val_pair_dG": {
+      "sign": 0.6458333333333334,
+      "spearman": 0.5040165002171081,
+      "rmse": 0.051220887859574356,
+      "ratio": 1.2035943779041647
+    }
+  },
+  "train_sha256": "642cfc8cdd42c3bfeead6285c59cee2bb2d8d140f1c7e5603d19381b46efe3ff"
+}

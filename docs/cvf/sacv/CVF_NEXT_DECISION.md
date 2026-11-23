@@ -1,46 +1,49 @@
-# CVF_NEXT_DECISION（下一阶段决策建议）
+# CVF_NEXT_DECISION（下一阶段决策建议，2026-11-23 修订版）
 
-日期：2026-11-20。依据：`CVF_OVERNIGHT_RESEARCH_REPORT.md` Q8 与
-`CVF1B_MECHANISM_ANALYSIS.md` §4。**本文件仅为建议，不自动执行任何后续实验。**
+日期：2026-11-23。本文件取代 2026-11-20 版本（其"标签尾项淹没"建议建立在无效的
+v1 结果上，见 [CVF1B_ERRATUM.md](CVF1B_ERRATUM.md)）。依据：
+[CVF1B_CRITIC_RESULTS_V2.md](CVF1B_CRITIC_RESULTS_V2.md)。**仅为建议，不自动执行。**
 
-## 推荐的唯一下一任务：CVF-1b′（修正标签合同的 Sim-anchor 重训）
+## 当前证据快照（全部为修正版口径）
 
-### 设计要点（每条都有本轮量化依据）
-
-| 修正 | 依据 |
+| 事实 | 证据 |
 |---|---|
-| pair 标签用 ΔG⁹⁶（无尾项）；标量目标保留 Y_T | Train 标签方差 99.5% 为尾项（delta 族 163–203×） |
-| 训练族收紧到 delta_2100/2300；random/ascent 仅评价 | Sim ±噪声族（94.9% 不对称）污染差分；C2 gated 退化集中在噪声族权重 |
-| ΔG 跨 ε 平均（CRN）或小 ε 网格 | 压 Sim 分岔噪声；CVF-0 gated 率 3–4/16 的教训 |
-| 起点 ×3（≥72 起点，Train ≥48）+ Val gated ≥24 对 | 本轮 gated Val n=8 检验功效不足（10pp 门限） |
-| 训练步数上限 1000 步 + 早停（Val gated sp 平台即停） | 500 步时 loss 已收敛两个数量级 |
-| 可选 2×2：+V_MAX clip 口径统一报告 grad_raw/grad_eff | CVF-0 遗留口径差（当前零影响） |
+| Sim 标量锚定改善 held-out 标量价值 | Test RMSE 0.684→0.497（C1@1000），Pearson 0.975，两 split 一致 |
+| reachable 方向成对响应（T=96）不可被监督改善 | Val C1 +3.1pp 不迁移（Test −4.2pp）；全部配对 CI 跨 0 |
+| 显式 pair 监督有害（有剂量效应） | Val reachable RMSE 0.033→0.041→0.047（α=0.1/0.3/1.0）；标量 RMSE 至 +107% |
+| T=32 响应本来就准且跨 split 一致 | C-init reach sign 0.875（Val）/ 0.792（Test），sp +0.92 / +0.60 |
+| T=96 的 ΔG 在新 clip 上与短时域信号失相关 | Test reach sp(G32,G96)=+0.45、sp(G64,G96)=+0.58，而 sp(G32,G64)=+0.90 |
+| WM 监督 ≈ 无操作 | C0 全部指标 CI 跨 0 |
 
-### 预算估计
+## 推荐的唯一下一任务：T=96 噪声天花板量化（CPU-only，0 GPU-h）
 
-- 采集：72 起点 × R2 口径（每起点 14 rollouts × 128）≈ 3.0 GPU-h（可再降档：
-  新 clips 24 + 复用本轮 44 起点 → 只采 28 新起点 ≈ 1.2 GPU-h）。
-- C0 目标 + 3 组 × 1000 步训练 ≈ 1.2 GPU-h；评价 CPU。
-- 总计 **≈2.5 GPU-h**（单卡 RTX 5090）+ 4–5 h wall。
+**问题**：新 clip 上 T=96 的 reachable 成对差分中，可预测成分占多少？
+**方法**（全部用已采集的 `datasets/v2` + raw batch，无需新采集）：
+1. 逐 clip 计算 sp(ΔG₉₆, ΔG₃₂/₆₄) 与 contact-event（d_soft/d_hard 记录）的关联，
+   定位失相关是否集中在接触切换之后的窗口；
+2. 用 `gated`（跨 ε 一致性）作为"信号存在"的代理，估计每个 clip 的可靠时域上限
+   T*(clip)；
+3. 产出：一张"reachable 方向 96 步目标可靠性地图"（按 clip/运动类别），以及
+   对 CVF-0 CF-D 上限（0.958）的修正解释——上限成立的前提是目标可预测。
 
-### 预注册判据建议（沿用 D6 并加严）
+**判定分支**：
+- 若可预测占比高（失相关集中在少数接触事件）→ 值得做"分段续推聚合 / 接触对齐"
+  的目标改造（新实验，~2.5 GPU-h）；
+- 若普遍失相关 → **接受 96 步成对目标在分布外 clip 上不可学习**，研究问题应改写为
+  "短时域锚定的 policy improvement"（T=32 bootstrap + T=32 pair 监督，配 32 步
+  参考评价），或转向分布型/鲁棒目标——那时再立项。
 
-- 主判据：修复标签后，最优微调组在 Val gated（≥24 对）上 pair sign ≥ C-init +10pp
-  且 Spearman 改善 ≥0.10，clip-clustered bootstrap CI 不跨 0；
-- 次判据：Test 盲测方向一致；幅度 ratio 向 1 移动且不越上界；
-- 传导判据（条件性 Phase E 门禁不变）：D3 WM 域保持 + 单步 ΔJ_Sim 配对检验。
+## 备选（不推荐同时做）
 
-### 若失败的决策树
+- **标量锚定的下游验证**：C1@1000 的标量改善（Test −27% RMSE）是否改善 policy update？
+  这正是 Phase E 的设计，但需要一个"在标量上有可信改善、方向上无害"的候选——
+  C1@1000 基本符合（Test 方向 CI 跨 0 即无害）。成本 ≈0.6 GPU-h，可以在 1 完成后
+  作为对照性验证执行。
+- **规模扩容**（起点 ×3）只有在前两条显示有可学习信号后才值得。
 
-- 若修复标签后仍无改善 → "Sim 标量/差分监督在该 Critic 容量与该状态分布下不足以
-  改善可达方向响应"获得强证据，转向 Route D（速度误差特征 + normalizer 重整，
-  CVF-0 的 2×2 建议与本轮工具链兼容）或 Route C（o_hist 条件化）；
-- 若 Val 改善但 Phase E 的 ΔJ_Sim 无改善 → 情况 F（WM Jacobian/参数-动作转换），
-  高价值负结果路径，工具已就绪。
+## 不推荐（本轮证据）
 
-## 不推荐的方向（本轮证据）
-
-- 继续加大 α 或 pair 权重（在旧标签下被证明放大噪声）；
-- 用长程 WM continuation 当教师（CVF-0 CF B 已证伪）；
-- 在 n_gated<10 的评价上宣称任何 PASS；
-- 直接进入完整在线协同训练（Gate §8 全部禁止项仍然有效）。
+- 继续在 T=96 pair 目标上加监督或加权重（Val 剂量效应已否定）；
+- 用 WM continuation 当监督（C0≈无操作，CVF-0 CF-B 亦证伪）;
+- 任何在 gated <24 对样本上的 PASS 判定；
+- 直接进入完整在线协同训练（Goal §8 禁止项不变）。

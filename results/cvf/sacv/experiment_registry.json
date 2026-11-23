@@ -1,7 +1,7 @@
 {
   "schema": "sacv_experiment_registry_v1",
-  "updated_at": "2026-11-20 16:18:05",
-  "mode": "APPROVED=true (Phase B/C/D executed; E gated out)",
+  "updated_at": "2026-11-23 23:41:24",
+  "mode": "APPROVED=true; CVF-1b v1 RETRACTED (erratum), v2 rerun complete",
   "budget": {
     "gpu_hours_used": 2.96,
     "gpu_hours_cap": 6.0
@@ -74,6 +74,13 @@
       "status": "NOT RUN (gate failed: no candidate improved on Val; D2/D5 no positive mechanism signal)",
       "artifact": "-",
       "verdict": "-"
+    },
+    {
+      "id": "sacv_erratum_and_v2_rerun",
+      "phase": "1b/1c/1d-v2",
+      "status": "DONE",
+      "artifact": "docs/cvf/sacv/CVF1B_ERRATUM.md + CVF1B_CRITIC_RESULTS_V2.md + results/cvf/sacv/{datasets,checkpoints,metrics}/v2/",
+      "verdict": "v1 INVALID (critic at x_{H+96} vs labels at x_H; Delta_Y field held DeltaG). v2 corrected: INCONCLUSIVE neg-leaning; scalar anchoring improves held-out scalar value (Test -27% RMSE); T=96 reachable response not improvable; C2 harmful (dose-response); DeltaG96 on fresh clips decorrelates from short-horizon signal (sp+0.45); Phase E still NOT RUN (gates failed)"
     }
   ],
   "artifacts_sha256": {
@@ -90,7 +97,12 @@
     "docs/cvf/sacv/CVF1B_MECHANISM_ANALYSIS.md": "632bb7420e9e351fa9f6115e7df7734130efe50aca49aa95b9f37e95c43524b3",
     "docs/cvf/sacv/CVF2A_POLICY_RESULTS.md": "0db9da0441b665658f33447c0e3dc3fa276ebb74d8f164315cd86d8ccb124a2c",
     "docs/cvf/sacv/CVF_OVERNIGHT_RESEARCH_REPORT.md": "5f256681de34129e79ed61147d7a66a1933a548a21637208c912a709b41a6d4a",
-    "docs/cvf/sacv/CVF_NEXT_DECISION.md": "5ce3334d07084452eefa8d357364066594e5a874ea6500808686c892214df9ab",
-    "results/cvf/sacv/final_summary.json": "53de56edbb46d7e255a9f5d31bbb456404bcccb752b2c7bf7b1a799343ad6282"
+    "docs/cvf/sacv/CVF_NEXT_DECISION.md": "951876d45dd844f74ff9548c0e266a2ee755725254760b2be2a5812c58605444",
+    "results/cvf/sacv/final_summary.json": "53de56edbb46d7e255a9f5d31bbb456404bcccb752b2c7bf7b1a799343ad6282",
+    "docs/cvf/sacv/CVF1B_ERRATUM.md": "ba52f32c0c81672ecce7bf08222bfdb42e3c1f6e55a3aa97c6557a2cde2a30e2",
+    "docs/cvf/sacv/CVF1B_CRITIC_RESULTS_V2.md": "250f32be6aaa4fc62ceacaf85c4f69c8582cebb35a08756dce74eabc5dca337a",
+    "docs/RESEARCH_ROADMAP.md": "1fc0bd1e25aa8b040a93fef23394f17828b8d5eb282631a8856f3745acc71370",
+    "docs/README.md": "f20a08007ea5e82eec45ebb5d0e733fed1ceaeade3315248f9a38a81eb070c77",
+    "results/cvf/sacv/datasets/v2/val_dataset_manifest.json": "aa1730079cdecf2caf02a8677b941ae61103eb5bd239bead6fdbebfb3e0b44e9"
   }
 }

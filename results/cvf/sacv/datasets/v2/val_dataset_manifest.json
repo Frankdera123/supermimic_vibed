@@ -1,0 +1,68 @@
+{
+  "schema": "sacv_dataset_manifest_v2",
+  "split": "val",
+  "generated_at": "2026-11-23 19:04:37",
+  "n_pairs": 144,
+  "n_starts": 8,
+  "per_horizon_pairs": {
+    "32": 48,
+    "64": 48,
+    "96": 48
+  },
+  "n_clips": 4,
+  "n_pairs_single_sided_term_h96": 0,
+  "n_pairs_either_side_term_h96": 0,
+  "label_composition_h96": {
+    "ascent": {
+      "n": 8,
+      "std_DeltaG": 0.09048276805974712,
+      "std_DeltaY": 0.10856835469758555,
+      "tail_var_over_signal_var": 0.05455013722127014
+    },
+    "delta_2100": {
+      "n": 16,
+      "std_DeltaG": 0.04577163383880577,
+      "std_DeltaY": 0.05627955742996751,
+      "tail_var_over_signal_var": 0.0674439209711437
+    },
+    "delta_2300": {
+      "n": 16,
+      "std_DeltaG": 0.03132539522349674,
+      "std_DeltaY": 0.04227991592714962,
+      "tail_var_over_signal_var": 0.2522329486024313
+    },
+    "random": {
+      "n": 8,
+      "std_DeltaG": 0.030040124535770898,
+      "std_DeltaY": 0.03401193671885217,
+      "tail_var_over_signal_var": 0.09849020339555417
+    }
+  },
+  "raw_batches": [
+    {
+      "file": "batch_0024.pt",
+      "sha256": "d7a942079c9d457c40bb43151cd0124dd4dbd5395f3b09204d123aaf7cc833b5"
+    },
+    {
+      "file": "batch_0028.pt",
+      "sha256": "19be4980400738e4cc620258096436e2bc53787a6f97e796e38ca749a6b44ada"
+    }
+  ],
+  "outputs": {
+    "pairs": {
+      "file": "val_pairs.pt",
+      "sha256": "1ca5a04ca8308a9c16cca49250c2ef482cb8c43a7ac40e9cc28a694f4aff7031"
+    },
+    "scalars": {
+      "file": "val_scalars.pt",
+      "sha256": "46fff6b76508e6e055713956512d9a6deb4766805509c26389798ae1e356d279"
+    }
+  },
+  "reliability": {
+    "reward_reconstruction_max": 2.9802322387695312e-08,
+    "g_recalc_max": 3.7841778528502346e-06
+  },
+  "base_repeat_range_max": 0.0,
+  "v_ref": "pair_it_002100.pt[critic_post] (frozen C-init), evaluated on true sim state x_{H+T}",
+  "elapsed_s": 5.1
+}

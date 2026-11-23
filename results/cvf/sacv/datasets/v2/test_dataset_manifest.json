@@ -1,0 +1,72 @@
+{
+  "schema": "sacv_dataset_manifest_v2",
+  "split": "test",
+  "generated_at": "2026-11-23 19:05:02",
+  "n_pairs": 216,
+  "n_starts": 12,
+  "per_horizon_pairs": {
+    "32": 72,
+    "64": 72,
+    "96": 72
+  },
+  "n_clips": 6,
+  "n_pairs_single_sided_term_h96": 0,
+  "n_pairs_either_side_term_h96": 6,
+  "label_composition_h96": {
+    "ascent": {
+      "n": 12,
+      "std_DeltaG": 0.044280689022864216,
+      "std_DeltaY": 0.04846488837588689,
+      "tail_var_over_signal_var": 0.02410284715584669
+    },
+    "delta_2100": {
+      "n": 24,
+      "std_DeltaG": 0.05326047426386416,
+      "std_DeltaY": 0.05202465688993616,
+      "tail_var_over_signal_var": 0.008260848574267472
+    },
+    "delta_2300": {
+      "n": 24,
+      "std_DeltaG": 0.042680246185356985,
+      "std_DeltaY": 0.05032451755379077,
+      "tail_var_over_signal_var": 0.05041754796610702
+    },
+    "random": {
+      "n": 12,
+      "std_DeltaG": 0.008958800205150268,
+      "std_DeltaY": 0.015492256744213204,
+      "tail_var_over_signal_var": 0.7486156972292723
+    }
+  },
+  "raw_batches": [
+    {
+      "file": "batch_0032.pt",
+      "sha256": "ad67d3a8ab505db3aed9d71e89b69707ca6a70aa72681441f0449147e8364294"
+    },
+    {
+      "file": "batch_0036.pt",
+      "sha256": "743ed10c6db6a037975ece864515745890668a8abb089185217decbe6d33017a"
+    },
+    {
+      "file": "batch_0040.pt",
+      "sha256": "a58c20ea95d5bf7b169b2b1e34d7c5fc795624b4e94b2a74be856e5fe481fc92"
+    }
+  ],
+  "outputs": {
+    "pairs": {
+      "file": "test_pairs.pt",
+      "sha256": "c09e4648a2f9740d9ff132f32c87f93163ba725a87fb4cafa1a663a22c59df3b"
+    },
+    "scalars": {
+      "file": "test_scalars.pt",
+      "sha256": "7e5e4b5a17ac4612106d8c2fa0aef2072447763827e2b17b68bcae78cc3a06c8"
+    }
+  },
+  "reliability": {
+    "reward_reconstruction_max": 2.9802322387695312e-08,
+    "g_recalc_max": 3.7841778528502346e-06
+  },
+  "base_repeat_range_max": 0.0,
+  "v_ref": "pair_it_002100.pt[critic_post] (frozen C-init), evaluated on true sim state x_{H+T}",
+  "elapsed_s": 8.1
+}

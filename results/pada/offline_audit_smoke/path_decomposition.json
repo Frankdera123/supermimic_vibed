@@ -1,0 +1,27 @@
+{
+ "identity_max_abs_residual_center": 3.073364496231079e-08,
+ "identity_note": "D_total_center - (D_state+D_direct+D_critic)_center, matched attached definitions; exact by construction, residual should be ~1e-6 relative",
+ "survival_iso_vs_attached": {},
+ "per_sample_residuals": [
+  {
+   "model": "M0",
+   "set": "eval_random",
+   "si": 2,
+   "ji": 0,
+   "resid_total_minus_sum": -2.60770320892334e-08,
+   "resid_crgf_identity": -4.517005436355248e-08,
+   "survival_direct": -4.423782229423523e-09,
+   "survival_critic": 7.37607479095459e-06
+  },
+  {
+   "model": "M0",
+   "set": "eval_random",
+   "si": 2,
+   "ji": 1,
+   "resid_total_minus_sum": -3.073364496231079e-08,
+   "resid_crgf_identity": -4.874891601502895e-10,
+   "survival_direct": 8.440110832452774e-09,
+   "survival_critic": -1.0835006833076477e-05
+  }
+ ]
+}

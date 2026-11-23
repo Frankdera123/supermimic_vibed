@@ -1,6 +1,6 @@
 {
   "schema": "sacv_final_summary_v1",
-  "updated_at": "2026-11-20 16:21:19",
+  "updated_at": "2026-11-23 23:41:24",
   "phase_A": {
     "status": "COMPLETE",
     "gpu_hours": 0.0,
@@ -13,23 +13,23 @@
     "data": "44 starts (train24/val8/test12), 78848 transitions, R2 ladder, det=0.0"
   },
   "phase_C": {
-    "status": "COMPLETE",
-    "gpu_hours": 0.68,
-    "groups": "C1/C2(alpha_eff=74.4)/C0 x 500 steps matched, horizon T=96 frozen"
+    "status": "RETRACTED then REDONE (v2)",
+    "gpu_hours": 0.76,
+    "note": "v1 invalid per erratum; v2 corrected contract, 6 groups x 1000 steps"
   },
   "phase_D": {
-    "status": "COMPLETE",
+    "status": "COMPLETE (v2)",
     "gpu_hours": 0.0,
-    "verdict": "INCONCLUSIVE (neg-leaning): no fine-tune beats C-init; root cause = tail-dominated pair labels (99.5%+ variance), quantified in label_snr_decomposition.json"
+    "verdict": "INCONCLUSIVE neg-leaning; scalar anchoring improves held-out scalar value; T=96 reachable response bounded by target reliability"
   },
   "phase_E": {
     "status": "NOT RUN (gates 2/5 failed)"
   },
   "gpu_total": {
-    "used": 2.96,
+    "used": 3.04,
     "cap": 6.0
   },
-  "key_deliverable": "fixable label-contract flaw identified: scalar targets keep tail, pair targets must use Delta-G96",
+  "key_deliverable": "erratum + corrected rerun: state/label misalignment fixed; bottleneck relocated to 96-step continuation target reliability on fresh clips",
   "next_recommended": "CVF-1b-prime retrain (~2.5 GPU-h), see CVF_NEXT_DECISION.md",
   "reports": [
     "docs/cvf/sacv/CVF1B_CRITIC_RESULTS.md",
@@ -38,5 +38,16 @@
     "docs/cvf/sacv/CVF_OVERNIGHT_RESEARCH_REPORT.md",
     "docs/cvf/sacv/CVF_NEXT_DECISION.md",
     "docs/cvf/sacv/OVERNIGHT_PROGRESS.md"
-  ]
+  ],
+  "repo_organization": {
+    "added": [
+      "docs/RESEARCH_ROADMAP.md",
+      "docs/README.md",
+      "README research-lines pointer"
+    ],
+    "committed_backlog": [
+      "PADA-0A audit md + tools + results",
+      "crgf_proto/data symlink"
+    ]
+  }
 }

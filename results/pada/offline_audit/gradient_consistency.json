@@ -1,0 +1,56 @@
+{
+ "state|H8": {
+  "n": 364,
+  "mean_abs_legacy_minus_center": 6.307518346907423e-05,
+  "mean_abs_fd_minus_center": 1.754035900495972e-06,
+  "rel_to_typical_scale": 0.011858279167054361
+ },
+ "state|H32": {
+  "n": 280,
+  "mean_abs_legacy_minus_center": 0.0009499710695048893,
+  "mean_abs_fd_minus_center": 3.0612435096242866e-05,
+  "rel_to_typical_scale": 0.012918752518685538
+ },
+ "direct|H8": {
+  "n": 364,
+  "mean_abs_legacy_minus_center": 3.6056813232190195e-05,
+  "mean_abs_fd_minus_center": 1.4549753304491278e-07,
+  "rel_to_typical_scale": 0.01586063560085647
+ },
+ "direct|H32": {
+  "n": 280,
+  "mean_abs_legacy_minus_center": 7.570034968011896e-05,
+  "mean_abs_fd_minus_center": 2.762802878919501e-07,
+  "rel_to_typical_scale": 0.037112577662206464
+ },
+ "critic|H8": {
+  "n": 364,
+  "mean_abs_legacy_minus_center": 6.860366464844536e-05,
+  "mean_abs_fd_minus_center": 1.1425336027229435e-05,
+  "rel_to_typical_scale": 0.002419375810555829
+ },
+ "critic|H32": {
+  "n": 280,
+  "mean_abs_legacy_minus_center": 0.0032653713835835724,
+  "mean_abs_fd_minus_center": 6.84932795203557e-05,
+  "rel_to_typical_scale": 0.007307311323737806
+ },
+ "total|H8": {
+  "n": 364,
+  "mean_abs_legacy_minus_center": 0.00016752017692632073,
+  "mean_abs_fd_minus_center": 1.163222807188324e-05,
+  "rel_to_typical_scale": 0.006306679368714007
+ },
+ "total|H32": {
+  "n": 280,
+  "mean_abs_legacy_minus_center": 0.004187121749107194,
+  "mean_abs_fd_minus_center": 6.082561838931204e-05,
+  "rel_to_typical_scale": 0.008116808001219828
+ },
+ "legacy_reproduction_vs_original": {
+  "n_compared": 2576,
+  "mean_rel_dev": 0.01508122411350121,
+  "max_rel_dev": 2.8069890459440683,
+  "note": "original computed on cuda:0; this audit on cpu -> expected small float deviation; large deviations would indicate a structural change"
+ }
+}

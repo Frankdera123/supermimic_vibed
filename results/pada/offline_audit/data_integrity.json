@@ -1,0 +1,112 @@
+{
+ "head": "6e9b4e790be427b4b9d494088072b0dfdd05207e",
+ "artifacts": {
+  "dirs/probe_random.pt": {
+   "status": "exists",
+   "sha256_match": true
+  },
+  "dirs/probe_policy.pt": {
+   "status": "exists",
+   "sha256_match": true
+  },
+  "dirs/eval_random.pt": {
+   "status": "exists",
+   "sha256_match": true
+  },
+  "dirs/eval_pol_seen.pt": {
+   "status": "exists",
+   "sha256_match": true
+  },
+  "dirs/eval_pol_B.pt": {
+   "status": "exists",
+   "sha256_match": true
+  },
+  "dirs/eval_pol_C.pt": {
+   "status": "exists",
+   "sha256_match": true
+  },
+  "collect/probes.pt": {
+   "status": "exists",
+   "sha256_match": true
+  },
+  "collect/eval_data.pt": {
+   "status": "exists",
+   "sha256_match": true
+  },
+  "eval/eval_rows.csv": {
+   "status": "exists",
+   "sha256_match": true
+  },
+  "eval/eval_summary.json": {
+   "status": "exists",
+   "sha256_match": true
+  },
+  "eval/level1.json": {
+   "status": "exists",
+   "sha256_match": true
+  }
+ },
+ "local_only_ignored": [
+  "results/pada/ckpts/M_policy_00250.pt",
+  "results/pada/ckpts/M_policy_00500.pt",
+  "results/pada/ckpts/M_policy_00750.pt",
+  "results/pada/ckpts/M_policy_01000.pt",
+  "results/pada/ckpts/M_policy_01250.pt",
+  "results/pada/ckpts/M_policy_01500.pt",
+  "results/pada/ckpts/M_random_00250.pt",
+  "results/pada/ckpts/M_random_00500.pt",
+  "results/pada/ckpts/M_random_00750.pt",
+  "results/pada/ckpts/M_random_01000.pt",
+  "results/pada/ckpts/M_random_01250.pt",
+  "results/pada/ckpts/M_random_01500.pt",
+  "results/pada/collect/eval_data.pt",
+  "results/pada/collect/probes.pt",
+  "results/pada/offline_audit/data_integrity.json",
+  "results/pada/offline_audit/gradient_consistency.json",
+  "results/pada/offline_audit/matched_eval_rows.csv",
+  "results/pada/offline_audit/matched_eval_summary.json",
+  "results/pada/offline_audit/path_decomposition.json",
+  "results/pada/offline_audit/per_sample_consistency.csv",
+  "results/pada/offline_audit_smoke/data_integrity.json",
+  "results/pada/offline_audit_smoke/gradient_consistency.json",
+  "results/pada/offline_audit_smoke/matched_eval_rows.csv",
+  "results/pada/offline_audit_smoke/matched_eval_summary.json",
+  "results/pada/offline_audit_smoke/path_decomposition.json",
+  "results/pada/offline_audit_smoke/per_sample_consistency.csv",
+  "results/pada/smoke/ckpts/M_policy_00030.pt",
+  "results/pada/smoke/ckpts/M_random_00030.pt",
+  "results/pada/smoke/collect/eval_data.pt",
+  "results/pada/smoke/collect/probes.pt",
+  "results/pada/smoke/dirs/eval_pol_B.pt",
+  "results/pada/smoke/dirs/eval_pol_C.pt",
+  "results/pada/smoke/dirs/eval_pol_seen.pt",
+  "results/pada/smoke/dirs/eval_random.pt",
+  "results/pada/smoke/dirs/probe_policy.pt",
+  "results/pada/smoke/dirs/probe_random.pt"
+ ],
+ "protected_before": {
+  "eval/eval_rows.csv": "e0b0d2d2acaef748a086dac9002362b6a7272c40c0bbd55b5795915839b0a563",
+  "eval/eval_summary.json": "4463aa4cfd2710e258bbc0480a28fca7aad22834d979cbb26fc1f517ab6eb4fb",
+  "eval/level1.json": "557080d3652491d238e2fcf02a9813afacbbf4409939cb408b7b2d761cca4369"
+ },
+ "ckpt_sha256_supplement": {
+  "M_policy_00250.pt": "57559ea760ad94723112f2137e4504028015905f90ab730c92e84342d8b7b84d",
+  "M_policy_00500.pt": "54bd6a156fb13ee2020fd2ccbc3a28e40683de8f72aa44a48a2ff909b622ab4b",
+  "M_policy_00750.pt": "04b97269e867afa955a3a6ba35364076b2a1d2fb9aaba3de6cba5de432013730",
+  "M_policy_01000.pt": "29ae20b503a95526b78277fa8f80cdfe0338600678b9602e84effa2dc3d08afd",
+  "M_policy_01250.pt": "83bfcca0c93cdd50929471947cb537d1b26d8246e315246bd99ce656b4d54a1a",
+  "M_policy_01500.pt": "f6920ecfdb0b82a0047063ca0ef87a42c55c52970bb483d4baab108807643457",
+  "M_random_00250.pt": "9991577cad70aaec14ceb19bf4008f2f86b00abe65d5e91e5fbec375c1d87bde",
+  "M_random_00500.pt": "69d195efa73e197c8d97b678d34cd22693ed2581c1547000e7edc432cfe651a9",
+  "M_random_00750.pt": "284485fcfff619041f0a837f82ac978c63fed32cdd7af02703a0d12e50e504b4",
+  "M_random_01000.pt": "b6289a438e2628d9d4ebd870afdc10f15670a67383b4e18461353ce139adff71",
+  "M_random_01250.pt": "aa904b06ffc8c19381c2749dbfbc36899f02d63f37e67d1df22c1bbc66863ba7",
+  "M_random_01500.pt": "d65dcda1baea9c50bf73a467234f4ea701b084db480b9deb8b117c52c6f5ee02"
+ },
+ "protected_after": {
+  "eval/eval_rows.csv": "e0b0d2d2acaef748a086dac9002362b6a7272c40c0bbd55b5795915839b0a563",
+  "eval/eval_summary.json": "4463aa4cfd2710e258bbc0480a28fca7aad22834d979cbb26fc1f517ab6eb4fb",
+  "eval/level1.json": "557080d3652491d238e2fcf02a9813afacbbf4409939cb408b7b2d761cca4369"
+ },
+ "protected_unchanged": true
+}

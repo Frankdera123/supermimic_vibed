@@ -49,9 +49,19 @@ def discounted_return(r: torch.Tensor, d: torch.Tensor, gamma: float,
     return out
 
 
+def survival_after(d: torch.Tensor, T: int) -> torch.Tensor:
+    """c_T = prod_{k<T} (1 - d_k): survival AFTER T steps, the tail weight.
+
+    This is the survival *entering* step T, i.e. one factor beyond c_{T-1}; it is
+    zero whenever a termination occurs anywhere in steps 0..T-1 (including T-1)."""
+    assert 1 <= T <= d.shape[1], f"T={T} outside rollout length {d.shape[1]}"
+    return torch.prod(1.0 - d.double()[:, :T], dim=1)
+
+
 def survival_at(d: torch.Tensor, T: int) -> torch.Tensor:
-    """c_T (survival AFTER T steps, i.e. prod_{k<T}(1-d_k)) as (B,) float64."""
-    return survival_soft(d)[:, T - 1]
+    """Alias of survival_after (c_T).  v1 returned c_{T-1}, which kept a spurious
+    tail when termination happened at the very last step."""
+    return survival_after(d, T)
 
 
 def matched_target(G_T: torch.Tensor, c_T: torch.Tensor, gamma: float,

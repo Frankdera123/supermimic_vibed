@@ -25,3 +25,4 @@
 {"ts": "phase_c_complete", "phase": "1b_critic", "task_id": "sacv_train_C1C2C0", "event": "COMPLETE C0-target-gen + 3 groups x 500 steps (matched), ckpts s0250/s0500 with metadata", "gpu_hours": 0.68, "exit_status": 0}
 {"ts": "phase_d_complete", "phase": "1c_eval", "task_id": "sacv_eval_stats", "event": "COMPLETE val+test dump/stats (CPU) + non-circular G96 re-eval + label SNR decomposition; Phase E NOT STARTED (gate cond-2 and cond-5 failed)", "gpu_hours": 0.0, "exit_status": 0}
 {"ts": "budget_final", "phase": "total", "task_id": "sacv_overnight", "event": "GPU total ~2.28(B)+0.05(C0gen)+0.63(C-train) = 2.96 / 6.0 cap; wall ~5h", "gpu_hours": 2.96, "exit_status": 0}
+{"ts": "cvf1b_v2_rerun", "phase": "1b_critic_v2", "task_id": "sacv_v2_rerun", "event": "ERRATUM rerun: builder v2 (CPU), C0 WM targets, 6 groups x 1000 steps (batched inputs, ~2min/group), dump+stats val/test (CPU). v1 verdicts retracted.", "gpu_hours": 0.08, "exit_status": 0}
